@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Takip | hafriyatcim.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="takip.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" href="data:,">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <img src="logo.png" alt="hafriyatcim.com" class="logo-img"> hafriyatcim<span class="highlight">.com</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="ilan.html">İlanlar</a></li>
+            <li><a href="takip.html" class="active-link">Canlı Takip</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="giris.html" class="btn-login">Giriş Yap</a>
+            <a href="giris.html" class="btn-primary">Hemen Başla</a>
+        </div>
+    </nav>
+
+    <div class="takip-page">
+
+        <!-- Sol: Harita (Müşteri sadece konum görür) -->
+        <div class="map-panel">
+            <div id="map" style="width:100%;height:100%;"></div>
+
+            <!-- Konum Güncelleme -->
+            <div class="location-update" id="locationUpdate">
+                <span class="update-dot"></span>
+                Konum güncellendi - <span id="updateTime">az önce</span>
+            </div>
+        </div>
+
+        <!-- Sağ: Bilgi Paneli (Müşteri Görünümü) -->
+        <aside class="info-panel">
+
+            <!-- Rol Göstergesi -->
+            <div class="role-indicator role-customer">
+                🏗️ İnşaat Sahibi Görünümü
+            </div>
+
+            <!-- Sipariş Özeti -->
+            <div class="info-card order-summary">
+                <div class="card-title">
+                    <h3>📋 Sipariş #HFR-2026-0347</h3>
+                    <span class="status-badge status-transit" id="statusBadge">🔵 Yolda</span>
+                </div>
+                <div class="order-details">
+                    <div class="order-row">
+                        <span>Yük Türü</span>
+                        <strong>🟡 Kum</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>Miktar</span>
+                        <strong>80 ton</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>Fiyat</span>
+                        <strong class="price-text">600 ₺/ton + KDV</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>Güzergah</span>
+                        <strong>Başakşehir → Kadıköy</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETA Kartı -->
+            <div class="info-card eta-card">
+                <div class="eta-main">
+                    <div class="eta-icon">⏱️</div>
+                    <div>
+                        <p class="eta-label">Tahmini Varış</p>
+                        <h2 class="eta-time" id="etaTime">Hesaplanıyor...</h2>
+                    </div>
+                </div>
+                <div class="eta-bar-container">
+                    <div class="eta-bar" id="etaBar" style="width: 0%;"></div>
+                </div>
+                <div class="eta-row">
+                    <span>Kalan Mesafe</span>
+                    <strong id="etaDistance">-- km</strong>
+                </div>
+            </div>
+
+            <!-- Sürücü Bilgisi -->
+            <div class="info-card driver-card">
+                <h4>🚛 Sürücü Bilgileri</h4>
+                <div class="driver-info">
+                    <div class="driver-avatar">AK</div>
+                    <div class="driver-details">
+                        <h3>Ahmet Kaya</h3>
+                        <p>⭐ 4.8 (127 teslimat)</p>
+                        <p>📞 0532 *** ** 89</p>
+                    </div>
+                </div>
+                <div class="driver-vehicle">
+                    <div class="vehicle-row">
+                        <span>Araç</span>
+                        <strong>Ford Cargo 1833</strong>
+                    </div>
+                    <div class="vehicle-row">
+                        <span>Plaka</span>
+                        <strong>34 ABC 456</strong>
+                    </div>
+                    <div class="vehicle-row">
+                        <span>Kapasite</span>
+                        <strong>18 ton</strong>
+                    </div>
+                </div>
+                <div class="driver-actions">
+                    <button class="btn-call">📞 Ara</button>
+                    <button class="btn-message">💬 Mesaj</button>
+                </div>
+            </div>
+
+            <!-- Durum Zaman Çizelgesi -->
+            <div class="info-card timeline-card">
+                <h4>📍 Sipariş Durumu</h4>
+                <div class="timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Konumunuzu Paylaştınız</strong>
+                            <p>23 Mart 2026 - 07:15</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Teklif Kabul Edildi</strong>
+                            <p>23 Mart 2026 - 07:30</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Yükleme Tamamlandı</strong>
+                            <p>23 Mart 2026 - 08:15</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Tır Yolda - Canlı Takip</strong>
+                            <p>Şu an aktif</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <strong>Teslim Edildi ✅</strong>
+                            <p>Bekleniyor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sürücü Görünümüne Geç (Demo) -->
+            <a href="takip-surucu.html" class="view-switch-btn">
+                🔄 Sürücü Görünümüne Geç (Demo)
+            </a>
+
+        </aside>
+    </div>
+
+    <script src="takip.js"></script>
+</body>
+</html>

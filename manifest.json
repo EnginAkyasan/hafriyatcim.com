@@ -1,0 +1,43 @@
+{
+  "name": "hafriyatcim.com",
+  "short_name": "Hafriyatcım",
+  "description": "Hafriyat ve nakliye sektörünün dijital pazarı. İnşaat firmaları ve tırcıları buluşturuyoruz.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08080f",
+  "theme_color": "#f97316",
+  "lang": "tr",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "İlan Aç",
+      "short_name": "İlan Aç",
+      "description": "Yeni hafriyat ilanı oluştur",
+      "url": "/ilanlar.html",
+      "icons": [{ "src": "logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "İlanları Gör",
+      "short_name": "İlanlar",
+      "description": "Aktif ilanları incele ve teklif ver",
+      "url": "/ilanlar.html",
+      "icons": [{ "src": "logo.png", "sizes": "192x192" }]
+    }
+  ]
+}

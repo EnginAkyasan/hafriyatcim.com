@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>İlan Oluştur | hafriyatcim.com</title>
+  <meta name="description" content="Kepçe, vinç, TIR, kamyon kiralama veya hafriyat iş ilanı oluşturun.">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #09090b;  /* zinc-950 */
+      --card:   #18181b;  /* zinc-900 */
+      --card2:  #27272a;  /* zinc-800 */
+      --border: #27272a;
+      --border2:#3f3f46;
+      --text:   #f4f4f5;
+      --muted:  #a1a1aa;
+      --dim:    #52525b;
+      --orange: #f59e0b;  /* amber-500 */
+      --orange-d:#d97706; /* amber-600 */
+      --og:     rgba(245,158,11,0.08);
+      --green:  #16a34a;
+      --font:   'Inter', -apple-system, sans-serif;
+    }
+    body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; -webkit-font-smoothing:antialiased; }
+    .topbar { display:flex; align-items:center; gap:14px; padding:0 24px; height:52px; border-bottom:1px solid var(--border); background:var(--bg); position:sticky; top:0; z-index:50; }
+    .logo-link { display:flex; align-items:center; gap:8px; text-decoration:none; font-weight:700; font-size:14px; color:var(--text); letter-spacing:-0.01em; }
+    .logo-link span { color:var(--orange); }
+    .logo-link img { width:24px; height:24px; border-radius:4px; }
+    .back-btn { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:13px; text-decoration:none; padding:6px 12px; border-radius:4px; border:1px solid var(--border); transition:border-color .15s, color .15s; margin-left:auto; }
+    .back-btn:hover { color:var(--text); border-color:var(--border2); background:var(--card2); }
+    .container { max-width:700px; margin:0 auto; padding:28px 20px 80px; }
+    .page-header { margin-bottom:24px; }
+    .page-header h1 { font-size:18px; font-weight:700; margin-bottom:5px; letter-spacing:-0.02em; }
+    .page-header p { font-size:13px; color:var(--muted); line-height:1.6; }
+
+    /* ── Steps (wizard progress) ── */
+    .steps { display:flex; align-items:center; gap:0; margin-bottom:24px; }
+    .step { flex:1; }
+    .step-inner { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .step-num {
+      width:26px; height:26px; border-radius:4px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:11px; font-weight:700;
+      background:var(--card2); color:var(--muted);
+      border:1px solid var(--border);
+      transition:background .2s, color .2s; position:relative; z-index:1;
+    }
+    .step.active .step-num { background:var(--orange); color:#000; border-color:var(--orange); }
+    .step.done .step-num { background:var(--green); color:#fff; border-color:var(--green); }
+    .step-label { font-size:10px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.05em; text-align:center; }
+    .step.active .step-label { color:var(--text); }
+    .step-line { height:1px; flex:1; background:var(--border); margin-top:-13px; }
+    .step-line.done { background:var(--green); }
+
+    /* ── Form Card ── */
+    .form-card { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:24px; margin-bottom:12px; }
+    .form-card h2 { font-size:15px; font-weight:600; margin-bottom:4px; }
+    .form-card .card-desc { font-size:13px; color:var(--muted); margin-bottom:18px; line-height:1.5; }
+
+    /* ── İlan Tipi kartlar ── */
+    .tipo-cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:4px; }
+    .tipo-card {
+      background:var(--card2); border:1px solid var(--border); border-radius:6px;
+      padding:14px 12px; cursor:pointer; transition:border-color .15s;
+      display:flex; flex-direction:column; gap:5px; position:relative;
+    }
+    .tipo-card:hover { border-color:var(--border2); }
+    .tipo-card.selected { background:var(--og); border-color:var(--orange); }
+    .tipo-card.selected::after { content:'✓'; position:absolute; top:10px; right:12px; color:var(--orange); font-weight:700; font-size:13px; }
+    .tipo-icon { font-size:18px; line-height:1; }
+    .tipo-name { font-size:13px; font-weight:600; }
+    .tipo-desc { font-size:11px; color:var(--muted); line-height:1.4; }
+
+    /* ── Araç seçimi grid ── */
+    .arac-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; }
+    @media (max-width:480px) { .arac-grid { grid-template-columns:repeat(3, 1fr); } }
+    .arac-pill {
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      padding:10px 6px; border-radius:4px; cursor:pointer;
+      background:var(--card2); border:1px solid var(--border);
+      font-family:var(--font); font-size:11px; font-weight:600;
+      color:var(--text); text-align:center; transition:border-color .15s;
+    }
+    .arac-pill .arac-icon { font-size:18px; }
+    .arac-pill.selected { background:var(--og); border-color:var(--orange); color:var(--orange); }
+    .arac-pill:hover { border-color:var(--border2); }
+
+    /* ── Fields ── */
+    .field-group { margin-bottom:16px; }
+    .field-label { display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:5px; text-transform:uppercase; letter-spacing:.04em; }
+    .field-label .req { color:var(--orange); }
+    .field-input, .field-select, .field-textarea {
+      width:100%; background:var(--card2); border:1px solid var(--border);
+      border-radius:4px; padding:9px 12px; color:var(--text);
+      font-family:var(--font); font-size:13px; outline:none;
+      transition:border-color .15s; -webkit-appearance:none;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus { border-color:var(--orange); }
+    .field-input::placeholder, .field-textarea::placeholder { color:var(--dim); }
+    .field-select option { background:var(--card); }
+    .field-textarea { min-height:88px; resize:vertical; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:480px) { .field-row { grid-template-columns:1fr; } }
+    .field-hint { font-size:11px; color:var(--dim); margin-top:4px; }
+
+    /* ── Toggle switch ── */
+    .toggle-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; background:var(--card2); border-radius:4px; border:1px solid var(--border); }
+    .toggle-row .toggle-label { font-size:13px; font-weight:600; }
+    .toggle-row .toggle-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+    .toggle-switch { position:relative; width:40px; height:22px; cursor:pointer; }
+    .toggle-switch input { opacity:0; width:0; height:0; }
+    .toggle-track { position:absolute; inset:0; background:var(--dim); border-radius:22px; transition:.2s; }
+    .toggle-switch input:checked + .toggle-track { background:var(--orange); }
+    .toggle-knob { position:absolute; top:3px; left:3px; width:16px; height:16px; background:#fff; border-radius:50%; transition:.2s; }
+    .toggle-switch input:checked ~ .toggle-knob { left:21px; }
+
+    /* ── Navigation buttons ── */
+    .step-nav { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:18px; }
+    .btn-prev {
+      background:transparent; border:1px solid var(--border2); color:var(--muted);
+      padding:9px 18px; border-radius:4px; font-family:var(--font);
+      font-size:13px; font-weight:600; cursor:pointer; transition:border-color .15s, color .15s;
+    }
+    .btn-prev:hover { color:var(--text); border-color:var(--border2); background:var(--card2); }
+    .btn-next, .btn-submit {
+      flex:1; background:var(--orange); color:#000;
+      border:none; border-radius:4px;
+      padding:10px 20px; font-family:var(--font);
+      font-size:13px; font-weight:700; cursor:pointer; transition:background .15s;
+    }
+    .btn-next:hover, .btn-submit:hover { background:var(--orange-d); }
+    .btn-next:disabled { opacity:.4; cursor:not-allowed; }
+
+    /* ── Form steps ── */
+    .form-step { display:none; }
+    .form-step.active { display:block; }
+
+    /* ── Success state ── */
+    .success-state { text-align:center; padding:40px 20px; }
+    .success-icon { font-size:2.5rem; margin-bottom:14px; opacity:.8; }
+    .success-state h2 { font-size:16px; font-weight:700; margin-bottom:8px; color:var(--green); }
+    .success-state p { color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:18px; }
+    .btn-go {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--orange); color:#000;
+      text-decoration:none; padding:10px 22px;
+      border-radius:4px; font-weight:700; font-size:14px;
+      transition:background .15s;
+    }
+    .btn-go:hover { background:var(--orange-d); }
+
+    /* ── Form error ── */
+    .form-error {
+      background:rgba(220,38,38,.08); border:1px solid rgba(220,38,38,.25);
+      color:#f87171; border-radius:4px; padding:10px 14px;
+      font-size:13px; margin-bottom:12px; display:none;
+    }
+    .form-error.show { display:block; }
+
+    /* ── Location / Price rows ── */
+    .konum-pair { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    @media (max-width:480px) { .konum-pair { grid-template-columns:1fr; } }
+    #markaGroup { display:none; margin-top:14px; }
+    .fiyat-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:end; }
+    @media (max-width:480px) { .fiyat-row { grid-template-columns:1fr; } }
+
+    /* ── Photo upload ── */
+    .foto-upload-area {
+      border:1px dashed var(--border2); border-radius:6px;
+      padding:24px; text-align:center; cursor:pointer;
+      transition:border-color .15s; position:relative;
+      background:var(--card2);
+    }
+    .foto-upload-area:hover, .foto-upload-area.drag-over { border-color:var(--orange); background:var(--og); }
+    .foto-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .foto-upload-icon { font-size:1.5rem; margin-bottom:6px; opacity:.6; }
+    .foto-upload-text { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
+    .foto-upload-sub { font-size:11px; color:var(--muted); }
+    .foto-preview-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; margin-top:10px; }
+    @media (max-width:480px) { .foto-preview-grid { grid-template-columns:repeat(3, 1fr); } }
+    .foto-thumb { position:relative; border-radius:4px; overflow:hidden; aspect-ratio:1; background:var(--card2); border:1px solid var(--border); }
+    .foto-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .foto-thumb-del {
+      position:absolute; top:3px; right:3px;
+      background:rgba(0,0,0,.75); color:#fff; border:none; border-radius:3px;
+      width:18px; height:18px; font-size:10px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-family:var(--font); transition:background .15s;
+    }
+    .foto-thumb-del:hover { background:rgba(220,38,38,.9); }
+    .foto-count-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); margin-top:6px; }
+    .foto-count-badge.warn { color:#fb923c; }
+
+    /* ── Toast ── */
+    #toastEl {
+      position:fixed; bottom:20px; left:50%;
+      transform:translateX(-50%) translateY(80px);
+      background:var(--card); border:1px solid var(--border2);
+      color:var(--text); font-size:13px; font-weight:500;
+      padding:9px 18px; border-radius:4px;
+      box-shadow:0 4px 16px rgba(0,0,0,.5);
+      z-index:999; transition:transform .25s ease; white-space:nowrap;
+    }
+    #toastEl.show { transform:translateX(-50%) translateY(0); }
+    #toastEl.toast-ok { border-color:rgba(22,163,74,.4); color:#4ade80; }
+    #toastEl.toast-err { border-color:rgba(220,38,38,.4); color:#f87171; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo-link">
+    <img src="logo.png" alt="logo"> hafriyatcim<span>.com</span>
+  </a>
+  <a href="ilanlar.html" class="back-btn">&larr; İlanlara Dön</a>
+</header>
+
+<div class="container">
+  <div class="page-header">
+    <h1>İlan Oluştur</h1>
+    <p>Hem firmalar hem inşaat sahipleri ücretsiz ilan açabilir. Kiralık araç sunabilir ya da araç talep edebilirsiniz.</p>
+  </div>
+
+  <div class="steps" id="stepsBar">
+    <div class="step active" id="stepEl1"><div class="step-inner"><div class="step-num">1</div><div class="step-label">Tür</div></div></div>
+    <div class="step-line" id="line12"></div>
+    <div class="step" id="stepEl2"><div class="step-inner"><div class="step-num">2</div><div class="step-label">Araç</div></div></div>
+    <div class="step-line" id="line23"></div>
+    <div class="step" id="stepEl3"><div class="step-inner"><div class="step-num">3</div><div class="step-label">Detay</div></div></div>
+    <div class="step-line" id="line34"></div>
+    <div class="step" id="stepEl4"><div class="step-inner"><div class="step-num">4</div><div class="step-label">Fiyat</div></div></div>
+  </div>
+
+  <div class="form-error" id="formError"></div>
+
+  <!-- STEP 1 -->
+  <div class="form-step active" id="step1">
+    <div class="form-card">
+      <h2>Bu ilan ne için?</h2>
+      <p class="card-desc">Araç kiralama teklifi sunuyorsanız <strong>Kiralık Araç</strong>, araç veya taşıma hizmeti arıyorsanız <strong>İş Talebi</strong> seçin.</p>
+      <div class="tipo-cards">
+        <div class="tipo-card selected" id="tipo-TEKLIF" onclick="selectTipo('TEKLIF')">
+          <span class="tipo-icon">🚛</span>
+          <span class="tipo-name">Kiralık Araç</span>
+          <span class="tipo-desc">Makine veya aracım var, kiraya veriyorum</span>
+        </div>
+        <div class="tipo-card" id="tipo-TALEP" onclick="selectTipo('TALEP')">
+          <span class="tipo-icon">🏗️</span>
+          <span class="tipo-name">İş Talebi</span>
+          <span class="tipo-desc">Araç veya taşıma hizmeti arıyorum</span>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav"><button class="btn-next" onclick="goStep(2)">Devam &rarr;</button></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="form-step" id="step2">
+    <div class="form-card">
+      <h2>Araç türünü seçin</h2>
+      <p class="card-desc">İlan vereceğiniz araç veya ekipman kategorisini seçin.</p>
+      <div class="arac-grid">
+        <button class="arac-pill selected" data-arac="kepce" onclick="selectArac('kepce',this)"><span class="arac-icon">🦺</span>Kepçe / Ekskavatör</button>
+        <button class="arac-pill" data-arac="vinc" onclick="selectArac('vinc',this)"><span class="arac-icon">🏗️</span>Vinç</button>
+        <button class="arac-pill" data-arac="tir" onclick="selectArac('tir',this)"><span class="arac-icon">🚛</span>TIR / Çekici</button>
+        <button class="arac-pill" data-arac="kamyon" onclick="selectArac('kamyon',this)"><span class="arac-icon">🚚</span>Kamyon</button>
+        <button class="arac-pill" data-arac="damperli" onclick="selectArac('damperli',this)"><span class="arac-icon">🚜</span>Damperli Kamyon</button>
+        <button class="arac-pill" data-arac="beko" onclick="selectArac('beko',this)"><span class="arac-icon">🔧</span>Beko Loder</button>
+        <button class="arac-pill" data-arac="forklift" onclick="selectArac('forklift',this)"><span class="arac-icon">⬆️</span>Forklift</button>
+        <button class="arac-pill" data-arac="mikser" onclick="selectArac('mikser',this)"><span class="arac-icon">🔄</span>Beton Mikser</button>
+        <button class="arac-pill" data-arac="greyder" onclick="selectArac('greyder',this)"><span class="arac-icon">⚙️</span>Greyder</button>
+        <button class="arac-pill" data-arac="diger" onclick="selectArac('diger',this)"><span class="arac-icon">🔩</span>Diğer</button>
+      </div>
+      <div id="markaGroup">
+        <label class="field-label" for="markaSelect">Marka</label>
+        <select class="field-select" id="markaSelect"><option value="">Marka seçin (opsiyonel)</option></select>
+        <div class="field-hint">Araç tipine göre marka listesi güncellenir.</div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">👷 Operatörlü</div>
+            <div class="toggle-sub">Araçla birlikte operatör/sürücü sağlanıyor mu?</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="operatorluToggle" checked>
+            <span class="toggle-track"></span>
+            <span class="toggle-knob"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="goStep(1)">&larr; Geri</button>
+      <button class="btn-next" onclick="goStep(3)">Devam &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="form-step" id="step3">
+    <div class="form-card">
+      <h2>Detaylar</h2>
+      <p class="card-desc">İlan başlığı, konum ve isteğe bağlı açıklama girin.</p>
+      <div class="field-group">
+        <label class="field-label" for="ilanBaslik">İlan Başlığı <span class="req">*</span></label>
+        <input class="field-input" type="text" id="ilanBaslik" placeholder="Örn: CAT 336 Kepçe Kiralık | İstanbul">
+        <div class="field-hint">Kısa ve açıklayıcı bir başlık girin.</div>
+      </div>
+      <!-- YENI: Nereden Il+Ilce -->
+      <div class="field-group">
+        <label class="field-label">Kalkış / Bulunduğu Yer <span class="req">*</span></label>
+        <div class="konum-pair">
+          <select class="field-select" id="konumDanIl" onchange="loadIlce('konumDanIlce',this.value)">
+            <option value="">İl seçin</option>
+          </select>
+          <select class="field-select" id="konumDanIlce" disabled>
+            <option value="">Önce il seçin</option>
+          </select>
+        </div>
+        <input type="hidden" id="konumDan">
+      </div>
+      <!-- YENI: Nereye Il+Ilce -->
+      <div class="field-group" id="konumAGroup">
+        <label class="field-label">Varış Noktası</label>
+        <div class="konum-pair">
+          <select class="field-select" id="konumAIl" onchange="loadIlce('konumAIlce',this.value)">
+            <option value="">İl seçin (opsiyonel)</option>
+          </select>
+          <select class="field-select" id="konumAIlce" disabled>
+            <option value="">Önce il seçin</option>
+          </select>
+        </div>
+        <input type="hidden" id="konumA">
+      </div>
+      <div class="field-group" id="yukTuruGroup">
+        <label class="field-label" for="yukTuru">Yük / Malzeme Türü</label>
+        <select class="field-select" id="yukTuru">
+          <option value="">Seçin (opsiyonel)</option>
+          <option value="toprak">Toprak</option>
+          <option value="kum">Kum</option>
+          <option value="cakil">Çakıl</option>
+          <option value="moloz">Moloz</option>
+          <option value="hafriyat">Hafriyat</option>
+          <option value="beton">Hazır Beton</option>
+          <option value="asfalt">Asfalt</option>
+          <option value="kaya">Kaya / Taş</option>
+          <option value="diger">Diğer</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="baslamaTarihi">Başlama Tarihi</label>
+          <input class="field-input" type="date" id="baslamaTarihi">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="bitisTarihi">Bitiş Tarihi</label>
+          <input class="field-input" type="date" id="bitisTarihi">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="aciklama">Açıklama</label>
+        <textarea class="field-textarea" id="aciklama" placeholder="Araç özellikleri, iş detayları, özel şartlar..."></textarea>
+      </div>
+      <!-- YENI: Fotograf Yukleme -->
+      <div class="field-group">
+        <label class="field-label">📷 Fotoğraflar <span style="font-weight:400;color:var(--dim);">(maks. 10)</span></label>
+        <div class="foto-upload-area" id="fotoUploadArea">
+          <input type="file" id="fotoInput" accept="image/*" multiple>
+          <div class="foto-upload-icon">📸</div>
+          <div class="foto-upload-text">Fotoğraf seçin veya buraya sürükleyin</div>
+          <div class="foto-upload-sub">JPG, PNG, WEBP &mdash; maks. 10 fotoğraf</div>
+        </div>
+        <div class="foto-preview-grid" id="fotoPreviewGrid"></div>
+        <div class="foto-count-badge" id="fotoCountBadge" style="display:none;"><span id="fotoCountText"></span></div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="goStep(2)">&larr; Geri</button>
+      <button class="btn-next" onclick="goStep(4)">Devam &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="form-step" id="step4">
+    <div class="form-card">
+      <h2>Fiyat &amp; Yayınla</h2>
+      <p class="card-desc">Fiyat bilgisi girin. İsteğe bağlı — "Fiyat görüşülür" olarak da bırakabilirsiniz.</p>
+      <!-- YENI: Fiyat + Birim -->
+      <div class="fiyat-row">
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label" for="fiyat">Fiyat (₺)</label>
+          <input class="field-input" type="number" id="fiyat" placeholder="Saatlik fiyat girin (₺)" min="0">
+        </div>
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label" for="fiyatBirimi">Fiyat Birimi</label>
+          <select class="field-select" id="fiyatBirimi" onchange="updateFiyatPlaceholder()">
+            <option value="saat">Saatlik (₺/saat)</option>
+            <option value="gun">Günlük (₺/gün)</option>
+            <option value="hafta">Haftalık (₺/hafta)</option>
+            <option value="ay">Aylık (₺/ay)</option>
+            <option value="sefer">Sefer Başı (₺/sefer)</option>
+            <option value="ton">Tonluk (₺/ton)</option>
+            <option value="m3">m³ başına (₺/m³)</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:18px;"></div>
+      <div class="field-group">
+        <label class="field-label" for="miktar">Miktar / Kapasite</label>
+        <div style="display:flex;gap:8px;">
+          <input class="field-input" type="number" id="miktar" placeholder="Örn: 20" style="flex:2;" min="0">
+          <select class="field-select" id="birim" style="flex:1;">
+            <option value="ton">Ton</option>
+            <option value="m3">m³</option>
+            <option value="adet">Adet</option>
+            <option value="sefer">Sefer</option>
+          </select>
+        </div>
+      </div>
+      <div id="ilanOzet" style="background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.2); border-radius:6px; padding:16px; margin-bottom:4px;">
+        <div style="font-size:.78rem; font-weight:800; color:var(--orange); margin-bottom:8px;">📋 İlan Özeti</div>
+        <div style="font-size:.82rem; color:var(--muted); line-height:1.8;" id="ozetContent">Önceki adımları doldurun...</div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="goStep(3)">&larr; Geri</button>
+      <button class="btn-submit" id="submitBtn" onclick="submitIlan()">🚀 İlanı Yayınla</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="form-step" id="stepSuccess">
+    <div class="form-card">
+      <div class="success-state">
+        <div class="success-icon">🎉</div>
+        <h2>İlan Yayınlandı!</h2>
+        <p>İlanınız başarıyla oluşturuldu. İlanlarda görünmeye başladı. Teklif aldığınızda bildirim alacaksınız.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <a href="ilanlar.html" class="btn-go">🔍 İlanlara Git</a>
+          <a href="dashboard.html" class="btn-go" style="background:rgba(255,255,255,.08);color:var(--text);">📊 Panele Dön</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toastEl"></div>
+<script src="api.js"></script>
+<script>
+
+const ILLER = ['Adana','Adıyaman','Afyonkarahisar','Ağrı','Amasya','Ankara','Antalya','Artvin','Aydın','Balıkesir','Bilecik','Bingöl','Bitlis','Bolu','Burdur','Bursa','Çanakkale','Çankırı','Çorum','Denizli','Diyarbakır','Düzce','Edirne','Elazığ','Erzincan','Erzurum','Eskişehir','Gaziantep','Giresun','Gümüşhane','Hakkari','Hatay','Iğdır','Isparta','İstanbul','İzmir','Kahramanmaraş','Karabük','Karaman','Kars','Kastamonu','Kayseri','Kilis','Kırıkkale','Kırklareli','Kırşehir','Kocaeli','Konya','Kütahya','Malatya','Manisa','Mardin','Mersin','Muğla','Muş','Nevşehir','Niğde','Ordu','Osmaniye','Rize','Sakarya','Samsun','Şanlıurfa','Siirt','Sinop','Şırnak','Sivas','Tekirdağ','Tokat','Trabzon','Tunceli','Uşak','Van','Yalova','Yozgat','Zonguldak'];
+
+const ILCELER = {
+  'Adana':['Seyhan','Çukurova','Yüreğir','Sarıçam','Kozan','Ceyhan','İmamoğlu','Karatas'],
+  'Adıyaman':['Merkez','Kahta','Besni','Gölbaşı','Sincik'],
+  'Afyonkarahisar':['Merkez','Sandıklı','Emirdağ','Dinar','Bolvadin','Çay'],
+  'Ağrı':['Merkez','Patnos','Doğubayazıt','Eleşkirt','Diyadin'],
+  'Amasya':['Merkez','Merzifon','Suluova','Taşova','Gümüşhacıköy'],
+  'Ankara':['Çankaya','Keçiören','Mamak','Etimesgut','Sincan','Altındağ','Yenimahalle','Pursaklar','Polatlı','Beypazarı'],
+  'Antalya':['Muratpaşa','Kepez','Konyaaltı','Alanya','Manavgat','Serik','Kaş','Kemer','Finike'],
+  'Artvin':['Merkez','Hopa','Borçka','Arhavi','Şavşat'],
+  'Aydın':['Efeler','Nazilli','Kuşadası','Didim','Söke','İncirliova','Germencik'],
+  'Balıkesir':['Altıeylül','Karesi','Bandırma','Edremit','Burhaniye','Erdek','Gönen'],
+  'Bilecik':['Merkez','Bozüyük','Osmaneli','Söğüt','Gölpazarı'],
+  'Bingöl':['Merkez','Genç','Karlıova','Solhan','Kiği'],
+  'Bitlis':['Merkez','Tatvan','Ahlat','Güroymak','Hizan'],
+  'Bolu':['Merkez','Gerede','Göynük','Mudurnu','Yeniçağa'],
+  'Burdur':['Merkez','Bucak','Gölhisar','Tefenni','Çavdır'],
+  'Bursa':['Osmangazi','Nilüfer','Yıldırım','İnegöl','Gemlik','Mudanya','Kestel','Mustafakemalpaşa'],
+  'Çanakkale':['Merkez','Biga','Çan','Gelibolu','Lapseki','Ezine'],
+  'Çankırı':['Merkez','Çerkeş','Ilgaz','Kurşunlu','Orta'],
+  'Çorum':['Merkez','Sungurlu','Alaca','İskilip','Osmank'],
+  'Denizli':['Merkezefendi','Pamukkale','Acıpayam','Çivril','Sarayöy','Tavas'],
+  'Diyarbakır':['Bağlar','Kayapınar','Sur','Yenişehir','Ergani','Bismil','Çınar','Silvan'],
+  'Düzce':['Merkez','Akçakoca','Gölyaka','Kaynalşlı','Cumayeri'],
+  'Edirne':['Merkez','Keşan','Uzunköprü','İpsala','Havsa'],
+  'Elazığ':['Merkez','Kovancılar','Karakocan','Baskil','Maden'],
+  'Erzincan':['Merkez','Refahiye','Tercan','İliç','Üzümlü'],
+  'Erzurum':['Yakutiye','Palandöken','Aziziye','Oltu','Tortum','Horasan','Karayazı'],
+  'Eskişehir':['Odunpazarı','Tepebaşı','Sivrihisar','Çifteler','Beylikova','İnönü'],
+  'Gaziantep':['Şahinbey','şehitkamil','Nizip','İslahiye','Nurdağı','Oğuzeli','Araban'],
+  'Giresun':['Merkez','Bulancak','Espiye','Görele','Tirebolu'],
+  'Gümüşhane':['Merkez','Kelkit','Şiran','Torul','Köse'],
+  'Hakkari':['Merkez','Yüksekova','Çukurca','Şemdinli'],
+  'Hatay':['Antakya','İskenderun','Defne','Samandağı','Dörtyol','Kırıkhan','Reyhanlı'],
+  'Iğdır':['Merkez','Tuzluca','Aralık','Karakoyunlu'],
+  'Isparta':['Merkez','Eğirdir','Yalvaç','Şarkikaraağaç','Gelendost'],
+  'İstanbul':['Kadıköy','Beşiktaş','Fatih','Üsküdar','Beyoglu','Bakırköy','Bahçelievler','Güngören','Maltepe','Pendik','Ümraniye','Kartal','Bağcılar','Avcılar','Esenyurt','Küçükçekmece','Büyükçekmece','Beyliküdüzü','Başakşehir','Sultangazi','Esenler','Gaziosmanpaşa','Şişli','Sarıyer','Beykoz','Tuzla','Silivri'],
+  'İzmir':['Konak','Bornova','Buca','Karşıyaka','Çiğli','Gaziemir','Bayraklı','Karabagılar','Torbalı','Ödemiş','Tire','Bergama','Menderes'],
+  'Kahramanmaraş':['Onibişubat','Dulkadiroğlu','Elbistan','Göksün','Afşin','Andırın'],
+  'Karabük':['Merkez','Safranbolu','Eflani','Ovacık','Yenice'],
+  'Karaman':['Merkez','Ermenek','Ayrancı','Sarıveliler','Kazımkarabekir'],
+  'Kars':['Merkez','Sarıkamuş','Kağızman','Selim','Digor'],
+  'Kastamonu':['Merkez','Tosya','İnebolu','Taşköprü','Cide'],
+  'Kayseri':['Kocasinan','Melikgazi','Talas','Develi','Bünyan','Pınarbaşı','Yahyalı'],
+  'Kilis':['Merkez','Musabeyli','Polateli','Elbeyli'],
+  'Kırıkkale':['Merkez','Keskin','Yahşihan','Delice','Çelebi'],
+  'Kırklareli':['Merkez','Lüleburgaz','Babaeski','Vize','Pınarhisar'],
+  'Kırşehir':['Merkez','Kaman','Mucur','Çiçekdağı','Akpınar'],
+  'Kocaeli':['İzmit','Gebze','Darıca','Körfez','Derince','Çayırova','Gölcük','Kandıra'],
+  'Konya':['Selçuklu','Karatay','Meram','Ereğli','Akşehir','Beyşehir','Çumra','Ilgın','Kulu'],
+  'Kütahya':['Merkez','Tavşanlı','Simav','Gediz','Emet','Altıntaş'],
+  'Malatya':['Battalgazi','Yeşilyurt','Akçadağ','Darende','Doğanşehir','Pütürge'],
+  'Manisa':['şehzadeler','Yunusemre','Turgutlu','Akhisar','Salihli','Alaşehir','Soma'],
+  'Mardin':['Artuklu','Kızıltepe','Nusaybin','Midyat','Derik','Mazıdağı'],
+  'Mersin':['Akdeniz','Mezitli','Toroslar','Yenişehir','Tarsus','Erdemli','Silifke','Anamur'],
+  'Muğla':['Menteşe','Bodrum','Marmaris','Fethiye','Milas','Datça','Köyceğiz'],
+  'Muş':['Merkez','Malazgirt','Varto','Bulanık','Korkut'],
+  'Nevşehir':['Merkez','Ürügüp','Avanos','Gülşehir','Acıgöl','Derinkuyu'],
+  'Niğde':['Merkez','Bor','Çamarlı','Altunhisar','Ulukışla'],
+  'Ordu':['Altınordu','Ünye','Fatsa','Korgan','Perşembe','Akkus'],
+  'Osmaniye':['Merkez','Kadirli','Düzici','Bahçe','İslahiye'],
+  'Rize':['Merkez','Ardeşen','Pazar','Çayeli','Fındıklı','Güneysu'],
+  'Sakarya':['Adapazarı','Serdivan','Erenler','Arifiye','Hendek','Karasu','Geyve'],
+  'Samsun':['Atakum','Canik','İlkadım','Tekkeöy','Bafra','Çarşamba','Terme','Havza'],
+  'Şanlıurfa':['Eyyübiye','Haliliye','Karakopru','Siverek','Viranşehir','Birecik','Suruç'],
+  'Siirt':['Merkez','Kurtalan','Baykan','Eruh','Pervari'],
+  'Sinop':['Merkez','Boyabat','Gerze','Ayancık','Duragan'],
+  'Şırnak':['Merkez','Cizre','Silopi','İdil','Uludere'],
+  'Sivas':['Merkez','Şarkışla','Suşehri','Gemerek','Koyulhisar','Zara'],
+  'Tekirdağ':['Süleymanpaşa','Çorlu','Çerkezköy','Ergene','Malkara','Marmara Ereğlisi'],
+  'Tokat':['Merkez','Turhal','Erbaa','Niksar','Zile','Artova'],
+  'Trabzon':['Ortahisar','Akçaabat','Of','Araklı','Çaykara','Maçka','Yomra'],
+  'Tunceli':['Merkez','Pertek','Çemişgezek','Mazgirt','Ovacık'],
+  'Uşak':['Merkez','Banaz','Eşme','Sivaslı','Karahallı'],
+  'Van':['İpekyolu','Tuşba','Edremit','Erciş','Özalp','Gürpınar'],
+  'Yalova':['Merkez','Çınarcık','Armutlu','Altınova','Termal'],
+  'Yozgat':['Merkez','Sorgun','Akdağmadeni','Boğazlıyan','Sarıkaya'],
+  'Zonguldak':['Merkez','Ereğli','Çaycuma','Devrek','Alaplı']
+};
+
+const MARKALAR = {
+  kepce:   ['Caterpillar','Komatsu','Volvo','Hitachi','Liebherr','JCB','Case','Sany','LiuGong','MST','Doosan','Hyundai','Kobelco','Yanmar','Diğer'],
+  beko:    ['Caterpillar','Komatsu','Volvo','Hitachi','Liebherr','JCB','Case','Sany','LiuGong','MST','Doosan','Hyundai','Kobelco','Yanmar','Diğer'],
+  greyder: ['Caterpillar','Komatsu','Volvo','John Deere','XCMG','Diğer'],
+  vinc:    ['Liebherr','Manitowoc','Terex','Tadano','Grove','Potain','Zoomlion','XCMG','Diğer'],
+  forklift:['Toyota','Linde','Jungheinrich','Crown','Hyster','Yale','Still','Hangcha','Diğer'],
+  kamyon:  ['Mercedes-Benz','Volvo','MAN','Scania','DAF','Iveco','Renault','Ford','BMC','Diğer'],
+  tir:     ['Mercedes-Benz','Volvo','MAN','Scania','DAF','Iveco','Renault','Ford','BMC','Diğer'],
+  damperli:['Mercedes-Benz','Volvo','MAN','Scania','DAF','Iveco','Renault','Ford','BMC','Diğer'],
+  mikser:  ['Mercedes-Benz','Volvo','MAN','Scania','Liebherr','Schwing','Diğer'],
+  diger:   ['Caterpillar','Volvo','Liebherr','JCB','Komatsu','Diğer']
+};
+
+let form = {ilan_tipi:'TEKLIF',arac_tipi:'kepce',marka:'',operatorlu:true};
+let currentStep=1;
+const TOTAL_STEPS=4;
+let fotograflar=[];
+const MAX_FOTO=10;
+const user=JSON.parse(localStorage.getItem('user')||'null');
+const token=localStorage.getItem('accessToken')||localStorage.getItem('token');
+
+function populateIller(){
+  ['konumDanIl','konumAIl'].forEach(id=>{
+    const sel=document.getElementById(id);
+    const def=sel.options[0].text;
+    sel.innerHTML='<option value="">'+def+'</option>';
+    ILLER.forEach(il=>{ const o=document.createElement('option'); o.value=il; o.textContent=il; sel.appendChild(o); });
+  });
+}
+
+function loadIlce(targetId,il){
+  const sel=document.getElementById(targetId);
+  if(!il){sel.disabled=true;sel.innerHTML='<option value="">Önce il seçin</option>';updateKonumHidden();return;}
+  sel.disabled=false;
+  sel.innerHTML='<option value="">İlçe seçin</option>';
+  (ILCELER[il]||[]).forEach(ilce=>{ const o=document.createElement('option'); o.value=ilce; o.textContent=ilce; sel.appendChild(o); });
+  updateKonumHidden();
+}
+
+function updateKonumHidden(){
+  const danIl=document.getElementById('konumDanIl').value,danIlce=document.getElementById('konumDanIlce').value;
+  document.getElementById('konumDan').value=danIlce?danIl+', '+danIlce:danIl;
+  const aIl=document.getElementById('konumAIl').value,aIlce=document.getElementById('konumAIlce').value;
+  document.getElementById('konumA').value=aIlce?aIl+', '+aIlce:aIl;
+}
+
+['konumDanIlce','konumAIlce','konumDanIl','konumAIl'].forEach(id=>
+  document.getElementById(id).addEventListener('change',updateKonumHidden));
+
+function updateMarkalar(aracTipi){
+  const group=document.getElementById('markaGroup'),sel=document.getElementById('markaSelect');
+  const markalar=MARKALAR[aracTipi];
+  if(!markalar){group.style.display='none';return;}
+  group.style.display='block';
+  sel.innerHTML='<option value="">Marka seçin (opsiyonel)</option>';
+  markalar.forEach(m=>{ const o=document.createElement('option'); o.value=m; o.textContent=m; sel.appendChild(o); });
+  sel.value='';
+}
+document.getElementById('markaSelect').addEventListener('change',e=>{form.marka=e.target.value;});
+
+const FIYAT_PH={saat:'Saatlik fiyat girin (₺)',gun:'Günlük fiyat girin (₺)',hafta:'Haftalık fiyat girin (₺)',ay:'Aylık fiyat girin (₺)',sefer:'Sefer başı fiyat girin (₺)',ton:'Ton başına fiyat girin (₺)',m3:'m³ başına fiyat girin (₺)'};
+function updateFiyatPlaceholder(){
+  const birim=document.getElementById('fiyatBirimi').value;
+  document.getElementById('fiyat').placeholder=FIYAT_PH[birim]||'Fiyat girin (₺)';
+}
+
+const fotoInput=document.getElementById('fotoInput');
+const fotoPreviewGrid=document.getElementById('fotoPreviewGrid');
+const fotoCountBadge=document.getElementById('fotoCountBadge');
+const fotoCountText=document.getElementById('fotoCountText');
+const fotoUploadArea=document.getElementById('fotoUploadArea');
+
+fotoInput.addEventListener('change',e=>handleFiles(e.target.files));
+fotoUploadArea.addEventListener('dragover',e=>{e.preventDefault();fotoUploadArea.classList.add('drag-over');});
+fotoUploadArea.addEventListener('dragleave',()=>fotoUploadArea.classList.remove('drag-over'));
+fotoUploadArea.addEventListener('drop',e=>{e.preventDefault();fotoUploadArea.classList.remove('drag-over');handleFiles(e.dataTransfer.files);});
+
+function handleFiles(files){
+  const remaining=MAX_FOTO-fotograflar.length;
+  if(remaining<=0){showToast('Maksimum 10 fotoğraf yükleyebilirsiniz.','err');return;}
+  const arr=Array.from(files).slice(0,remaining);
+  if(Array.from(files).length>remaining) showToast('Yalnızca ilk '+remaining+' fotoğraf eklendi.','err');
+  arr.forEach(file=>{
+    if(!file.type.startsWith('image/'))return;
+    const reader=new FileReader();
+    reader.onload=ev=>{fotograflar.push({file,dataUrl:ev.target.result});renderFotoThumbs();};
+    reader.readAsDataURL(file);
+  });
+  fotoInput.value='';
+}
+
+function renderFotoThumbs(){
+  fotoPreviewGrid.innerHTML='';
+  fotograflar.forEach((f,i)=>{
+    const thumb=document.createElement('div'); thumb.className='foto-thumb';
+    thumb.innerHTML='<img src="'+f.dataUrl+'" alt="Foto '+(i+1)+'"><button class="foto-thumb-del" onclick="deleteFoto('+i+')" title="Sil">✕</button>';
+    fotoPreviewGrid.appendChild(thumb);
+  });
+  if(fotograflar.length>0){
+    fotoCountBadge.style.display='inline-flex';
+    fotoCountText.textContent=fotograflar.length+' / '+MAX_FOTO+' fotoğraf seçildi';
+    fotoCountBadge.className='foto-count-badge'+(fotograflar.length>=MAX_FOTO?' warn':'');
+  } else { fotoCountBadge.style.display='none'; }
+}
+
+function deleteFoto(i){fotograflar.splice(i,1);renderFotoThumbs();}
+
+function goStep(n){
+  if(n>currentStep){const err=validateStep(currentStep);if(err){showError(err);return;}}
+  hideError();
+  document.getElementById('step'+currentStep).classList.remove('active');
+  document.getElementById('step'+n).classList.add('active');
+  for(let i=1;i<=TOTAL_STEPS;i++) document.getElementById('stepEl'+i).className='step'+(i<n?' done':i===n?' active':'');
+  for(let i=1;i<TOTAL_STEPS;i++){const l=document.getElementById('line'+i+(i+1));if(l)l.className='step-line'+(i<n?' done':'');}
+  currentStep=n;
+  if(n===4)updateOzet();
+  window.scrollTo(0,0);
+}
+
+function validateStep(step){
+  if(step===3){if(!document.getElementById('konumDanIl').value)return 'Kalkış ili seçmelisiniz.';updateKonumHidden();}
+  return null;
+}
+
+function selectTipo(tipo){
+  form.ilan_tipi=tipo;
+  document.querySelectorAll('.tipo-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('tipo-'+tipo).classList.add('selected');
+}
+
+function selectArac(arac,btn){
+  form.arac_tipi=arac;
+  document.querySelectorAll('.arac-pill').forEach(p=>p.classList.remove('selected'));
+  btn.classList.add('selected');
+  updateMarkalar(arac);
+}
+
+document.getElementById('operatorluToggle').addEventListener('change',e=>{form.operatorlu=e.target.checked;});
+
+function updateOzet(){
+  const AN={kepce:'Kepçe/Ekskavatör',vinc:'Vinç',tir:'TIR/Çekici',kamyon:'Kamyon',damperli:'Damperli',beko:'Beko Loder',forklift:'Forklift',mikser:'Mikser',greyder:'Greyder',diger:'Diğer'};
+  const BL={saat:'Saatlik',gun:'Günlük',hafta:'Haftalık',ay:'Aylık',sefer:'Sefer Başı',ton:'Ton Başı',m3:'m³ Başı'};
+  const marka=document.getElementById('markaSelect').value;
+  const konumDan=document.getElementById('konumDan').value,konumA=document.getElementById('konumA').value;
+  let rows=[
+    ['İlan Türü',form.ilan_tipi==='TEKLIF'?'✅ Kiralık Araç':'📋 İş Talebi'],
+    ['Araç',AN[form.arac_tipi]||form.arac_tipi],
+    ['Operatörlü',form.operatorlu?'Evet':'Hayır'],
+    ['Konum',konumDan+(konumA?' → '+konumA:'')],
+    ['Başlık',document.getElementById('ilanBaslik').value||'(otomatik)'],
+    ['Fiyat Birimi',BL[document.getElementById('fiyatBirimi').value]||''],
+  ];
+  if(marka)rows.push(['Marka',marka]);
+  if(fotograflar.length>0)rows.push(['Fotoğraf',fotograflar.length+' adet']);
+  document.getElementById('ozetContent').innerHTML=rows.map(([k,v])=>'<div><strong style="color:var(--text)">'+k+':</strong> '+v+'</div>').join('');
+}
+
+async function submitIlan(){
+  if(!user||!token){
+    showError('İlan açmak için giriş yapmalısınız. Yönlendiriliyorsunuz...');
+    setTimeout(()=>{ location.href='giris.html?redirect=ilan.html'; },1500);
+    return;
+  }
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='⏳ Yayınlanıyor...';
+
+  const payload={
+    ilan_tipi:form.ilan_tipi, arac_tipi:form.arac_tipi,
+    marka:document.getElementById('markaSelect').value||null,
+    operatorlu:form.operatorlu,
+    baslik:document.getElementById('ilanBaslik').value.trim()||null,
+    konum_dan:document.getElementById('konumDan').value,
+    konum_a:document.getElementById('konumA').value,
+    konum:document.getElementById('konumDan').value,
+    yuk_turu:document.getElementById('yukTuru').value||null,
+    aciklama:document.getElementById('aciklama').value.trim()||null,
+    baslama_tarihi:document.getElementById('baslamaTarihi').value||null,
+    bitis_tarihi:document.getElementById('bitisTarihi').value||null,
+    fiyat:parseFloat(document.getElementById('fiyat').value)||null,
+    fiyat_birimi:document.getElementById('fiyatBirimi').value,
+    miktar:parseFloat(document.getElementById('miktar').value)||null,
+    birim:document.getElementById('birim').value,
+    fotograflar:fotograflar.map(f=>f.dataUrl)
+  };
+
+  try{
+    const API=['localhost','127.0.0.1'].includes(location.hostname)?'http://localhost:5050/api':'/api';
+    const res=await fetch(API+'/ilanlar',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload)});
+    if(res.ok){
+      document.getElementById('step'+currentStep).classList.remove('active');
+      document.getElementById('stepSuccess').classList.add('active');
+      window.scrollTo(0,0);
+    } else {
+      const data=await res.json();
+      showError(data.hata||'Bir hata oluştu, lütfen tekrar deneyin.');
+      btn.disabled=false; btn.textContent='🚀 İlanı Yayınla';
+    }
+  } catch(e){
+    showError('Bağlantı hatası. Backend çalışıyor mu?');
+    btn.disabled=false; btn.textContent='🚀 İlanı Yayınla';
+  }
+}
+
+function showError(msg){const el=document.getElementById('formError');el.textContent=msg;el.classList.add('show');}
+function hideError(){document.getElementById('formError').classList.remove('show');}
+let _tt=null;
+function showToast(msg,type){type=type||'ok';const el=document.getElementById('toastEl');el.textContent=msg;el.className='show toast-'+type;clearTimeout(_tt);_tt=setTimeout(()=>{el.className='';},3200);}
+
+// INIT
+populateIller();
+updateMarkalar('kepce');
+updateFiyatPlaceholder();
+document.getElementById('baslamaTarihi').value=new Date().toISOString().split('T')[0];
+
+</script>
+</body>
+</html>

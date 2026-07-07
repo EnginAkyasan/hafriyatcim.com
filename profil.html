@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilim | hafriyatcim.com</title>
+    <meta name="description" content="Hafriyatcim.com kullanıcı profili, araç bilgileri ve değerlendirmeler">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+    <style>
+        :root {
+            --bg: #08080f;
+            --surface: #0f0f1a;
+            --surface2: #161625;
+            --border: rgba(255,255,255,0.08);
+            --accent: #f59e0b;
+            --accent-dim: rgba(245,158,11,0.15);
+            --text: #f1f5f9;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* NAV */
+        .nav {
+            background: rgba(8,8,15,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo { font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text); }
+        .nav-logo span { color: var(--accent); }
+        .nav-back {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-muted); font-size: 14px;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container { max-width: 680px; margin: 0 auto; padding: 32px 20px; }
+
+        /* PROFILE HEADER */
+        .profile-header {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #f97316);
+        }
+        .avatar {
+            width: 88px; height: 88px;
+            background: linear-gradient(135deg, var(--accent), #f97316);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: 800;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 32px rgba(245,158,11,0.3);
+        }
+        .profile-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .profile-badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .badge {
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+        }
+        .badge-musteri { background: rgba(59,130,246,0.2); color: #60a5fa; }
+        .badge-surucu { background: rgba(245,158,11,0.2); color: var(--accent); }
+        .badge-dogrulandi { background: rgba(16,185,129,0.2); color: var(--success); }
+        .badge-bekliyor { background: rgba(100,116,139,0.2); color: var(--text-muted); }
+        .profile-phone { color: var(--text-muted); font-size: 14px; margin-bottom: 4px; }
+        .profile-since { color: var(--text-muted); font-size: 13px; }
+
+        /* RATING BLOCK */
+        .rating-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .rating-block h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; }
+        .rating-main { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+        .rating-score { font-size: 56px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .rating-stars { display: flex; gap: 4px; margin-bottom: 4px; }
+        .star { color: var(--accent); font-size: 20px; }
+        .star.empty { color: var(--border); }
+        .rating-count { color: var(--text-muted); font-size: 13px; }
+        .rating-bars { display: flex; flex-direction: column; gap: 6px; }
+        .bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+        .bar-label { color: var(--text-muted); width: 12px; text-align: right; }
+        .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.8s ease; }
+        .bar-count { color: var(--text-muted); width: 24px; font-size: 11px; }
+
+        /* STATS */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-value { font-size: 28px; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+        /* SECTION */
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 14px; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* VEHICLE FORM */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+        .form-input, .form-select {
+            width: 100%; padding: 12px 16px;
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 10px; color: var(--text); font-family: 'Inter', sans-serif;
+            font-size: 14px; outline: none; transition: border-color 0.2s;
+        }
+        .form-input:focus, .form-select:focus { border-color: var(--accent); }
+        .form-select option { background: var(--surface2); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        /* UPLOAD */
+        .upload-area {
+            border: 2px dashed var(--border); border-radius: 10px;
+            padding: 20px; text-align: center; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-area:hover { border-color: var(--accent); background: var(--accent-dim); }
+        .upload-area input { display: none; }
+        .upload-icon { font-size: 28px; margin-bottom: 8px; }
+        .upload-text { font-size: 13px; color: var(--text-muted); }
+        .upload-preview { max-width: 100%; border-radius: 8px; margin-top: 12px; display: none; }
+
+        /* REVIEWS */
+        .review-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .review-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+        .reviewer-name { font-weight: 600; font-size: 14px; }
+        .review-stars { color: var(--accent); font-size: 14px; }
+        .review-date { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .review-comment { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-top: 6px; }
+
+        /* EDIT PROFILE */
+        .btn {
+            padding: 12px 24px; border-radius: 10px;
+            font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; border: none;
+        }
+        .btn-primary { background: var(--accent); color: #000; width: 100%; margin-top: 8px; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-outline {
+            background: transparent; border: 1px solid var(--border);
+            color: var(--text); width: 100%; margin-top: 8px;
+        }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* TOAST */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--text); padding: 12px 24px; border-radius: 12px;
+            font-size: 14px; z-index: 999; opacity: 0; transition: opacity 0.3s;
+            pointer-events: none; white-space: nowrap;
+        }
+        .toast.show { opacity: 1; }
+
+        /* SKELETON */
+        .skeleton {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* EMPTY STATE */
+        .empty-state { text-align: center; padding: 32px; color: var(--text-muted); }
+        .empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .stat-value { font-size: 22px; }
+            .rating-score { font-size: 44px; }
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="dashboard.html" class="nav-back">← Dashboard</a>
+    <a href="index.html" class="nav-logo">hafriyat<span>cim.com</span></a>
+    <div style="width:80px"></div>
+</nav>
+
+<div class="container">
+    <!-- PROFILE HEADER -->
+    <div class="profile-header" id="profileHeader">
+        <div class="avatar" id="avatarEl">?</div>
+        <div class="profile-name" id="profileName">Yükleniyor...</div>
+        <div class="profile-badges" id="profileBadges"></div>
+        <div class="profile-phone" id="profilePhone"></div>
+        <div class="profile-since" id="profileSince"></div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="statJobs">—</div>
+            <div class="stat-label">Tamamlanan İş</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statRating">—</div>
+            <div class="stat-label">Ortalama Puan</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statReviews">—</div>
+            <div class="stat-label">Değerlendirme</div>
+        </div>
+    </div>
+
+    <!-- RATING DETAIL -->
+    <div class="rating-block" id="ratingBlock">
+        <h3>⭐ Değerlendirmeler</h3>
+        <div class="rating-main">
+            <div class="rating-score" id="ratingScore">—</div>
+            <div>
+                <div class="rating-stars" id="ratingStars"></div>
+                <div class="rating-count" id="ratingCount">0 değerlendirme</div>
+            </div>
+        </div>
+        <div class="rating-bars" id="ratingBars"></div>
+    </div>
+
+    <!-- VEHICLE INFO (SURUCU only) -->
+    <div class="section" id="vehicleSection" style="display:none">
+        <div class="section-title">🚛 Araç Bilgileri</div>
+        <form id="vehicleForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Araç Türü</label>
+                    <select class="form-select" id="aracTuru">
+                        <option value="">Seçin</option>
+                        <option value="kamyon">Kamyon</option>
+                        <option value="tir">Tır</option>
+                        <option value="damperli">Damperli</option>
+                        <option value="mikser">Mikser</option>
+                        <option value="diger">Diğer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Plaka</label>
+                    <input type="text" class="form-input" id="plaka" placeholder="34 ABC 123" style="text-transform:uppercase">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Kapasite (Ton)</label>
+                <input type="number" class="form-input" id="kapasite" placeholder="20" min="1" max="100">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Ruhsat Fotoğrafı</label>
+                <label class="upload-area" for="ruhsatInput">
+                    <input type="file" id="ruhsatInput" accept="image/*" onchange="previewRuhsat(this)">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">Ruhsat fotoğrafını yükleyin</div>
+                    <img class="upload-preview" id="ruhsatPreview">
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">💾 Araç Bilgilerini Kaydet</button>
+        </form>
+    </div>
+
+    <!-- RECENT REVIEWS -->
+    <div class="section">
+        <div class="section-title">💬 Son Değerlendirmeler</div>
+        <div id="reviewsList">
+            <div class="empty-state">
+                <div class="empty-icon">⭐</div>
+                <p>Henüz değerlendirme yok</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT PROFILE -->
+    <div class="section">
+        <div class="section-title">✏️ Profili Düzenle</div>
+        <form id="editForm">
+            <div class="form-group">
+                <label class="form-label">Ad Soyad</label>
+                <input type="text" class="form-input" id="editAd" placeholder="Adınız">
+            </div>
+            <div class="form-group">
+                <label class="form-label">E-posta</label>
+                <input type="email" class="form-input" id="editEmail" placeholder="email@ornek.com">
+            </div>
+            <button type="submit" class="btn btn-primary">💾 Değişiklikleri Kaydet</button>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BASE_URL = ['localhost', '127.0.0.1'].includes(location.hostname) ? 'http://localhost:5050' : '';
+
+async function apiCall(endpoint, opts = {}) {
+    const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
+    const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+    const res = await fetch(BASE_URL + endpoint, { ...opts, headers: { ...headers, ...opts.headers } });
+    const data = await res.json();
+    if (!res.ok) throw data;
+    return data;
+}
+
+function toast(msg, ok = true) {
+    const el = document.getElementById('toast');
+    el.textContent = (ok ? '✅ ' : '❌ ') + msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function maskPhone(phone) {
+    if (!phone) return '';
+    return phone.substring(0, 4) + '***' + phone.substring(phone.length - 2);
+}
+
+function renderStars(rating, size = 18) {
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+        html += `<span class="star${i > rating ? ' empty' : ''}" style="font-size:${size}px">★</span>`;
+    }
+    return html;
+}
+
+function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long' });
+}
+
+async function loadProfile() {
+    try {
+        const { kullanici } = await apiCall('/api/auth/me');
+        if (!kullanici) { location.href = 'giris.html'; return; }
+
+        // Avatar
+        document.getElementById('avatarEl').textContent = (kullanici.ad || '?')[0].toUpperCase();
+        document.getElementById('profileName').textContent = kullanici.ad || 'Kullanıcı';
+        document.getElementById('profilePhone').textContent = '📞 ' + maskPhone(kullanici.telefon);
+        document.getElementById('profileSince').textContent = 'Üye: ' + formatDate(kullanici.created_at);
+
+        // Badges
+        const badgesEl = document.getElementById('profileBadges');
+        const rolBadge = kullanici.rol === 'SURUCU'
+            ? '<span class="badge badge-surucu">🚛 Tırcı</span>'
+            : '<span class="badge badge-musteri">🏗️ Müşteri</span>';
+        const dogruBadge = kullanici.arac_dogrulandi
+            ? '<span class="badge badge-dogrulandi">✅ Doğrulandı</span>'
+            : '';
+        badgesEl.innerHTML = rolBadge + dogruBadge;
+
+        // Stats
+        document.getElementById('statRating').textContent = kullanici.rating ? kullanici.rating.toFixed(1) : '0';
+        document.getElementById('statReviews').textContent = kullanici.rating_count || 0;
+
+        // Edit form
+        document.getElementById('editAd').value = kullanici.ad || '';
+        document.getElementById('editEmail').value = kullanici.email || '';
+
+        // Vehicle section (SURUCU only)
+        if (kullanici.rol === 'SURUCU') {
+            document.getElementById('vehicleSection').style.display = 'block';
+            if (kullanici.arac_turu) document.getElementById('aracTuru').value = kullanici.arac_turu;
+            if (kullanici.plaka) document.getElementById('plaka').value = kullanici.plaka;
+            if (kullanici.kapasite) document.getElementById('kapasite').value = kullanici.kapasite;
+        }
+
+        // Load ratings
+        await loadRatings(kullanici.id);
+
+    } catch (err) {
+        console.error(err);
+        if (err.hata === 'Token geçersiz' || err.hata === 'Token bulunamadı') {
+            location.href = 'giris.html';
+        }
+    }
+}
+
+async function loadRatings(userId) {
+    try {
+        const response = await apiCall(`/api/puanlar/kullanici/${userId}`);
+        const puanlar = response.puanlar || [];
+        const toplam  = response.toplam || response.kullanici?.rating_count || 0;
+        const ortalama = response.kullanici?.rating || 0;
+
+        // Score
+        document.getElementById('ratingScore').textContent = ortalama ? ortalama.toFixed(1) : '0';
+        document.getElementById('ratingStars').innerHTML = renderStars(Math.round(ortalama || 0), 20);
+        document.getElementById('ratingCount').textContent = `${toplam} değerlendirme`;
+        document.getElementById('statRating').textContent = ortalama ? ortalama.toFixed(1) : '0';
+        document.getElementById('statReviews').textContent = toplam;
+
+        // Star distribution
+        const dist = [0, 0, 0, 0, 0];
+        puanlar.forEach(p => { if (p.puan >= 1 && p.puan <= 5) dist[p.puan - 1]++; });
+        const barsHtml = [5, 4, 3, 2, 1].map(s => {
+            const count = dist[s - 1];
+            const pct = toplam > 0 ? (count / toplam * 100) : 0;
+            return `<div class="bar-row">
+                <span class="bar-label">${s}</span>
+                <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+                <span class="bar-count">${count}</span>
+            </div>`;
+        }).join('');
+        document.getElementById('ratingBars').innerHTML = barsHtml;
+
+        // Reviews list
+        if (puanlar.length === 0) return;
+        const reviewsHtml = puanlar.map(p => `
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-name">${p.veren_ad}</div>
+                    <div class="review-stars">${'★'.repeat(p.puan)}${'☆'.repeat(5 - p.puan)}</div>
+                </div>
+                <div class="review-date">${formatDate(p.created_at)}</div>
+                ${p.yorum ? `<div class="review-comment">"${p.yorum}"</div>` : ''}
+            </div>
+        `).join('');
+        document.getElementById('reviewsList').innerHTML = reviewsHtml;
+
+    } catch (err) {
+        console.error('Rating yüklenemedi:', err);
+    }
+}
+
+// Vehicle form
+document.getElementById('vehicleForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.textContent = 'Kaydediliyor...'; btn.disabled = true;
+    try {
+        const result = await apiCall('/api/auth/profil', {
+            method: 'PUT',
+            body: JSON.stringify({
+                arac_turu: document.getElementById('aracTuru').value,
+                plaka: document.getElementById('plaka').value.toUpperCase(),
+                kapasite: parseFloat(document.getElementById('kapasite').value) || null,
+            })
+        });
+        // localStorage'daki user objesini güncelle
+        if (result.kullanici) {
+            const mevcut = JSON.parse(localStorage.getItem('user') || '{}');
+            localStorage.setItem('user', JSON.stringify({ ...mevcut, ...result.kullanici }));
+        }
+        toast('Araç bilgileri kaydedildi!');
+    } catch (err) {
+        toast(err.hata || 'Hata oluştu', false);
+    } finally {
+        btn.textContent = '💾 Araç Bilgilerini Kaydet'; btn.disabled = false;
+    }
+});
+
+// Edit profile form
+document.getElementById('editForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.textContent = 'Kaydediliyor...'; btn.disabled = true;
+    try {
+        const result = await apiCall('/api/auth/profil', {
+            method: 'PUT',
+            body: JSON.stringify({
+                ad: document.getElementById('editAd').value,
+                email: document.getElementById('editEmail').value,
+            })
+        });
+        // localStorage'daki user objesini güncelle
+        if (result.kullanici) {
+            const mevcut = JSON.parse(localStorage.getItem('user') || '{}');
+            localStorage.setItem('user', JSON.stringify({ ...mevcut, ...result.kullanici }));
+            // Profil header'ını da güncelle
+            document.getElementById('profileName').textContent = result.kullanici.ad || '';
+            document.getElementById('avatarEl').textContent = (result.kullanici.ad || '?')[0].toUpperCase();
+        }
+        toast('Profil güncellendi!');
+    } catch (err) {
+        toast(err.hata || 'Hata oluştu', false);
+    } finally {
+        btn.textContent = '💾 Değişiklikleri Kaydet'; btn.disabled = false;
+    }
+});
+
+function previewRuhsat(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const preview = document.getElementById('ruhsatPreview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+// Start — accessToken (yeni) veya token (eski) destekle
+const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
+if (!token) { location.href = 'giris.html'; }
+else { loadProfile(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /odeme.html
+Disallow: /profil.html
+
+Sitemap: https://hafriyatcim.com/sitemap.xml

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İptal ve İade Politikası — hafriyatcim.com</title>
+  <meta name="description" content="hafriyatcim.com İptal ve İade Politikası — eşleşme komisyonu iadesi, tırcı gelme koşulları, iyzico iade süreci ve 6502 Sayılı TKHK kapsamındaki haklarınız.">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .legal-page { max-width: 820px; margin: 0 auto; padding: 3rem 5%; }
+    .legal-page h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .legal-page h2 { font-size: 1.2rem; color: #f97316; margin: 2rem 0 0.75rem; }
+    .legal-page p, .legal-page li { color: #8a8996; line-height: 1.8; margin-bottom: 0.75rem; }
+    .legal-page ul { padding-left: 1.5rem; }
+    .legal-page .meta { font-size: 0.82rem; color: #4a4860; margin-bottom: 3rem; }
+
+    /* Durum tablosu */
+    .durum-tablosu {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .durum-tablosu thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #4a4860;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .durum-tablosu tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: middle;
+      color: #8a8996;
+      line-height: 1.6;
+    }
+
+    .durum-tablosu tbody tr:last-child td { border-bottom: none; }
+    .durum-tablosu tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .durum-yesil {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .durum-yari {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .durum-hayir {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Bilgi kutuları */
+    .info-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .info-box-icon { font-size: 1.15rem; flex-shrink: 0; margin-top: 1px; }
+    .info-box p { font-size: 0.85rem; color: #8a8996; margin: 0; line-height: 1.7; }
+    .info-box strong { color: #f0efe8; }
+
+    .info-box.mavi {
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.18);
+    }
+
+    .info-box.yesil {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.18);
+    }
+
+    .info-box.turuncu {
+      background: rgba(249, 115, 22, 0.06);
+      border: 1px solid rgba(249, 115, 22, 0.18);
+    }
+
+    .info-box.kirmizi {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+
+    /* Adım listesi */
+    .adim-listesi {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .adim-listesi li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      color: #8a8996;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    .adim-no {
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      color: #f97316;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Komisyon özeti kutusu */
+    .komisyon-ozet {
+      background: rgba(249, 115, 22, 0.04);
+      border: 1px solid rgba(249, 115, 22, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .komisyon-ozet-item { }
+    .komisyon-ozet-item .ko-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #4a4860;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+    }
+    .komisyon-ozet-item .ko-val {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #f97316;
+      letter-spacing: -0.02em;
+    }
+    .komisyon-ozet-item .ko-acik {
+      font-size: 0.78rem;
+      color: #8a8996;
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .komisyon-ozet { grid-template-columns: 1fr; }
+      .durum-tablosu { font-size: 0.8rem; }
+      .durum-tablosu thead th,
+      .durum-tablosu tbody td { padding: 9px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">
+    <a href="index.html" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:8px;">
+      <img src="logo.png" alt="hafriyatcim.com" class="logo-img">
+      hafriyatcim<span class="highlight">.com</span>
+    </a>
+  </div>
+</nav>
+
+<!-- İÇERİK -->
+<main class="legal-page">
+
+  <h1>İptal ve İade Politikası</h1>
+  <p class="meta">
+    Son güncelleme: 22 Haziran 2026 &nbsp;·&nbsp;
+    6502 Sayılı Tüketicinin Korunması Hakkında Kanun kapsamında hazırlanmıştır.
+  </p>
+
+  <div class="info-box mavi">
+    <span class="info-box-icon">ℹ️</span>
+    <p>
+      Bu politika, <strong>[ŞİRKET ADI]</strong> tarafından işletilen hafriyatcim.com platformunun
+      komisyon ücretlerine ilişkin iptal ve iade koşullarını düzenler.
+      Sorularınız için: <a href="mailto:info@hafriyatcim.com" style="color:#60a5fa;">info@hafriyatcim.com</a>
+    </p>
+  </div>
+
+  <!-- ─── KOMİSYON YAPISI ─── -->
+  <h2>Platform Komisyon Yapısı</h2>
+  <p>
+    hafriyatcim.com, inşaat sahipleri ile tır sahiplerini buluşturan bir aracı platformdur.
+    İlan açmak ve teklif vermek tamamen ücretsizdir. Platform komisyonu yalnızca
+    eşleşme onaylandıktan sonra her iki taraftan ayrı ayrı alınır.
+  </p>
+
+  <div class="komisyon-ozet">
+    <div class="komisyon-ozet-item">
+      <div class="ko-label">Sabit Taban Ücreti</div>
+      <div class="ko-val">₺252</div>
+      <div class="ko-acik">200 ₺ + %26 KDV dahil<br>Eşleşme başına, her taraftan</div>
+    </div>
+    <div class="komisyon-ozet-item">
+      <div class="ko-label">Komisyon Formülü</div>
+      <div class="ko-val">max(₺252, %1)</div>
+      <div class="ko-acik">Sefer bedelinin %1'i ₺252'den<br>yüksekse, %1 uygulanır</div>
+    </div>
+    <div class="komisyon-ozet-item">
+      <div class="ko-label">İlan Açma</div>
+      <div class="ko-val">₺0</div>
+      <div class="ko-acik">Ücretsiz, iade gerekmez</div>
+    </div>
+    <div class="komisyon-ozet-item">
+      <div class="ko-label">Teklif Verme</div>
+      <div class="ko-val">₺0</div>
+      <div class="ko-acik">Ücretsiz, iade gerekmez</div>
+    </div>
+  </div>
+
+  <!-- ─── 1. İPTAL KOŞULLARI ─── -->
+  <h2>1. İptal Koşulları</h2>
+  <p>
+    İptal ve iade hakları, siparişin hangi aşamada olduğuna bağlı olarak değişir.
+    Aşağıdaki tablo olası senaryoları özetler:
+  </p>
+
+  <div style="overflow-x:auto;">
+    <table class="durum-tablosu">
+      <thead>
+        <tr>
+          <th>Durum</th>
+          <th>İptal Hakkı</th>
+          <th>İade Tutarı</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>İlan açıldı, henüz eşleşme yok</td>
+          <td><span class="durum-yesil">✓ Ücretsiz</span></td>
+          <td>Ücret alınmadı, iade gerekmez</td>
+        </tr>
+        <tr>
+          <td>Teklif verildi, onay bekleniyor</td>
+          <td><span class="durum-yesil">✓ Ücretsiz</span></td>
+          <td>Ücret alınmadı, iade gerekmez</td>
+        </tr>
+        <tr>
+          <td>Eşleşme onaylandı, ödeme yapıldı, taşıma başlamadı</td>
+          <td><span class="durum-yari">⚠ Kısmi</span></td>
+          <td>Komisyonun <strong style="color:#f0efe8;">%50'si</strong> iade edilir</td>
+        </tr>
+        <tr>
+          <td>Taşıma başladı (araç yüklendi / yola çıktı)</td>
+          <td><span class="durum-hayir">✗ Mümkün Değil</span></td>
+          <td>İade yapılmaz</td>
+        </tr>
+        <tr>
+          <td>Taşıma tamamlandı</td>
+          <td><span class="durum-hayir">✗ Mümkün Değil</span></td>
+          <td>İade yapılmaz</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box turuncu">
+    <span class="info-box-icon">⚠️</span>
+    <p>
+      <strong>Taşımanın başladığı an:</strong> Tır sahibinin platform üzerinden
+      "Yola Çıktım" bildirimini gönderdiği veya GPS verilerinin hareket ettiğini
+      kaydettiği an, taşıma başlamış sayılır.
+    </p>
+  </div>
+
+  <!-- ─── 2. İADE KOŞULLARI ─── -->
+  <h2>2. İade Koşulları</h2>
+  <p>
+    Aşağıdaki özel durumlarda iade talepleri değerlendirilir:
+  </p>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">2.1. Tırcı Gelmezse</h2>
+  <p>
+    Eşleşme onaylanmış ve ödeme tamamlanmış olmasına rağmen tır sahibi belirlenen
+    saatte ve yerde görünmezse, müşterinin ödediği platform komisyonu
+    <strong style="color:#f0efe8;">5 iş günü içinde</strong> ödeme yapılan karta tam olarak iade edilir.
+    Tır sahibinin komisyonu iade edilmez ve hesabı uyarı puanı alır.
+  </p>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">2.2. Yük Hasarı</h2>
+  <p>
+    Taşıma sırasında oluşan yük hasarları hafriyatcim.com platformunun sorumluluğunda
+    değildir. Sigorta yükümlülüğü tamamen taraflar arasındadır.
+    Sürücülerin SRC belgesi ve araç sigortası kayıt sırasında doğrulanır; ancak
+    platform taşıyıcı sıfatı taşımaz.
+  </p>
+
+  <div class="info-box kirmizi">
+    <span class="info-box-icon">🚨</span>
+    <p>
+      <strong>Önemli:</strong> Yüksek değerli yükler için taşıma öncesinde yük sigortası
+      yaptırmanızı tavsiye ederiz. Platform, malların fiziksel durumundan hukuki olarak
+      sorumlu tutulamaz.
+    </p>
+  </div>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">2.3. Teknik Hata Nedeniyle Çift Ödeme</h2>
+  <p>
+    Platform veya iyzico altyapısında oluşan teknik bir hata sonucu aynı işlem için
+    birden fazla ödeme alınmışsa, fazladan alınan tutar <strong style="color:#f0efe8;">3 iş günü içinde</strong>
+    tam olarak iade edilir. Bu tür durumları info@hafriyatcim.com adresine bildirmeniz yeterlidir.
+  </p>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">2.4. Sahte İlan Tespiti</h2>
+  <p>
+    Platformun güvenlik birimleri veya kullanıcı şikayetleri üzerine bir ilanın sahte
+    olduğu tespit edilirse:
+  </p>
+  <ul>
+    <li>İlanı açan kişinin hesabı derhal kapatılır.</li>
+    <li>Sahte ilana teklif vererek komisyon ödeyen tırcının komisyonu tam olarak iade edilir.</li>
+    <li>Durum gerekli hâllerde savcılığa bildirilir.</li>
+  </ul>
+
+  <!-- ─── 3. İADE SÜRECİ ─── -->
+  <h2>3. İade Süreci</h2>
+  <p>
+    İade talebinizi aşağıdaki adımları izleyerek iletebilirsiniz:
+  </p>
+
+  <ol class="adim-listesi">
+    <li>
+      <span class="adim-no">1</span>
+      <span>
+        <strong style="color:#f0efe8;">Talep oluşturun:</strong>
+        <a href="iletisim.html" style="color:#f97316;">İletişim formu</a> üzerinden veya
+        <a href="mailto:info@hafriyatcim.com" style="color:#f97316;">info@hafriyatcim.com</a>
+        adresine e-posta göndererek talebinizi iletiniz.
+        E-postanızda sipariş numaranızı ve iade nedeninizi belirtiniz.
+      </span>
+    </li>
+    <li>
+      <span class="adim-no">2</span>
+      <span>
+        <strong style="color:#f0efe8;">Değerlendirme:</strong>
+        Destek ekibimiz talebinizi en geç 2 iş günü içinde inceleyerek size
+        sonucu e-posta ile bildirir.
+      </span>
+    </li>
+    <li>
+      <span class="adim-no">3</span>
+      <span>
+        <strong style="color:#f0efe8;">İade işlemi:</strong>
+        Onaylanan iade, iyzico altyapısı üzerinden başlatılır.
+        Tutar ödemenin yapıldığı kredi/banka kartına <strong style="color:#f0efe8;">5–10 iş günü</strong>
+        içinde yansır (bankanın işlem süresine bağlı olarak değişebilir).
+      </span>
+    </li>
+  </ol>
+
+  <div class="info-box yesil">
+    <span class="info-box-icon">💳</span>
+    <p>
+      <strong>İade yöntemi:</strong> İadeler yalnızca ödemenin yapıldığı karta gerçekleştirilir.
+      Farklı kart veya IBAN'a iade yapılmaz. iyzico'nun kendi iade politikası da
+      geçerliliğini korur; olası gecikmelerde iyzico destek hattına başvurabilirsiniz.
+    </p>
+  </div>
+
+  <!-- ─── 4. ANLAŞMAZLIK ÇÖZÜMÜ ─── -->
+  <h2>4. Anlaşmazlık Çözümü</h2>
+  <p>
+    İptal ve iade konularında yaşanan anlaşmazlıklarda aşağıdaki süreç izlenir:
+  </p>
+  <ul>
+    <li>
+      <strong style="color:#f0efe8;">İlk adım — Platform müdahalesi:</strong>
+      Taraflar arasındaki uyuşmazlık önce hafriyatcim.com destek ekibine iletilir.
+      Destek ekibi 5 iş günü içinde arabuluculuk yapar ve çözüm önerisi sunar.
+    </li>
+    <li>
+      <strong style="color:#f0efe8;">İkinci adım — Tüketici Hakem Heyeti:</strong>
+      Platform müdahalesi çözüm sağlamazsa, 6502 Sayılı Tüketicinin Korunması
+      Hakkında Kanun kapsamında <strong style="color:#f0efe8;">Tüketici Hakem Heyeti</strong>'ne
+      veya <strong style="color:#f0efe8;">Tüketici Mahkemesi</strong>'ne başvurabilirsiniz.
+    </li>
+    <li>
+      <strong style="color:#f0efe8;">Yetkili mahkeme:</strong>
+      Bu politikadan doğan uyuşmazlıklarda İstanbul mahkemeleri ve icra daireleri
+      yetkili ve görevlidir.
+    </li>
+  </ul>
+
+  <!-- ─── 5. 6502 SAYILI TKHK ─── -->
+  <h2>5. Tüketici Hakları — 6502 Sayılı TKHK</h2>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">5.1. Dijital Hizmet İstisnası ve Cayma Hakkı</h2>
+  <p>
+    6502 Sayılı Tüketicinin Korunması Hakkında Kanun'un 49. ve devamı maddeleri
+    uyarınca mesafeli sözleşmelerde tüketiciye 14 günlük cayma hakkı tanınmaktadır.
+    Ancak aynı Kanun'un 15/ğ maddesi gereğince;
+  </p>
+  <ul>
+    <li>
+      Tüketicinin onayıyla <strong style="color:#f0efe8;">ifasına başlanan dijital içerik ve hizmetlerde</strong>
+      cayma hakkı kullanılamaz.
+    </li>
+    <li>
+      hafriyatcim.com'da eşleşme onaylandığı anda (tırcı ve müşteri karşılıklı teklifi kabul ettiğinde)
+      hizmet ifası başlamış sayılır. Bu nedenle eşleşme sonrasında yasal 14 günlük
+      cayma hakkı uygulanmaz.
+    </li>
+    <li>
+      Eşleşme <strong style="color:#f0efe8;">öncesinde</strong> herhangi bir ücret alınmadığından,
+      ilan açma veya teklif verme aşamasında cayma hakkı konusu doğmaz.
+    </li>
+  </ul>
+
+  <div class="info-box turuncu">
+    <span class="info-box-icon">⚖️</span>
+    <p>
+      Platform, isteğe bağlı olarak eşleşme sonrası kısmi iade imkanı sunmaktadır
+      (taşıma başlamadan önce komisyonun %50'si). Bu uygulama yasal yükümlülüğün
+      ötesinde, kullanıcı deneyimini iyileştirmek amacıyla sunulmaktadır.
+    </p>
+  </div>
+
+  <h2 style="color:#f0efe8;font-size:1rem;margin-top:1.5rem;">5.2. Tüketici Hakları</h2>
+  <p>
+    Tüketici sıfatıyla kullandığınız hallerde aşağıdaki haklarınız saklıdır:
+  </p>
+  <ul>
+    <li>Açık ve anlaşılır fiyat bilgisine erişme hakkı (platform komisyonu eşleşme öncesi gösterilir).</li>
+    <li>Hizmetin gereği gibi ifa edilmemesi hâlinde tazminat talep etme hakkı.</li>
+    <li>Gizli ücret uygulanmaması güvencesi.</li>
+    <li>Kişisel verilerin KVKK çerçevesinde korunması hakkı.</li>
+    <li>
+      Tüketici şikâyetleri için:
+      <a href="https://tuketicisikayetleri.gumruk.gov.tr" target="_blank" rel="noopener noreferrer" style="color:#f97316;">
+        Gümrük ve Ticaret Bakanlığı Tüketici Şikâyet Portalı
+      </a>
+    </li>
+  </ul>
+
+  <!-- ─── ÖZET KUTUSU ─── -->
+  <div style="background:rgba(14,14,24,0.7);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;margin-top:2.5rem;">
+    <h2 style="margin-top:0;">Hızlı Özet</h2>
+    <ul>
+      <li><strong style="color:#f0efe8;">İlan açma / teklif verme:</strong> Ücretsiz, herhangi bir iade süreci gerektirmez.</li>
+      <li><strong style="color:#f0efe8;">Eşleşme öncesi iptal:</strong> Tam iade (ücret alınmamıştır).</li>
+      <li><strong style="color:#f0efe8;">Eşleşme sonrası, taşıma başlamadan iptal:</strong> Komisyonun %50'si iade.</li>
+      <li><strong style="color:#f0efe8;">Taşıma başladıktan sonra:</strong> İade yapılmaz.</li>
+      <li><strong style="color:#f0efe8;">Tırcı gelmezse:</strong> Müşteri komisyonu 5 iş gününde tam iade.</li>
+      <li><strong style="color:#f0efe8;">İade süresi:</strong> Bankaya bağlı olarak 5–10 iş günü.</li>
+      <li><strong style="color:#f0efe8;">İletişim:</strong> <a href="mailto:info@hafriyatcim.com" style="color:#f97316;">info@hafriyatcim.com</a></li>
+    </ul>
+  </div>
+
+  <p style="font-size:0.8rem;color:#4a4860;margin-top:2.5rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem;">
+    Bu politika <strong style="color:#4a4860;">[ŞİRKET ADI]</strong> — <strong style="color:#4a4860;">[ADRES]</strong>
+    tarafından yayımlanmıştır. Politika üzerinde değişiklik yapma hakkı saklıdır;
+    önemli değişiklikler kayıtlı kullanıcılara e-posta ile bildirilir.
+    Son güncellenme: 22 Haziran 2026.
+  </p>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="text-align:center;padding:2rem 5%;border-top:1px solid rgba(255,255,255,0.07);color:#4a4860;font-size:0.85rem;margin-top:4rem;">
+  <a href="index.html" style="color:#8a8996;">Ana Sayfa</a> ·
+  <a href="kvkk.html" style="color:#8a8996;">KVKK</a> ·
+  <a href="gizlilik.html" style="color:#8a8996;">Gizlilik</a> ·
+  <a href="kullanici-sozlesmesi.html" style="color:#8a8996;">Sözleşme</a> ·
+  <a href="acik-riza.html" style="color:#8a8996;">Açık Rıza</a> ·
+  <a href="iptal-iade.html" style="color:#8a8996;">İptal &amp; İade</a> ·
+  <a href="cerez.html" style="color:#8a8996;">Çerez</a>
+</footer>
+
+<script>
+  // Navbar scroll efekti
+  window.addEventListener('scroll', function() {
+    var navbar = document.querySelector('.navbar');
+    if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════════════
+   hafriyatcim.com — Motion Animation CSS
+   Typewriter, shimmer, gradient, pulse efektleri
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Typewriter cursor ─────────────────────────────────── */
+.typewriter-cursor::after {
+  content: '|';
+  color: var(--primary);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 2px;
+  font-weight: 300;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Shimmer border (hover üzerinde parlayan sınır) ──────── */
+.shimmer-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg,
+    transparent 0%,
+    rgba(249,115,22,0) 30%,
+    rgba(249,115,22,0.8) 50%,
+    rgba(249,115,22,0) 70%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.shimmer-border:hover::before {
+  opacity: 1;
+  animation: shimmer-sweep 1.5s ease infinite;
+}
+
+@keyframes shimmer-sweep {
+  0%   { background-position: -200% -200%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* ─── Gradient text animasyonu ──────────────────────────── */
+.gradient-text-anim {
+  background: linear-gradient(90deg, #f97316, #f59e0b, #ea580c, #fb923c, #f97316);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-flow 4s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Reveal sınıfı (JS ile tetikleniyor) ────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* ─── Stagger list items ────────────────────────────────── */
+.stagger-list > * {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+/* ─── Floating badge ────────────────────────────────────── */
+.float-anim {
+  animation: float-y 3s ease-in-out infinite;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ─── Glow pulse (aktif durumlar için) ──────────────────── */
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(249,115,22,0.2); }
+  50%       { box-shadow: 0 0 40px rgba(249,115,22,0.5), 0 0 80px rgba(249,115,22,0.2); }
+}
+
+/* ─── Spin loader (küçük yükleme) ────────────────────────── */
+.spin-anim {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Scroll progress bar ───────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  z-index: 9999;
+  background: linear-gradient(90deg, #f97316, #ea580c, #f59e0b);
+  transform-origin: left;
+  box-shadow: 0 0 10px rgba(249,115,22,0.6);
+}
+
+/* ─── Page transition overlay ───────────────────────────── */
+#page-transition-overlay {
+  position: fixed; inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+}
+
+/* ─── Toast container ───────────────────────────────────── */
+#toast-container {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 10000;
+  display: flex; flex-direction: column; gap: 10px;
+  pointer-events: none;
+}
+
+/* ─── Navbar hide/show (Motion ile override ediliyor) ──── */
+.navbar {
+  will-change: transform;
+}
+
+/* ─── İlan kart hover animasyonu ───────────────────────── */
+.ilan-kart,
+.feature-card,
+.step-card {
+  will-change: transform;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* ─── Dashboard stat card counter ──────────────────────── */
+[data-countup] {
+  font-variant-numeric: tabular-nums;
+  transition: none;
+}
+
+/* ─── Drag scroll alanları ─────────────────────────────── */
+[data-drag-scroll] {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+[data-drag-scroll]::-webkit-scrollbar { display: none; }
+
+/* ─── Micro: button press ───────────────────────────────── */
+.btn-primary:active,
+.btn-secondary:active,
+.btn-outline:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+/* ─── Focus ring animasyonu ─────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+  animation: focus-ring 0.3s ease;
+}
+
+@keyframes focus-ring {
+  0%   { outline-offset: 8px; opacity: 0.5; }
+  100% { outline-offset: 3px; opacity: 1; }
+}
+
+/* ─── Reduced motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .stagger-list > * { opacity: 1 !important; transform: none !important; }
+}

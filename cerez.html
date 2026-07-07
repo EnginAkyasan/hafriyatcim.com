@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>Çerez ve İzleme Politikası — hafriyatcim.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .legal-page { max-width: 820px; margin: 0 auto; padding: 3rem 5%; }
+    .legal-page h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .legal-page h2 { font-size: 1.2rem; color: var(--orange, #f97316); margin: 2rem 0 0.75rem; }
+    .legal-page p, .legal-page li { color: #8a8996; line-height: 1.8; margin-bottom: 0.75rem; }
+    .legal-page ul { padding-left: 1.5rem; }
+    .legal-page ol { padding-left: 1.5rem; }
+    .legal-page ol li { color: #8a8996; line-height: 1.8; margin-bottom: 0.5rem; }
+    .legal-page .last-update { font-size: 0.82rem; color: #4a4860; margin-bottom: 3rem; }
+    .legal-page table { width:100%; border-collapse:collapse; margin: 1rem 0; }
+    .legal-page table th, .legal-page table td { border:1px solid rgba(255,255,255,0.08); padding:10px 14px; font-size:0.88rem; text-align:left; }
+    .legal-page table th { background:rgba(249,115,22,0.08); color:#f0efe8; }
+    .legal-page .browser-block {
+      background: rgba(15,15,26,0.6);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .legal-page .browser-block strong {
+      color: #f0efe8;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .legal-page .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+    .legal-page .badge-required { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .legal-page .badge-optional { background: rgba(249,115,22,0.12); color: #f97316; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">
+    <a href="index.html" style="color:inherit;text-decoration:none;">
+      <img src="logo.png" alt="hafriyatcim.com" class="logo-img">
+      hafriyatcim<span class="highlight">.com</span>
+    </a>
+  </div>
+</nav>
+
+<main class="legal-page">
+  <h1>Çerez ve İzleme Politikası</h1>
+  <p class="last-update">Son güncelleme: Haziran 2025</p>
+
+  <p>
+    Bu politika, hafriyatcim.com'un hangi çerezleri ve yerel depolama (localStorage)
+    mekanizmalarını kullandığını, bu teknolojilerin neden kullanıldığını ve tercihlerinizi
+    nasıl yönetebileceğinizi açıklamaktadır.
+  </p>
+
+  <h2>1. Çerez Nedir?</h2>
+  <p>
+    Çerez (cookie), bir web sitesini ziyaret ettiğinizde tarayıcınız tarafından
+    cihazınıza kaydedilen küçük metin dosyalarıdır. Çerezler; oturumunuzu açık
+    tutmak, tercihlerinizi hatırlamak ve site trafiğini analiz etmek gibi amaçlarla
+    kullanılır.
+  </p>
+  <p>
+    hafriyatcim.com, klasik tarayıcı çerezlerinin yanı sıra HTML5 <strong>localStorage</strong>
+    mekanizmasını da kullanmaktadır. localStorage, çerezlere benzer şekilde tarayıcıda
+    veri depolanmasını sağlar; ancak sunucuya otomatik olarak gönderilmez ve
+    tarayıcıyı kapatsanız bile silinmez (oturum tabanlı olmayan veri için).
+  </p>
+
+  <h2>2. Kullandığımız Çerez ve Depolama Alanları</h2>
+
+  <h2>2.1 Zorunlu Depolama Öğeleri</h2>
+  <p>
+    Aşağıdaki öğeler platformun temel işlevselliği için zorunludur. Bunlar devre dışı
+    bırakıldığında oturum açma ve platform kullanımı mümkün olmaz.
+    <span class="badge badge-required">Zorunlu</span>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Ad / Anahtar</th>
+        <th>Tür</th>
+        <th>Amaç</th>
+        <th>Süre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>accessToken</code></td>
+        <td>localStorage</td>
+        <td>
+          Kimlik doğrulama için kullanılan JWT tokenı. Korumalı API uç noktalarına
+          erişim sağlar; her istekle birlikte sunucuya gönderilir.
+        </td>
+        <td>15 dakika (tokenın geçerlilik süresi)</td>
+      </tr>
+      <tr>
+        <td><code>token</code></td>
+        <td>localStorage</td>
+        <td>
+          Belirli sayfalarda (profil.html, ilan-detay.html) kullanılan alternatif
+          erişim tokeni anahtarı. accessToken ile eşdeğer işlev görür.
+        </td>
+        <td>15 dakika</td>
+      </tr>
+      <tr>
+        <td><code>refreshToken</code></td>
+        <td>localStorage</td>
+        <td>
+          Süresi dolan erişim tokenini yenilemek için kullanılır. Her 15 dakikada
+          bir yeni accessToken talep eder; böylece kullanıcının tekrar giriş yapması
+          gerekmez.
+        </td>
+        <td>7 gün</td>
+      </tr>
+      <tr>
+        <td><code>user</code></td>
+        <td>localStorage</td>
+        <td>
+          Kullanıcının adı, rolü (MUSTERI / SURUCU / ADMIN) ve ID'si gibi temel
+          profil bilgilerini önbellekler. Her sayfa yüklemesinde API çağrısı yapmadan
+          hızlı erişim sağlar.
+        </td>
+        <td>Oturum (çıkış yapana kadar)</td>
+      </tr>
+      <tr>
+        <td><code>cookieConsent</code></td>
+        <td>localStorage</td>
+        <td>
+          Çerez tercih bannerının onaylandığını kaydeder. Onayladıktan sonra her
+          ziyarette banner gösterilmesini önler.
+        </td>
+        <td>1 yıl</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2.2 İsteğe Bağlı (Analitik) Çerezler</h2>
+  <p>
+    Aşağıdaki çerezler platform işlevselliği için zorunlu değildir; site trafiğini
+    ve kullanıcı davranışını anlamamıza yardımcı olur.
+    <span class="badge badge-optional">İsteğe Bağlı</span>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Ad / Anahtar</th>
+        <th>Tür</th>
+        <th>Amaç</th>
+        <th>Süre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>_ga</code> / <code>_ga_XXXXXXXX</code></td>
+        <td>3. taraf çerez (Google Analytics)</td>
+        <td>
+          Ziyaretçi sayısı, oturum süresi, trafik kaynakları ve sayfa görüntüleme
+          verilerini toplar. Bu veriler anonim ve istatistiksel niteliktedir; bireysel
+          kullanıcıları tanımlamak için kullanılmaz.
+        </td>
+        <td>2 yıl</td>
+      </tr>
+      <tr>
+        <td><code>_gid</code></td>
+        <td>3. taraf çerez (Google Analytics)</td>
+        <td>Ziyaretçileri 24 saat boyunca ayırt etmek için kullanılır.</td>
+        <td>24 saat</td>
+      </tr>
+      <tr>
+        <td><code>_gat</code></td>
+        <td>3. taraf çerez (Google Analytics)</td>
+        <td>İstek hızını sınırlamak için kullanılır.</td>
+        <td>1 dakika</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Google Analytics çerezleri yalnızca bu amaçla onay verdiğinizde etkinleştirilir.
+    Onay vermemeniz hâlinde Google Analytics devre dışıdır ve bu çerezler cihazınıza
+    yerleştirilmez. Onayınızı istediğiniz zaman geri alabilirsiniz (bkz. Madde 5 —
+    Onay Yönetimi).
+  </p>
+
+  <h2>3. Tarayıcıdan Çerezleri Silme Talimatları</h2>
+  <p>
+    Tarayıcınızda saklanan çerezleri aşağıdaki adımları izleyerek silebilirsiniz.
+    Not: Zorunlu çerezleri silerseniz platformdan çıkış yapılır ve tekrar giriş
+    yapmanız gerekir.
+  </p>
+
+  <div class="browser-block">
+    <strong>Google Chrome</strong>
+    <ol>
+      <li>Sağ üst köşedeki üç nokta menüsüne tıklayın, ardından <em>Ayarlar</em>'ı seçin.</li>
+      <li><em>Gizlilik ve güvenlik</em> bölümüne gidin, <em>Tarama verilerini temizle</em>'yi seçin.</li>
+      <li>"Zaman aralığı" olarak <em>Tüm zamanlar</em>'ı seçin.</li>
+      <li><em>Çerezler ve diğer site verileri</em> kutusunu işaretleyin, ardından <em>Verileri temizle</em>'ye tıklayın.</li>
+    </ol>
+  </div>
+
+  <div class="browser-block">
+    <strong>Mozilla Firefox</strong>
+    <ol>
+      <li>Sağ üst köşedeki üç çizgi menüsüne tıklayın, ardından <em>Geçmiş</em> → <em>Geçmişi Temizle</em>'yi seçin.</li>
+      <li>"Temizlenecek zaman aralığı" olarak <em>Her Şey</em>'i seçin.</li>
+      <li><em>Çerezler</em> kutusunu işaretleyin ve <em>Şimdi Temizle</em>'ye tıklayın.</li>
+    </ol>
+  </div>
+
+  <div class="browser-block">
+    <strong>Apple Safari</strong>
+    <ol>
+      <li>Üst menüden <em>Safari</em> → <em>Ayarlar</em>'ı (veya <em>Tercihler</em>'i) açın.</li>
+      <li><em>Gizlilik</em> sekmesine gidin, <em>Web sitesi verilerini yönet</em>'e tıklayın.</li>
+      <li>Listeden hafriyatcim.com'u bulup <em>Kaldır</em>'a tıklayın; tüm çerezleri kaldırmak için <em>Tümünü Kaldır</em>'ı seçin.</li>
+    </ol>
+  </div>
+
+  <div class="browser-block">
+    <strong>Microsoft Edge</strong>
+    <ol>
+      <li>Sağ üst köşedeki üç nokta menüsüne tıklayın, ardından <em>Ayarlar</em>'ı seçin.</li>
+      <li><em>Gizlilik, arama ve hizmetler</em> bölümüne gidin, <em>Tarama verilerini temizle</em> başlığı altında <em>Neyin temizleneceğini seçin</em>'e tıklayın.</li>
+      <li><em>Çerezler ve diğer site verileri</em>'ni işaretleyip <em>Şimdi temizle</em>'ye tıklayın.</li>
+    </ol>
+  </div>
+
+  <h2>4. localStorage Verilerini Temizleme</h2>
+  <p>
+    hafriyatcim.com'a ait localStorage verilerini silmek için aşağıdaki yöntemlerden
+    birini kullanabilirsiniz:
+  </p>
+  <ul>
+    <li>
+      <strong>Platform üzerinden çıkış yapma:</strong> Profil menüsündeki "Çıkış Yap"
+      butonu, tüm kimlik doğrulama tokenlarını (accessToken, token, refreshToken, user)
+      localStorage'dan otomatik olarak siler.
+    </li>
+    <li>
+      <strong>Tarayıcı geliştirici araçları:</strong> Tarayıcınızda F12 tuşuna basın,
+      <em>Uygulama</em> (Chrome/Edge) veya <em>Depolama</em> (Firefox) sekmesine gidin,
+      sol panelde <em>Local Storage</em> → <em>hafriyatcim.com</em>'u seçin ve ilgili
+      anahtarları silin.
+    </li>
+    <li>
+      <strong>Tüm site verilerini temizleme:</strong> Yukarıdaki tarayıcı talimatlarında
+      açıklanan "Tarama verilerini temizle" adımlarında <em>Çerezler ve diğer site verileri</em>
+      seçeneği, localStorage dahil tüm site depolama verilerini siler.
+    </li>
+  </ul>
+
+  <h2>5. Onay Yönetimi</h2>
+  <p>
+    Platformu ilk ziyaretinizde ekranın alt kısmında bir onay bandı (banner)
+    görüntülenmektedir. Bu banner aracılığıyla:
+  </p>
+  <ul>
+    <li><strong>Tüm çerezleri kabul edebilirsiniz</strong> (zorunlu + analitik Google Analytics çerezleri aktif olur).</li>
+    <li><strong>Yalnızca zorunlu çerezleri kabul edebilirsiniz</strong> (Google Analytics devre dışı kalır; temel platform işlevselliği etkilenmez).</li>
+  </ul>
+  <p>
+    Daha önce verdiğiniz onayı değiştirmek istiyorsanız tarayıcınızdan
+    <code>cookieConsent</code> anahtarını localStorage'dan silerek onay bannerını
+    yeniden görüntüleyebilirsiniz (bkz. Madde 4 — localStorage Temizleme).
+    Onayınızı geri çekmeniz, geri çekmeden önce gerçekleştirilen analitik veri
+    toplama işlemlerini etkilemez.
+  </p>
+  <p>
+    Google Analytics verilerinin toplanmasını platformdan bağımsız olarak
+    engellemek için Google'ın resmi
+    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:#f97316;">Google Analytics Opt-out Browser Add-on</a>'ını
+    yükleyebilirsiniz.
+  </p>
+
+  <h2>6. Üçüncü Taraf Çerezleri</h2>
+  <p>
+    hafriyatcim.com, üçüncü taraf hizmet sağlayıcıların (Google Analytics, iyzico)
+    kendi çerezleri üzerinde doğrudan kontrol sahibi değildir. Bu sağlayıcıların
+    çerez politikaları hakkında bilgi için:
+  </p>
+  <ul>
+    <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:#f97316;">Google Gizlilik Politikası</a></li>
+    <li><a href="https://www.iyzico.com/gizlilik-politikasi" target="_blank" rel="noopener" style="color:#f97316;">iyzico Gizlilik Politikası</a></li>
+  </ul>
+
+  <h2>7. Bu Politikadaki Değişiklikler</h2>
+  <p>
+    Bu Çerez Politikası, platformdaki teknolojik değişiklikler veya yasal
+    düzenlemeler doğrultusunda güncellenebilir. Önemli değişiklikler kayıtlı
+    e-posta adresinize bildirilecek ve bu sayfada yayımlanacaktır. Güncel
+    politikayı her zaman bu sayfada bulabilirsiniz.
+  </p>
+
+  <h2>8. İletişim</h2>
+  <p>
+    Çerez uygulamalarımız hakkında sorularınız için:
+    <a href="mailto:info@hafriyatcim.com" style="color:#f97316;">info@hafriyatcim.com</a>
+    adresine yazabilirsiniz.
+  </p>
+</main>
+
+<footer style="text-align:center;padding:2rem 5%;border-top:1px solid rgba(255,255,255,0.07);color:#4a4860;font-size:0.85rem;margin-top:4rem;">
+  <a href="index.html" style="color:#8a8996;">Ana Sayfa</a> ·
+  <a href="kvkk.html" style="color:#8a8996;">KVKK</a> ·
+  <a href="gizlilik.html" style="color:#8a8996;">Gizlilik</a> ·
+  <a href="kullanici-sozlesmesi.html" style="color:#8a8996;">Kullanıcı Sözleşmesi</a> ·
+  <a href="cerez.html" style="color:#8a8996;">Çerez Politikası</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkımızda | hafriyatcim.com</title>
+  <meta name="description" content="hafriyatcim.com hakkında. Türkiye'de hafriyat ve nakliye sektörünü dijitalleştiriyoruz. Misyonumuz, platformumuz ve ekibimiz hakkında bilgi edinin.">
+  <link rel="canonical" href="https://hafriyatcim.com/hakkimizda.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hafriyatcim.com/hakkimizda.html">
+  <meta property="og:title" content="Hakkımızda | hafriyatcim.com">
+  <meta property="og:description" content="Türkiye'de hafriyat ve nakliye sektörünü dijitalleştiriyoruz.">
+  <meta property="og:image" content="https://hafriyatcim.com/logo.png">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    /* ── Hamburger Menu ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      min-height: auto;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #f0efe8;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    @media (max-width: 992px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none !important;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: rgba(8,8,16,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1.5rem 5%;
+        gap: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        z-index: 99;
+      }
+      .nav-links.open { display: flex !important; }
+      .nav-links li a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      padding: 5rem 5% 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at center top, rgba(249,115,22,0.07) 0%, transparent 65%);
+    }
+    .page-hero .badge { margin-bottom: 1.25rem; }
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .page-hero p {
+      color: #8a8996;
+      font-size: 1.1rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ── Mission ── */
+    .mission-section {
+      padding: 4rem 5%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .mission-section h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin-bottom: 1rem;
+      color: #f1f0ee;
+    }
+    .mission-section p {
+      color: #8a8996;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Stats ── */
+    .stats-section {
+      padding: 3rem 5%;
+      background: rgba(249,115,22,0.04);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .stat-block .number {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: #f97316;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .stat-block .label {
+      font-size: 0.9rem;
+      color: #8a8996;
+    }
+
+    /* ── Team ── */
+    .team-section {
+      padding: 4rem 5%;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .team-section h2 { margin-bottom: 0.75rem; }
+    .team-section p { color: #8a8996; margin-bottom: 2.5rem; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .team-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2rem 1.25rem;
+    }
+    .team-card .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(249,115,22,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1rem;
+    }
+    .team-card h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .team-card p { font-size: 0.85rem; color: #8a8996; margin: 0; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="hafriyatcim.com" class="logo-img"> hafriyatcim<span class="highlight">.com</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#nasil-calisir">Nasıl Çalışır?</a></li>
+      <li><a href="index.html#ozellikler">Özellikler</a></li>
+      <li><a href="index.html#avantajlar">Avantajlar</a></li>
+      <li><a href="ilanlar.html">İlanlar</a></li>
+      <li><a href="takip.html">Canlı Takip</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-actions">
+      <a href="giris.html" class="btn-login">Giriş Yap</a>
+      <a href="giris.html#kayit" class="btn-primary">Hemen Başla</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="badge">hafriyatcim.com hakkında</div>
+    <h1>Hafriyat Sektörünü<br><span class="highlight">Dijitalleştiriyoruz</span></h1>
+    <p>Türkiye'de inşaat ve nakliye dünyasını bir araya getiriyor, aracıları ortadan kaldırıyoruz. Daha hızlı, daha ucuz, daha güvenilir.</p>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission-section">
+    <h2>Misyonumuz</h2>
+    <p>Türkiye'de hafriyat ve nakliye işleri hâlâ telefon ve tanıdık üzerinden yürüyor. Biz bunu değiştiriyoruz.</p>
+    <p>İnşaat firmaları saatler harcayarak araç arıyor, tır sahipleri ise boş dönüp para kaybediyor. Bu iki tarafı akıllı bir platformda buluşturmak için hafriyatcim.com'u kurduk. Aracıya gerek yok, komisyon yok — sadece işini güvenle ve hızla halletmek isteyenler için bir çözüm.</p>
+    <p>Her eşleşmede iki taraftan da sabit 252 ₺ platform ücreti alıyoruz. Telefon numaraları ödeme sonrasında paylaşılıyor. Şeffaf, adil, dijital.</p>
+  </section>
+
+  <!-- How it works -->
+  <section id="nasil-calisir" class="how-it-works" style="padding-top:0;">
+    <h2>Nasıl Çalışır?</h2>
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-icon">📋</div>
+        <h3>1. Talep Oluştur</h3>
+        <p>Nereden nereye, ne kadar hafriyat taşınacağını ve tarih bilgisini sisteme girin.</p>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-card">
+        <div class="step-icon ai-icon">🤖</div>
+        <h3>2. Yapay Zeka Eşleşmesi</h3>
+        <p>Algoritmamız anlık konuma ve araç kapasitesine göre en uygun nakliyeciyi saniyeler içinde bulur.</p>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-card">
+        <div class="step-icon">🚛</div>
+        <h3>3. Takip Et &amp; Öde</h3>
+        <p>Nakliye başlasın, canlı GPS takibi ile her adımı güvenle izleyin. Teslimat sonrası güvenli ödeme.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-block">
+        <span class="number">0 → 100</span>
+        <span class="label">Kullanıcı hedefi (ilk ay)</span>
+      </div>
+      <div class="stat-block">
+        <span class="number">252 ₺</span>
+        <span class="label">Platform ücreti (sabit)</span>
+      </div>
+      <div class="stat-block">
+        <span class="number">2026</span>
+        <span class="label">Kuruluş yılı</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section">
+    <h2>Takımımız</h2>
+    <p>Küçük ama kararlı bir ekip. Hafriyat sektörünü içeriden bilen ve teknolojiyi seven insanlar bir arada.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">👷</div>
+        <h4>Kurucu Ortak</h4>
+        <p>Strateji &amp; Ürün</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar">💻</div>
+        <h4>Yazılım Geliştirici</h4>
+        <p>Frontend &amp; Backend</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar">🚛</div>
+        <h4>Sektör Danışmanı</h4>
+        <p>Hafriyat &amp; Lojistik</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section padding-section" style="text-align:center; background: radial-gradient(ellipse at center, rgba(249,115,22,0.06) 0%, transparent 70%);">
+    <div class="container" style="max-width:640px; margin:0 auto;">
+      <h2 style="font-size:2rem; margin-bottom:1rem;">Sen de <span class="highlight">hafriyatcim.com</span>'a Katıl</h2>
+      <p style="color:var(--text-muted); font-size:1rem; margin-bottom:2rem; line-height:1.7;">İlan açmak ve teklif vermek tamamen ücretsiz. Sadece eşleşince platform ücreti alıyoruz.</p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="giris.html#kayit" class="btn-primary btn-large" style="text-decoration:none;">Hemen Başla</a>
+        <a href="iletisim.html" class="btn-secondary btn-large" style="text-decoration:none;">Bize Ulaşın</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 hafriyatcim.com — Türkiye'nin Akıllı Hafriyat Platformu. Tüm hakları saklıdır.</p>
+    <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-muted);">
+      <a href="giris.html" style="color:var(--text-muted);">Giriş Yap</a> ·
+      <a href="ilanlar.html" style="color:var(--text-muted);">İlanlar</a> ·
+      <a href="takip.html" style="color:var(--text-muted);">Canlı Takip</a> ·
+      <a href="dashboard.html" style="color:var(--text-muted);">Panel</a> ·
+      <a href="hakkimizda.html" style="color:var(--text-muted);">Hakkımızda</a> ·
+      <a href="iletisim.html" style="color:var(--text-muted);">İletişim</a>
+    </p>
+    <p style="margin-top:0.75rem;font-size:0.8rem;">
+      <a href="kvkk.html" style="color:var(--text-muted);">KVKK</a> ·
+      <a href="gizlilik.html" style="color:var(--text-muted);">Gizlilik Politikası</a> ·
+      <a href="kullanici-sozlesmesi.html" style="color:var(--text-muted);">Kullanıcı Sözleşmesi</a> ·
+      <a href="cerez.html" style="color:var(--text-muted);">Çerez Politikası</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar')) {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

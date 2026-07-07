@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim | hafriyatcim.com</title>
+  <meta name="description" content="hafriyatcim.com ile iletişime geçin. Sorularınız, teknik destek ve şikayetleriniz için bize ulaşın.">
+  <link rel="canonical" href="https://hafriyatcim.com/iletisim.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hafriyatcim.com/iletisim.html">
+  <meta property="og:title" content="İletişim | hafriyatcim.com">
+  <meta property="og:description" content="hafriyatcim.com ile iletişime geçin.">
+  <meta property="og:image" content="https://hafriyatcim.com/logo.png">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    /* ── Hamburger Menu ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      min-height: auto;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #f0efe8;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    @media (max-width: 992px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none !important;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: rgba(8,8,16,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1.5rem 5%;
+        gap: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        z-index: 99;
+      }
+      .nav-links.open { display: flex !important; }
+      .nav-links li a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      padding: 5rem 5% 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at center top, rgba(249,115,22,0.07) 0%, transparent 65%);
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero p { color: #8a8996; font-size: 1.05rem; }
+
+    /* ── Contact Cards ── */
+    .contact-section {
+      padding: 3rem 5%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: rgba(249,115,22,0.35); }
+    .contact-card .icon { font-size: 1.75rem; }
+    .contact-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: #8a8996; }
+    .contact-card p { font-size: 1rem; color: #f1f0ee; margin: 0; }
+    .contact-card a { color: #f97316; text-decoration: none; font-weight: 600; }
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* ── Form ── */
+    .form-section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      margin-bottom: 1.75rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #c8c7d0;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: #f1f0ee;
+      font-family: Inter, sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+    }
+    .form-group textarea { min-height: 130px; resize: vertical; }
+    .form-group select option { background: #12121a; color: #f1f0ee; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    .btn-full { width: 100%; text-align: center; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #1a1a28;
+      border: 1px solid rgba(249,115,22,0.4);
+      color: #f1f0ee;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+      max-width: 90%;
+      text-align: center;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── FAQ Accordion ── */
+    .faq-section {
+      padding: 3rem 5%;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+    }
+    .faq-section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      margin-bottom: 1.5rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #f1f0ee;
+      font-family: Inter, sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.1rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: #f97316; }
+    .faq-question .arrow {
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      color: #8a8996;
+    }
+    .faq-item.open .faq-question .arrow { transform: rotate(180deg); color: #f97316; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer p {
+      padding-bottom: 1.1rem;
+      color: #8a8996;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="hafriyatcim.com" class="logo-img"> hafriyatcim<span class="highlight">.com</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#nasil-calisir">Nasıl Çalışır?</a></li>
+      <li><a href="index.html#ozellikler">Özellikler</a></li>
+      <li><a href="index.html#avantajlar">Avantajlar</a></li>
+      <li><a href="ilanlar.html">İlanlar</a></li>
+      <li><a href="takip.html">Canlı Takip</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-actions">
+      <a href="giris.html" class="btn-login">Giriş Yap</a>
+      <a href="giris.html#kayit" class="btn-primary">Hemen Başla</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <h1>Bize <span class="highlight">Ulaşın</span></h1>
+    <p>Sorularınız için buradayız. Genellikle 24 saat içinde yanıt veriyoruz.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <!-- Contact Cards -->
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">📧</div>
+        <h3>E-posta</h3>
+        <p><a href="mailto:info@hafriyatcim.com">info@hafriyatcim.com</a></p>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📱</div>
+        <h3>WhatsApp</h3>
+        <p>Destek hattı <span style="color:#8a8996;">(yakında aktif)</span></p>
+      </div>
+      <div class="contact-card">
+        <div class="icon">🕐</div>
+        <h3>Çalışma Saatleri</h3>
+        <p>Hafta içi 08:00 – 18:00</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-section">
+      <h2>Mesaj Gönderin</h2>
+      <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullname">Ad Soyad</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Ali Yılmaz" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta</label>
+            <input type="email" id="email" name="email" placeholder="ali@ornek.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Konu</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected>Konu seçin...</option>
+            <option value="genel">Genel soru</option>
+            <option value="teknik">Teknik destek</option>
+            <option value="odeme">Ödeme sorunu</option>
+            <option value="sikayet">Şikayet</option>
+            <option value="diger">Diğer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Mesaj</label>
+          <textarea id="message" name="message" placeholder="Mesajınızı buraya yazın..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-full">Gönder</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>Sık Sorulan Sorular</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Platform ücreti ne zaman alınır?
+        <span class="arrow">&#8964;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Müşteri ve sürücü eşleşince, her iki taraf da 252 ₺ platform ücretini öder. Eşleşme gerçekleşmeden herhangi bir ücret talep edilmez.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Teklif vermek ücretli mi?
+        <span class="arrow">&#8964;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Hayır, tamamen ücretsiz. Sürücüler istedikleri kadar ilana teklif verebilir.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        İlan açmak ücretli mi?
+        <span class="arrow">&#8964;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Hayır, tamamen ücretsiz. Müşteriler istedikleri kadar ilan açabilir.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Para iadesi mümkün mü?
+        <span class="arrow">&#8964;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Eşleşme gerçekleşmezse iade yapılır. Eşleşme onaylandıktan sonra iade politikası için destek ekibimizle iletişime geçin.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Telefon numarası ne zaman paylaşılır?
+        <span class="arrow">&#8964;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Her iki taraf da 252 ₺ platform ücretini ödedikten sonra telefon numaraları SMS ile paylaşılır.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 hafriyatcim.com — Türkiye'nin Akıllı Hafriyat Platformu. Tüm hakları saklıdır.</p>
+    <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-muted);">
+      <a href="giris.html" style="color:var(--text-muted);">Giriş Yap</a> ·
+      <a href="ilanlar.html" style="color:var(--text-muted);">İlanlar</a> ·
+      <a href="takip.html" style="color:var(--text-muted);">Canlı Takip</a> ·
+      <a href="dashboard.html" style="color:var(--text-muted);">Panel</a> ·
+      <a href="hakkimizda.html" style="color:var(--text-muted);">Hakkımızda</a> ·
+      <a href="iletisim.html" style="color:var(--text-muted);">İletişim</a>
+    </p>
+    <p style="margin-top:0.75rem;font-size:0.8rem;">
+      <a href="kvkk.html" style="color:var(--text-muted);">KVKK</a> ·
+      <a href="gizlilik.html" style="color:var(--text-muted);">Gizlilik Politikası</a> ·
+      <a href="kullanici-sozlesmesi.html" style="color:var(--text-muted);">Kullanıcı Sözleşmesi</a> ·
+      <a href="cerez.html" style="color:var(--text-muted);">Çerez Politikası</a>
+    </p>
+  </footer>
+
+  <div id="toast"></div>
+
+  <script>
+    function toggleMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar')) {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      });
+    });
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 4000);
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const fullname = form.fullname.value.trim();
+      const email = form.email.value.trim();
+      const subject = form.subject.value;
+      const message = form.message.value.trim();
+
+      if (!fullname || !email || !subject || !message) {
+        showToast('Lütfen tüm alanları doldurun.');
+        return;
+      }
+
+      // Simulate send
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Gönderiliyor...';
+
+      setTimeout(() => {
+        form.reset();
+        btn.disabled = false;
+        btn.textContent = 'Gönder';
+        showToast('Mesajınız alındı, 24 saat içinde dönüş yapacağız.');
+      }, 800);
+    }
+
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>

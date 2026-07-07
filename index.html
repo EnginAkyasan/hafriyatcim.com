@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hafriyatcim.com | İstanbul Hafriyat & Lojistik Pazaryeri</title>
+  <meta name="description" content="İnşaat projeleri ile hafriyat kamyonlarını anlık ve otomatik olarak eşleştiren kurumsal lojistik pazaryeri. İstanbul Avrupa Yakası.">
+  <meta name="keywords" content="hafriyat taşıma, kamyon kiralama, inşaat lojistik, İstanbul hafriyat, toprak taşıma, kamyon eşleştirme">
+  <link rel="canonical" href="https://hafriyatcim.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hafriyatcim.com/">
+  <meta property="og:title" content="hafriyatcim.com | İstanbul Hafriyat & Lojistik Pazaryeri">
+  <meta property="og:description" content="İnşaat projeleri ile hafriyat kamyonlarını anlık eşleştiren kurumsal platform.">
+  <meta property="og:image" content="https://hafriyatcim.com/logo.png">
+  <link rel="icon" href="logo.png" type="image/png">
+  <script src="theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       HAFRIYATCIM.COM — ENTERPRISE LANDING v3.0
+       Corporate · Industrial · Institutional
+    ═══════════════════════════════════════════════════════ */
+
+    :root {
+      --zinc-950:  #09090b;
+      --zinc-900:  #18181b;
+      --zinc-800:  #27272a;
+      --zinc-700:  #3f3f46;
+      --zinc-600:  #52525b;
+      --zinc-400:  #a1a1aa;
+      --zinc-300:  #d4d4d8;
+      --zinc-200:  #e4e4e7;
+      --zinc-100:  #f4f4f5;
+      --zinc-50:   #fafafa;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --amber-100: #fef3c7;
+      --green-700: #15803d;
+      --green-600: #16a34a;
+      --green-100: #dcfce7;
+      --red-600:   #dc2626;
+      --red-100:   #fee2e2;
+
+      /* Surfaces */
+      --bg:        var(--zinc-950);
+      --surface:   var(--zinc-900);
+      --surface-2: var(--zinc-800);
+      --border:    var(--zinc-800);
+      --border-2:  var(--zinc-700);
+      --text:      var(--zinc-100);
+      --text-2:    var(--zinc-400);
+      --text-3:    var(--zinc-600);
+      --accent:    var(--amber-500);
+      --accent-d:  var(--amber-600);
+
+      --radius: 6px;
+      --radius-sm: 4px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg:        var(--zinc-50);
+      --surface:   #ffffff;
+      --surface-2: var(--zinc-100);
+      --border:    var(--zinc-200);
+      --border-2:  var(--zinc-300);
+      --text:      var(--zinc-900);
+      --text-2:    var(--zinc-600);
+      --text-3:    var(--zinc-400);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── UTILITY ────────────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: var(--radius-sm);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .badge-green { background: var(--green-100); color: var(--green-700); }
+    .badge-amber { background: var(--amber-100); color: var(--amber-600); }
+    .badge-zinc  { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .dot-green { background: var(--green-600); animation: pulse 2s infinite; }
+    .dot-amber { background: var(--amber-500); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────────── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: 52px;
+    }
+    .navbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%; gap: 32px;
+    }
+    .logo {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--text); white-space: nowrap;
+    }
+    .logo span { color: var(--accent); }
+    .nav-status {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--text-2);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block; padding: 5px 12px; border-radius: var(--radius-sm);
+      font-size: 13px; color: var(--text-2); font-weight: 500;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--surface-2); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-radius: var(--radius);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: 1px solid transparent; transition: all 0.15s;
+      white-space: nowrap; font-family: var(--font);
+    }
+    .btn-primary {
+      background: var(--accent); color: #000; border-color: var(--accent);
+    }
+    .btn-primary:hover { background: var(--amber-400); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border-color: var(--border-2);
+    }
+    .btn-outline:hover { background: var(--surface-2); }
+    .btn-ghost {
+      background: transparent; color: var(--text-2);
+      border-color: transparent;
+    }
+    .btn-ghost:hover { color: var(--text); background: var(--surface-2); }
+    .btn-whatsapp {
+      background: #25d366; color: #fff; border-color: #25d366;
+    }
+    .btn-whatsapp:hover { background: #20ba5a; }
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+    .btn-lg { padding: 10px 24px; font-size: 14px; }
+
+    .btn-icon {
+      width: 34px; height: 34px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); cursor: pointer;
+      color: var(--text-2); font-size: 14px; transition: all 0.15s;
+      font-family: var(--font);
+    }
+    .btn-icon:hover { background: var(--surface-2); color: var(--text); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.03em; color: var(--text);
+      max-width: 720px; margin-bottom: 16px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      font-size: 15px; color: var(--text-2); max-width: 560px;
+      line-height: 1.7; margin-bottom: 40px;
+    }
+
+    /* ─── CTA GRID ───────────────────────────────────────── */
+    .cta-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 40px;
+    }
+    .cta-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      transition: border-color 0.15s;
+    }
+    .cta-card:hover { border-color: var(--border-2); }
+    .cta-card-accent { border-color: var(--accent); }
+    .cta-card-accent:hover { border-color: var(--amber-400); }
+    .cta-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-2); margin-bottom: 8px;
+    }
+    .cta-label-amber { color: var(--accent); }
+    .cta-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      margin-bottom: 8px; letter-spacing: -0.01em;
+    }
+    .cta-card p { font-size: 13px; color: var(--text-2); margin-bottom: 20px; line-height: 1.6; }
+    .cta-form { display: flex; flex-direction: column; gap: 10px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .input-group { display: flex; flex-direction: column; gap: 4px; }
+    .input-label { font-size: 11px; font-weight: 600; color: var(--text-2); }
+    .input-field {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 8px 12px;
+      font-size: 13px; color: var(--text); font-family: var(--font);
+      outline: none; transition: border-color 0.15s;
+      width: 100%;
+    }
+    .input-field:focus { border-color: var(--accent); }
+    .input-field::placeholder { color: var(--text-3); }
+    select.input-field { cursor: pointer; }
+
+    /* ─── METRICS BAR ────────────────────────────────────── */
+    .metrics-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .metrics-inner {
+      display: flex; align-items: stretch;
+      overflow-x: auto;
+    }
+    .metric-item {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 16px 24px; border-right: 1px solid var(--border);
+      min-width: 160px; flex-shrink: 0;
+    }
+    .metric-item:last-child { border-right: none; }
+    .metric-label { font-size: 11px; color: var(--text-2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+    .metric-value { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .metric-value.accent { color: var(--accent); }
+    .metric-sub { font-size: 11px; color: var(--text-3); }
+
+    /* ─── LIVE DASHBOARD ─────────────────────────────────── */
+    .dashboard-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .section-header { margin-bottom: 24px; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 22px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .section-sub { font-size: 13px; color: var(--text-2); margin-top: 6px; }
+
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 360px; gap: 16px; }
+
+    /* Data Table */
+    .data-table-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .data-table-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+    }
+    .data-table-title { font-size: 13px; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 8px 16px; text-align: left;
+      font-size: 11px; font-weight: 600; color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border); transition: background 0.1s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface-2); }
+    tbody td {
+      padding: 10px 16px; font-size: 13px; color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    td.muted { color: var(--text-2); }
+
+    /* Activity Feed */
+    .activity-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column;
+    }
+    .activity-header {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .activity-feed { padding: 8px 0; overflow-y: auto; flex: 1; }
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 8px 16px; border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-item:hover { background: var(--surface-2); }
+    .activity-icon {
+      width: 28px; height: 28px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0; margin-top: 1px;
+    }
+    .activity-icon-green { background: var(--green-100); color: var(--green-700); }
+    .activity-icon-amber { background: var(--amber-100); color: var(--amber-600); }
+    .activity-icon-zinc  { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .activity-content { flex: 1; min-width: 0; }
+    .activity-main { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .activity-meta { font-size: 11px; color: var(--text-2); margin-top: 1px; }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────── */
+    .workflow-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .workflow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 32px; }
+    .workflow-step {
+      background: var(--surface); padding: 28px 24px;
+      position: relative;
+    }
+    .step-number {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .step-icon {
+      width: 40px; height: 40px; background: var(--surface-2);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 16px;
+    }
+    .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .step-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+    .step-features { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .step-feature { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); }
+    .step-feature::before { content: '—'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ─── STATS ──────────────────────────────────────────── */
+    .stats-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .stat-card { background: var(--surface); padding: 28px 24px; }
+    .stat-value { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1; }
+    .stat-value span { color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--text-2); margin-top: 8px; }
+    .stat-note { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+
+    /* ─── REGIONS ────────────────────────────────────────── */
+    .regions-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .regions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 24px; }
+    .region-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      transition: border-color 0.15s;
+    }
+    .region-card:hover { border-color: var(--border-2); }
+    .region-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .region-meta { font-size: 12px; color: var(--text-2); }
+    .region-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+    .region-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+
+    /* ─── FINAL CTA ──────────────────────────────────────── */
+    .final-cta {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .final-cta-inner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 48px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .final-cta h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; max-width: 480px; }
+    .final-cta p { font-size: 14px; color: var(--text-2); margin-top: 8px; max-width: 420px; }
+    .final-cta-actions { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .footer-logo { font-size: 14px; font-weight: 700; }
+    .footer-logo span { color: var(--accent); }
+    .footer-legal { font-size: 11px; color: var(--text-3); line-height: 1.6; max-width: 480px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: var(--text-2); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .cta-grid { grid-template-columns: 1fr; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .workflow-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .regions-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .final-cta-inner { flex-direction: column; align-items: flex-start; }
+      .hero h1 { font-size: 26px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .metrics-inner { flex-wrap: nowrap; }
+      .metric-item { min-width: 140px; }
+      .hero { padding: 48px 0 36px; }
+      .final-cta-actions { flex-direction: column; width: 100%; }
+      .final-cta-actions .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Ana menü">
+    <div class="container navbar-inner">
+      <!-- Logo -->
+      <a href="/" class="logo" aria-label="hafriyatcim.com ana sayfa">
+        hafriyatcim<span>.com</span>
+      </a>
+
+      <!-- Status -->
+      <div class="nav-status">
+        <span class="dot dot-green"></span>
+        İstanbul Avrupa Yakası — Aktif
+      </div>
+
+      <!-- Nav Links -->
+      <ul class="nav-links" role="list">
+        <li><a href="ilanlar.html">İlanlar</a></li>
+        <li><a href="ilan.html">İlan Ver</a></li>
+        <li><a href="#nasil-calisir">Nasıl Çalışır</a></li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="nav-actions">
+        <a href="https://wa.me/905000000000?text=Merhaba%2C%20hafriyatcim.com%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+           target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm" id="nav-whatsapp-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="giris.html" class="btn btn-outline btn-sm" id="nav-giris-btn">Giriş</a>
+        <a href="giris.html" class="btn btn-primary btn-sm" id="nav-kayit-btn">Kayıt Ol</a>
+        <button class="btn-icon theme-toggle" onclick="toggleTheme()" aria-label="Tema değiştir" id="nav-theme-btn">☀️</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="badge badge-green"><span class="dot dot-green"></span>Canlı Sistem</span>
+        <span class="badge badge-zinc">B2B Lojistik Pazaryeri</span>
+      </div>
+      <h1 id="hero-heading">
+        İstanbul'un Hafriyat ve<br>
+        Lojistik Ağı <em>Dijitalleşiyor.</em>
+      </h1>
+      <p class="hero-sub">
+        İnşaat projeleri ile hafriyat kamyonlarını anlık ve otomatik olarak eşleştiren kurumsal lojistik pazaryeri.
+        Avrupa Yakası'nda 7/24 aktif filo, WhatsApp entegrasyonuyla anında koordinasyon.
+      </p>
+
+      <!-- CTA Grid -->
+      <div class="cta-grid">
+        <!-- Sol: Talep -->
+        <div class="cta-card">
+          <p class="cta-label">Proje Yöneticisi / İnşaat Firması</p>
+          <h3>Hafriyat / Kamyon Talebi Oluştur</h3>
+          <p>İhtiyacınızı girin, sistemimiz uygun araçları otomatik olarak bulur ve koordinasyonu sağlar.</p>
+          <form class="cta-form" id="talep-form" onsubmit="handleTalep(event)">
+            <div class="form-row">
+              <div class="input-group">
+                <label class="input-label" for="talep-bolge">Bölge</label>
+                <select class="input-field" id="talep-bolge" required>
+                  <option value="">İlçe seçin</option>
+                  <option>Arnavutköy</option><option>Başakşehir</option>
+                  <option>Beylikdüzü</option><option>Büyükçekmece</option>
+                  <option>Çatalca</option><option>Esenyurt</option>
+                  <option>Silivri</option><option>Sultangazi</option>
+                  <option>Eyüpsultan</option><option>Bağcılar</option>
+                  <option>Bahçelievler</option><option>Bakırköy</option>
+                  <option>Esenler</option><option>Gaziosmanpaşa</option>
+                  <option>Güngören</option><option>Zeytinburnu</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label class="input-label" for="talep-miktar">Miktar (m³)</label>
+                <input class="input-field" id="talep-miktar" type="number" placeholder="0" min="1" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="input-group">
+                <label class="input-label" for="talep-tarih">Başlangıç Tarihi</label>
+                <input class="input-field" id="talep-tarih" type="date" required>
+              </div>
+              <div class="input-group">
+                <label class="input-label" for="talep-telefon">Telefon</label>
+                <input class="input-field" id="talep-telefon" type="tel" placeholder="05xx xxx xx xx" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="talep-submit-btn">
+              Talep Oluştur — Ücretsiz
+            </button>
+          </form>
+        </div>
+
+        <!-- Sağ: Kamyon Kaydı -->
+        <div class="cta-card cta-card-accent">
+          <p class="cta-label cta-label-amber">Kamyon / Araç Sahibi</p>
+          <h3>Kamyonunu Kaydet ve İş Al</h3>
+          <p>Aracını sisteme ekle, bölgendeki iş taleplerine otomatik eşleş. WhatsApp üzerinden anlık koordinasyon.</p>
+          <form class="cta-form" id="kamyon-form" onsubmit="handleKamyon(event)">
+            <div class="form-row">
+              <div class="input-group">
+                <label class="input-label" for="kamyon-tip">Araç Tipi</label>
+                <select class="input-field" id="kamyon-tip" required>
+                  <option value="">Seçin</option>
+                  <option>Damperli Kamyon (10m³)</option>
+                  <option>Damperli Kamyon (20m³)</option>
+                  <option>Damperli Kamyon (30m³)</option>
+                  <option>Kepçe / Ekskavatör</option>
+                  <option>TIR / Çekici</option>
+                  <option>Diğer İş Makinesi</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label class="input-label" for="kamyon-bolge">Çalışma Bölgesi</label>
+                <select class="input-field" id="kamyon-bolge" required>
+                  <option value="">İlçe seçin</option>
+                  <option>Arnavutköy</option><option>Başakşehir</option>
+                  <option>Beylikdüzü</option><option>Büyükçekmece</option>
+                  <option>Çatalca</option><option>Esenyurt</option>
+                  <option>Silivri</option><option>Sultangazi</option>
+                  <option>Eyüpsultan</option><option>Bağcılar</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="kamyon-telefon">WhatsApp Numarası</label>
+              <input class="input-field" id="kamyon-telefon" type="tel" placeholder="05xx xxx xx xx" required>
+            </div>
+            <button type="submit" class="btn btn-whatsapp" id="kamyon-submit-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp ile Kayıt Ol
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       METRICS BAR
+  ═══════════════════════════════════════════ -->
+  <div class="metrics-bar" role="region" aria-label="Platform metrikleri">
+    <div class="container">
+      <div class="metrics-inner">
+        <div class="metric-item">
+          <span class="metric-label">Aktif Araç</span>
+          <span class="metric-value accent" id="metric-arac">—</span>
+          <span class="metric-sub">Şu an müsait</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Boş Hacim</span>
+          <span class="metric-value" id="metric-hacim">—</span>
+          <span class="metric-sub">m³ kapasitesi</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Aktif Talep</span>
+          <span class="metric-value" id="metric-talep">—</span>
+          <span class="metric-sub">Bekleyen proje</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Eşleşme</span>
+          <span class="metric-value" id="metric-eslesme">—</span>
+          <span class="metric-sub">Bu hafta</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Ort. Yanıt</span>
+          <span class="metric-value">4.2</span>
+          <span class="metric-sub">dakika</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Komisyon</span>
+          <span class="metric-value">%0</span>
+          <span class="metric-sub">Platform ücreti yok</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       LIVE DASHBOARD
+  ═══════════════════════════════════════════ -->
+  <section class="dashboard-section" aria-labelledby="dashboard-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Canlı Veri</p>
+        <h2 class="section-title" id="dashboard-heading">Filo & Talep Durumu</h2>
+        <p class="section-sub">İstanbul Avrupa Yakası — Gerçek zamanlı güncelleme</p>
+      </div>
+      <div class="dashboard-grid">
+        <!-- Ana Tablo -->
+        <div class="data-table-wrap">
+          <div class="data-table-header">
+            <span class="data-table-title">Bölgesel Filo Durumu</span>
+            <span class="badge badge-green"><span class="dot dot-green"></span>Canlı</span>
+          </div>
+          <table aria-label="Bölgesel filo durumu tablosu">
+            <thead>
+              <tr>
+                <th>Bölge</th>
+                <th>Müsait Araç</th>
+                <th>Boş Hacim</th>
+                <th>Aktif Talep</th>
+                <th>Durum</th>
+              </tr>
+            </thead>
+            <tbody id="filo-table-body">
+              <tr>
+                <td>Arnavutköy</td><td>12</td><td class="muted">240 m³</td><td>4</td>
+                <td><span class="badge badge-green">Müsait</span></td>
+              </tr>
+              <tr>
+                <td>Başakşehir</td><td>8</td><td class="muted">160 m³</td><td>3</td>
+                <td><span class="badge badge-green">Müsait</span></td>
+              </tr>
+              <tr>
+                <td>Esenyurt</td><td>5</td><td class="muted">100 m³</td><td>6</td>
+                <td><span class="badge badge-amber">Yoğun</span></td>
+              </tr>
+              <tr>
+                <td>Beylikdüzü</td><td>9</td><td class="muted">180 m³</td><td>2</td>
+                <td><span class="badge badge-green">Müsait</span></td>
+              </tr>
+              <tr>
+                <td>Silivri</td><td>4</td><td class="muted">80 m³</td><td>1</td>
+                <td><span class="badge badge-green">Müsait</span></td>
+              </tr>
+              <tr>
+                <td>Büyükçekmece</td><td>6</td><td class="muted">120 m³</td><td>2</td>
+                <td><span class="badge badge-green">Müsait</span></td>
+              </tr>
+              <tr>
+                <td>Sultangazi</td><td>3</td><td class="muted">60 m³</td><td>4</td>
+                <td><span class="badge badge-amber">Yoğun</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="activity-panel" aria-label="Son eşleşmeler">
+          <div class="activity-header">
+            <span class="data-table-title">Son Eşleşmeler</span>
+            <span class="badge badge-green"><span class="dot dot-green"></span>Canlı</span>
+          </div>
+          <div class="activity-feed" id="activity-feed">
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-green">✓</div>
+              <div class="activity-content">
+                <div class="activity-main">Arnavutköy — 3 Damperli Eşleşti</div>
+                <div class="activity-meta">60 m³ · 2 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-amber">→</div>
+              <div class="activity-content">
+                <div class="activity-main">Başakşehir — Kepçe Talebi</div>
+                <div class="activity-meta">Yeni talep · 5 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-green">✓</div>
+              <div class="activity-content">
+                <div class="activity-main">Esenyurt — 5 Araç Koordine</div>
+                <div class="activity-meta">100 m³ · 11 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-amber">+</div>
+              <div class="activity-content">
+                <div class="activity-main">Yeni Kayıt — Silivri</div>
+                <div class="activity-meta">Damperli 20m³ · 14 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-green">✓</div>
+              <div class="activity-content">
+                <div class="activity-main">Beylikdüzü — 2 Araç Eşleşti</div>
+                <div class="activity-meta">40 m³ · 18 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-zinc">i</div>
+              <div class="activity-content">
+                <div class="activity-main">Büyükçekmece — Talep Güncellendi</div>
+                <div class="activity-meta">80 m³ talep · 22 dk önce</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon activity-icon-green">✓</div>
+              <div class="activity-content">
+                <div class="activity-main">Sultangazi — TIR Eşleşti</div>
+                <div class="activity-meta">30 dk önce</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STATS
+  ═══════════════════════════════════════════ -->
+  <section class="stats-section" aria-labelledby="stats-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Platform Verileri</p>
+        <h2 class="section-title" id="stats-heading">Rakamlarla hafriyatcim.com</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">47<span>+</span></div>
+          <div class="stat-label">Müsait Kamyon</div>
+          <div class="stat-note">Avrupa Yakası'nda aktif</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">%<span>0</span></div>
+          <div class="stat-label">Platform Komisyonu</div>
+          <div class="stat-note">Taraflar direkt anlaşır</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.2<span>dk</span></div>
+          <div class="stat-label">Ortalama Eşleşme Süresi</div>
+          <div class="stat-note">WhatsApp ile anlık bildirim</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">16<span>+</span></div>
+          <div class="stat-label">Aktif İlçe</div>
+          <div class="stat-note">İstanbul Avrupa Yakası</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════════ -->
+  <section class="workflow-section" id="nasil-calisir" aria-labelledby="workflow-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">İş Akışı</p>
+        <h2 class="section-title" id="workflow-heading">3 Adımda Otomatik Eşleşme</h2>
+        <p class="section-sub">WhatsApp entegrasyonuyla kayıt, eşleşme ve koordinasyon tamamen otomatik.</p>
+      </div>
+      <div class="workflow-grid">
+        <div class="workflow-step">
+          <div class="step-number">01 — Kayıt</div>
+          <div class="step-icon">📋</div>
+          <div class="step-title">Sisteme Dahil Ol</div>
+          <div class="step-desc">Araç sahibi WhatsApp numarasıyla kaydolur. Araç tipi, kapasite ve bölge bilgisi sisteme işlenir.</div>
+          <div class="step-features">
+            <div class="step-feature">WhatsApp numarasıyla 2 dk kayıt</div>
+            <div class="step-feature">Araç ve kapasite bilgisi</div>
+            <div class="step-feature">Çalışma bölgesi tercihi</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">02 — Eşleşme</div>
+          <div class="step-icon">⚡</div>
+          <div class="step-title">Otomatik Koordinasyon</div>
+          <div class="step-desc">Yeni iş talebi geldiğinde sistem, bölgedeki müsait araçları otomatik tespit eder ve eşleştirir.</div>
+          <div class="step-features">
+            <div class="step-feature">Bölge + kapasite bazlı algoritma</div>
+            <div class="step-feature">Anlık müsaitlik kontrolü</div>
+            <div class="step-feature">Öncelik sıralaması</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">03 — Sevkiyat</div>
+          <div class="step-icon">🚛</div>
+          <div class="step-title">WhatsApp Koordinasyon</div>
+          <div class="step-desc">Eşleşme tamamlandığında hem kamyon sahibine hem proje yöneticisine WhatsApp bildirimi gider.</div>
+          <div class="step-features">
+            <div class="step-feature">Anlık WhatsApp bildirimi</div>
+            <div class="step-feature">Lokasyon ve iletişim paylaşımı</div>
+            <div class="step-feature">İş tamamlama kaydı</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       REGIONS
+  ═══════════════════════════════════════════ -->
+  <section class="regions-section" aria-labelledby="regions-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Hizmet Bölgeleri</p>
+        <h2 class="section-title" id="regions-heading">İstanbul Avrupa Yakası</h2>
+        <p class="section-sub">Aktif olarak hizmet verdiğimiz ilçeler</p>
+      </div>
+      <div class="regions-grid">
+        <div class="region-card"><div class="region-name">Arnavutköy</div><div class="region-meta">12 aktif araç · 240 m³</div><div class="region-bar"><div class="region-fill" style="width:80%"></div></div></div>
+        <div class="region-card"><div class="region-name">Başakşehir</div><div class="region-meta">8 aktif araç · 160 m³</div><div class="region-bar"><div class="region-fill" style="width:60%"></div></div></div>
+        <div class="region-card"><div class="region-name">Esenyurt</div><div class="region-meta">5 aktif araç · 100 m³</div><div class="region-bar"><div class="region-fill" style="width:45%"></div></div></div>
+        <div class="region-card"><div class="region-name">Beylikdüzü</div><div class="region-meta">9 aktif araç · 180 m³</div><div class="region-bar"><div class="region-fill" style="width:70%"></div></div></div>
+        <div class="region-card"><div class="region-name">Silivri</div><div class="region-meta">4 aktif araç · 80 m³</div><div class="region-bar"><div class="region-fill" style="width:35%"></div></div></div>
+        <div class="region-card"><div class="region-name">Büyükçekmece</div><div class="region-meta">6 aktif araç · 120 m³</div><div class="region-bar"><div class="region-fill" style="width:50%"></div></div></div>
+        <div class="region-card"><div class="region-name">Sultangazi</div><div class="region-meta">3 aktif araç · 60 m³</div><div class="region-bar"><div class="region-fill" style="width:28%"></div></div></div>
+        <div class="region-card"><div class="region-name">Eyüpsultan</div><div class="region-meta">5 aktif araç · 100 m³</div><div class="region-bar"><div class="region-fill" style="width:42%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FINAL CTA
+  ═══════════════════════════════════════════ -->
+  <section class="final-cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="final-cta-inner">
+        <div>
+          <span class="badge badge-amber" style="margin-bottom:16px">Ücretsiz Başlayın</span>
+          <h2 id="cta-heading">Platforma Dahil Olun.</h2>
+          <p>Kamyon sahipleri için ücretsiz kayıt. İnşaat firmaları için sıfır komisyon. Avrupa Yakası'nda anlık koordinasyon.</p>
+        </div>
+        <div class="final-cta-actions">
+          <a href="giris.html" class="btn btn-primary btn-lg" id="cta-kayit-btn">Ücretsiz Kayıt Ol</a>
+          <a href="https://wa.me/905000000000" target="_blank" rel="noopener" class="btn btn-outline btn-lg" id="cta-whatsapp-btn">
+            WhatsApp ile İletişim
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-logo">hafriyatcim<span>.com</span></div>
+          <p class="footer-legal">
+            hafriyatcim.com, İstanbul Avrupa Yakası'nda faaliyet gösteren bağımsız bir B2B lojistik aracı platformudur.
+            Platform, kamyon sahipleri ile inşaat firmaları arasında aracılık yapar; taşıma sözleşmesi, fiyatlandırma
+            ve hizmet kalitesi konusunda herhangi bir sorumluluk üstlenmez.
+            Tüm işlemler taraflar arasında gerçekleşir.
+          </p>
+        </div>
+        <div>
+          <nav class="footer-links" aria-label="Footer linkleri">
+            <a href="ilanlar.html">İlanlar</a>
+            <a href="ilan.html">İlan Ver</a>
+            <a href="giris.html">Giriş</a>
+            <a href="#" id="footer-gizlilik">Gizlilik</a>
+            <a href="#" id="footer-kvkk">KVKK</a>
+          </nav>
+          <p style="font-size:11px;color:var(--text-3);margin-top:12px;text-align:right">
+            © 2026 hafriyatcim.com · İstanbul, Türkiye
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── API Metrics ──────────────────────────────────────────────
+    async function loadMetrics() {
+      try {
+        const r = await fetch('/api/ilanlar?ilan_tipi=TEKLIF&limit=200');
+        if (!r.ok) return;
+        const d = await r.json();
+        const aktif = d.toplam || d.ilanlar?.length || 0;
+        document.getElementById('metric-arac').textContent  = aktif;
+        document.getElementById('metric-hacim').textContent = (aktif * 20) + ' m³';
+      } catch {}
+      try {
+        const r2 = await fetch('/api/ilanlar?ilan_tipi=TALEP&limit=200');
+        if (!r2.ok) return;
+        const d2 = await r2.json();
+        document.getElementById('metric-talep').textContent    = d2.toplam || 0;
+        document.getElementById('metric-eslesme').textContent  = Math.floor((d2.toplam || 0) * 1.4);
+      } catch {}
+    }
+    loadMetrics();
+
+    // ─── Form Handlers ────────────────────────────────────────────
+    function handleTalep(e) {
+      e.preventDefault();
+      const bolge   = document.getElementById('talep-bolge').value;
+      const miktar  = document.getElementById('talep-miktar').value;
+      const telefon = document.getElementById('talep-telefon').value;
+      const msg = encodeURIComponent(
+        `Merhaba, hafriyatcim.com üzerinden talep oluşturmak istiyorum.\n` +
+        `Bölge: ${bolge}\nMiktar: ${miktar} m³\nTelefon: ${telefon}`
+      );
+      window.location.href = `giris.html`;
+    }
+
+    function handleKamyon(e) {
+      e.preventDefault();
+      const tip     = document.getElementById('kamyon-tip').value;
+      const bolge   = document.getElementById('kamyon-bolge').value;
+      const telefon = document.getElementById('kamyon-telefon').value;
+      const msg = encodeURIComponent(
+        `Merhaba, hafriyatcim.com'a araç kaydetmek istiyorum.\n` +
+        `Araç: ${tip}\nBölge: ${bolge}\nNumaram: ${telefon}`
+      );
+      window.open(`https://wa.me/905000000000?text=${msg}`, '_blank');
+    }
+
+    // ─── Live Activity Ticker ─────────────────────────────────────
+    const events = [
+      { icon: '✓', cls: 'activity-icon-green', main: 'Arnavutköy — 3 Damperli Eşleşti', meta: '60 m³' },
+      { icon: '→', cls: 'activity-icon-amber', main: 'Başakşehir — Kepçe Talebi', meta: 'Yeni talep' },
+      { icon: '✓', cls: 'activity-icon-green', main: 'Esenyurt — 5 Araç Koordine', meta: '100 m³' },
+      { icon: '+', cls: 'activity-icon-amber', main: 'Yeni Kayıt — Silivri', meta: 'Damperli 20m³' },
+      { icon: '✓', cls: 'activity-icon-green', main: 'Beylikdüzü — 2 Araç Eşleşti', meta: '40 m³' },
+      { icon: 'i', cls: 'activity-icon-zinc',  main: 'Büyükçekmece — Talep Güncellendi', meta: '80 m³' },
+      { icon: '✓', cls: 'activity-icon-green', main: 'Sultangazi — TIR Eşleşti', meta: '' },
+      { icon: '→', cls: 'activity-icon-amber', main: 'Çatalca — Ekskavatör Talebi', meta: 'Yeni talep' },
+      { icon: '+', cls: 'activity-icon-amber', main: 'Yeni Kayıt — Eyüpsultan', meta: 'Kepçe' },
+      { icon: '✓', cls: 'activity-icon-green', main: 'Bağcılar — 4 Araç Eşleşti', meta: '80 m³' },
+    ];
+    let evIdx = 0;
+    setInterval(() => {
+      const feed = document.getElementById('activity-feed');
+      if (!feed) return;
+      const ev = events[evIdx % events.length]; evIdx++;
+      const mins = Math.floor(Math.random() * 3) + 1;
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.style.opacity = '0'; item.style.transform = 'translateY(-6px)';
+      item.innerHTML = `
+        <div class="activity-icon ${ev.cls}">${ev.icon}</div>
+        <div class="activity-content">
+          <div class="activity-main">${ev.main}</div>
+          <div class="activity-meta">${ev.meta ? ev.meta + ' · ' : ''}${mins} dk önce</div>
+        </div>`;
+      feed.insertBefore(item, feed.firstChild);
+      requestAnimationFrame(() => {
+        item.style.transition = 'opacity 0.3s, transform 0.3s';
+        item.style.opacity = '1'; item.style.transform = 'translateY(0)';
+      });
+      if (feed.children.length > 10) feed.removeChild(feed.lastChild);
+    }, 5000);
+  </script>
+</body>
+</html>

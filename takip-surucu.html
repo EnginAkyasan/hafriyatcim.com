@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigasyon - Sürücü | hafriyatcim.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="takip.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" href="data:,">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <img src="logo.png" alt="hafriyatcim.com" class="logo-img"> hafriyatcim<span class="highlight">.com</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="ilan.html">İlanlar</a></li>
+            <li><a href="takip.html">Canlı Takip</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="giris.html" class="btn-login">Giriş Yap</a>
+            <a href="giris.html" class="btn-primary">Hemen Başla</a>
+        </div>
+    </nav>
+
+    <div class="takip-page">
+
+        <!-- Sol: Harita + Navigasyon Talimatı -->
+        <div class="map-panel">
+            <div id="map" style="width:100%;height:100%;"></div>
+
+            <!-- Konum Güncelleme -->
+            <div class="location-update" id="locationUpdate">
+                <span class="update-dot"></span>
+                Konum güncellendi - <span id="updateTime">az önce</span>
+            </div>
+
+            <!-- Navigasyon Talimatı (Google Maps benzeri) -->
+            <div class="nav-instruction" id="navInstruction">
+                <div class="nav-icon" id="navIcon">⬆️</div>
+                <div class="nav-text">
+                    <strong id="navAction">Düz devam edin</strong>
+                    <p id="navDetail">Rota hesaplanıyor...</p>
+                </div>
+                <div class="nav-distance" id="navDistance">--</div>
+            </div>
+        </div>
+
+        <!-- Sağ: Navigasyon Paneli (Sürücü Görünümü) -->
+        <aside class="info-panel">
+
+            <!-- Rol Göstergesi -->
+            <div class="role-indicator role-driver">
+                🚛 Tır Sahibi / Sürücü Görünümü
+            </div>
+
+            <!-- ETA Kartı -->
+            <div class="info-card eta-card">
+                <div class="eta-main">
+                    <div class="eta-icon">⏱️</div>
+                    <div>
+                        <p class="eta-label">Tahmini Varış</p>
+                        <h2 class="eta-time" id="etaTime">Hesaplanıyor...</h2>
+                    </div>
+                </div>
+                <div class="eta-bar-container">
+                    <div class="eta-bar" id="etaBar" style="width: 0%;"></div>
+                </div>
+                <div class="eta-details">
+                    <div class="eta-row">
+                        <span>Kalan Mesafe</span>
+                        <strong id="etaDistance">-- km</strong>
+                    </div>
+                    <div class="eta-row">
+                        <span>Hız</span>
+                        <strong id="etaSpeed">-- km/s</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teslimat Bilgisi -->
+            <div class="info-card">
+                <h4>📦 Teslimat Bilgisi</h4>
+                <div class="order-details">
+                    <div class="order-row">
+                        <span>Sipariş</span>
+                        <strong>#HFR-2026-0347</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>Yük</span>
+                        <strong>🟡 Kum - 80 ton</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>Hedef</span>
+                        <strong>Kadıköy Şantiyesi</strong>
+                    </div>
+                    <div class="order-row">
+                        <span>İnşaat Sahibi</span>
+                        <strong>Mehmet Yılmaz</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigasyon Adımları -->
+            <div class="info-card timeline-card">
+                <h4>🧭 Navigasyon Adımları</h4>
+                <div class="nav-steps" id="navSteps">
+                    <p style="color:var(--text-muted);font-size:0.85rem;">Rota yükleniyor...</p>
+                </div>
+            </div>
+
+            <!-- Müşteri Görünümüne Geç (Demo) -->
+            <a href="takip.html" class="view-switch-btn">
+                🔄 Müşteri Görünümüne Geç (Demo)
+            </a>
+
+        </aside>
+    </div>
+
+    <script>
+        // Bu sayfada sürücü modunu aktif et
+        window.DRIVER_MODE = true;
+    </script>
+    <script src="takip.js"></script>
+</body>
+</html>

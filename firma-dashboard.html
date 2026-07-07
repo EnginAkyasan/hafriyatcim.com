@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firma Paneli | hafriyatcim.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { display: flex; min-height: 100vh; }
+
+    /* ─── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      width: 260px; min-height: 100vh;
+      background: var(--surface-2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 24px 16px;
+      position: fixed; top: 0; left: 0;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 800;
+      padding: 8px 12px; margin-bottom: 32px;
+      text-decoration: none; color: var(--text);
+    }
+
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500;
+      color: var(--text-muted); cursor: pointer;
+      transition: var(--transition);
+      position: relative; border: none; background: none;
+      width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: var(--surface-3); color: var(--text); }
+    .nav-item.active {
+      background: var(--primary-glow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .nav-item .nav-icon { font-size: 18px; min-width: 24px; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--primary); color: #fff;
+      border-radius: 10px; padding: 2px 7px;
+      font-size: 11px; font-weight: 700;
+      display: none;
+    }
+    .nav-badge.visible { display: block; }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 16px; margin-top: 16px;
+    }
+
+    .user-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: var(--radius-sm);
+      background: var(--surface-3);
+    }
+
+    .user-avatar {
+      width: 36px; height: 36px; border-radius: 4px;
+      background: var(--surface-4, #27272a);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .user-info { flex: 1; min-width: 0; }
+    .user-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: 11px; color: var(--text-muted); }
+
+    /* ─── Mobile Hamburger ───────────────────────── */
+    .hamburger {
+      display: none;
+      position: fixed; top: 16px; left: 16px; z-index: 200;
+      width: 40px; height: 40px; border-radius: var(--radius-sm);
+      background: var(--surface-2); border: 1px solid var(--border);
+      align-items: center; justify-content: center;
+      font-size: 20px; cursor: pointer;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 99; backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* ─── Main Content ────────────────────────────── */
+    .main {
+      margin-left: 260px; flex: 1;
+      background: var(--surface);
+      min-height: 100vh;
+    }
+
+    .main-header {
+      padding: 0 32px;
+      height: 52px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bg, #09090b);
+    }
+
+    .page-title h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .page-title p { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+
+    /* ─── Page Sections ───────────────────────────── */
+    .page-content { padding: 40px; }
+    .page-section { display: none; }
+    .page-section.active { display: block; animation: fadeIn 0.25s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* ─── Welcome Banner ──────────────────────────── */
+    .welcome-banner {
+      background: var(--surface-2, #1f1f23);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .welcome-text h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .welcome-text p { color: var(--text-muted); font-size: 14px; }
+
+    /* ─── Stats Grid ──────────────────────────────── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+
+    .stat-card {
+      padding: 24px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+
+    .stat-card::before { display: none; }
+    .stat-card:hover { border-color: var(--border-hover); }
+
+    .stat-card-icon { font-size: 28px; margin-bottom: 12px; }
+    .stat-card-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card-value { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+    .stat-card-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+    .stat-card-value.orange { color: var(--primary); }
+
+    /* ─── Section Header ──────────────────────────── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 800; }
+
+    /* ─── Araç / İlan Kartları ────────────────────── */
+    .arac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+    .arac-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .arac-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    .arac-card-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+
+    .arac-icon { font-size: 36px; margin-bottom: 8px; }
+    .arac-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .arac-tip { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .arac-card-body { padding: 16px 20px; }
+
+    .arac-meta { display: flex; flex-direction: column; gap: 8px; }
+    .arac-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px;
+    }
+    .arac-meta-row .label { color: var(--text-muted); }
+    .arac-meta-row .value { font-weight: 600; }
+    .price-value { color: var(--primary); font-size: 16px; font-weight: 800; }
+
+    .arac-card-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+
+    /* ─── Badge / Durum ───────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+    }
+    .badge-green  { background: rgba(34,197,94,0.15);  color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+    .badge-red    { background: rgba(239,68,68,0.15);   color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+    .badge-yellow { background: rgba(245,158,11,0.15);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+    .badge-blue   { background: rgba(59,130,246,0.15);  color: #3b82f6; border: 1px solid rgba(59,130,246,0.2); }
+    .badge-orange { background: rgba(249,115,22,0.15);  color: var(--primary); border: 1px solid rgba(249,115,22,0.25); }
+
+    /* ─── Talep Kartları ──────────────────────────── */
+    .talep-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      transition: var(--transition);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px; align-items: start;
+    }
+
+    .talep-card:hover { border-color: var(--border-hover); }
+    .talep-card.kabul    { border-left: 3px solid #22c55e; }
+    .talep-card.red      { border-left: 3px solid #ef4444; opacity: 0.7; }
+    .talep-card.bekliyor { border-left: 3px solid var(--primary); }
+
+    .talep-avatar {
+      width: 36px; height: 36px; border-radius: 4px;
+      background: var(--surface-4, #27272a);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .talep-info { min-width: 0; }
+    .talep-name    { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .talep-details { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+
+    .talep-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .talep-fiyat  { font-size: 20px; font-weight: 900; color: var(--primary); white-space: nowrap; }
+    .talep-tarih  { font-size: 11px; color: var(--text-dim); }
+    .talep-actions { display: flex; gap: 8px; margin-top: 4px; }
+
+    /* ─── Mesajlar ─────────────────────────────────── */
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      height: calc(100vh - 200px);
+      gap: 0; border-radius: var(--radius);
+      overflow: hidden; border: 1px solid var(--border);
+    }
+
+    .chat-list { background: var(--surface-2); border-right: 1px solid var(--border); overflow-y: auto; }
+    .chat-list-header { padding: 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 15px; }
+
+    .chat-item {
+      padding: 14px 20px; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+      transition: var(--transition);
+    }
+    .chat-item:hover, .chat-item.active { background: var(--surface-3); }
+
+    .chat-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface-4);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; flex-shrink: 0;
+    }
+
+    .chat-item-info { flex: 1; min-width: 0; }
+    .chat-item-name    { font-size: 14px; font-weight: 600; }
+    .chat-item-preview { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .chat-unread { background: var(--primary); color: #fff; border-radius: 10px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+
+    .chat-window    { display: flex; flex-direction: column; background: var(--surface); }
+    .chat-header    { padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    .chat-messages  { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .chat-input-area{ padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+
+    .message { max-width: 65%; padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.5; }
+    .message.sent     { align-self: flex-end; background: var(--primary); color: #000; border-bottom-right-radius: 4px; }
+    .message.received { align-self: flex-start; background: var(--surface-3, #27272a); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+    .message-time { font-size: 10px; opacity: 0.6; margin-top: 4px; }
+    .chat-input { flex: 1; }
+
+    /* ─── Profil ───────────────────────────────────── */
+    .profil-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      max-width: 600px;
+    }
+
+    .profil-header {
+      display: flex; align-items: center; gap: 20px;
+      margin-bottom: 32px; padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .profil-avatar-lg {
+      width: 56px; height: 56px; border-radius: 6px;
+      background: var(--surface-3, #27272a);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 20px; color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .profil-meta h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .profil-meta p  { color: var(--text-muted); font-size: 13px; margin-bottom: 8px; }
+    .profil-badges  { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ─── Buttons ──────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      background: var(--primary); color: #fff;
+      font-size: 14px; font-weight: 700;
+      border: none; cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      background: var(--surface-3); color: var(--text);
+      font-size: 14px; font-weight: 600;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-secondary:hover { background: var(--surface-4); border-color: var(--border-hover); }
+
+    .btn-danger {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      background: rgba(239,68,68,0.12); color: #ef4444;
+      font-size: 14px; font-weight: 700;
+      border: 1px solid rgba(239,68,68,0.2); cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-danger:hover { background: rgba(239,68,68,0.22); }
+
+    .btn-sm { padding: 7px 14px; font-size: 12px; border-radius: 8px; }
+
+    .btn-success {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      background: rgba(34,197,94,0.15); color: #22c55e;
+      font-size: 12px; font-weight: 700;
+      border: 1px solid rgba(34,197,94,0.2); cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-success:hover { background: rgba(34,197,94,0.25); }
+
+    .btn-reject {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      background: rgba(239,68,68,0.12); color: #ef4444;
+      font-size: 12px; font-weight: 700;
+      border: 1px solid rgba(239,68,68,0.2); cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-reject:hover { background: rgba(239,68,68,0.22); }
+
+    .btn-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border); background: var(--surface-3);
+      cursor: pointer; font-size: 15px; transition: var(--transition);
+    }
+    .btn-icon:hover { background: var(--surface-4); border-color: var(--border-hover); }
+
+    /* ─── Input ───────────────────────────────────── */
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+    .input-wrapper {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .input-wrapper:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+    .input-wrapper input,
+    .input-wrapper select,
+    .input-wrapper textarea {
+      width: 100%; padding: 11px 14px;
+      background: transparent; border: none; outline: none;
+      color: var(--text); font-size: 14px; font-family: var(--font);
+    }
+    .input-wrapper textarea { resize: vertical; min-height: 90px; }
+
+    /* ─── Son Talepler (Genel Bakış) ──────────────── */
+    .son-talepler-liste { display: flex; flex-direction: column; gap: 12px; }
+
+    .son-talep-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .son-talep-item:hover { border-color: var(--border-hover); }
+    .son-talep-icon { font-size: 24px; }
+    .son-talep-info { flex: 1; }
+    .son-talep-baslik { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .son-talep-meta   { font-size: 12px; color: var(--text-muted); }
+    .son-talep-fiyat  { font-size: 15px; font-weight: 800; color: var(--primary); }
+
+    /* ─── Hızlı Eylem ─────────────────────────────── */
+    .quick-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+
+    .quick-action-card {
+      flex: 1; min-width: 200px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      display: flex; align-items: center; gap: 14px;
+      cursor: pointer; transition: var(--transition);
+      text-decoration: none; color: var(--text);
+    }
+    .quick-action-card:hover { border-color: var(--primary); background: var(--primary-glow); color: var(--primary); transform: translateY(-2px); }
+    .quick-action-icon  { font-size: 28px; }
+    .quick-action-label { font-size: 14px; font-weight: 700; }
+    .quick-action-sub   { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── Empty State ─────────────────────────────── */
+    .empty-state { text-align: center; padding: 70px 40px; color: var(--text-muted); }
+    .empty-state .empty-icon { font-size: 56px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .empty-state p  { font-size: 14px; margin-bottom: 24px; }
+
+    /* ─── Loading ─────────────────────────────────── */
+    .loading {
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px; color: var(--text-muted); gap: 12px; font-size: 14px;
+    }
+
+    .spinner {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 3px solid var(--surface-3);
+      border-top-color: var(--primary);
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Filtre aktif ────────────────────────────── */
+    .talep-filtre.active {
+      background: var(--primary-glow);
+      color: var(--primary);
+      border-color: rgba(249,115,22,0.35);
+    }
+
+    /* ─── Responsive ──────────────────────────────── */
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .hamburger { display: flex; }
+      .main-header { padding: 16px 20px 16px 68px; }
+      .page-content { padding: 24px 20px; }
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .arac-grid  { grid-template-columns: 1fr; }
+      .chat-layout { grid-template-columns: 1fr; }
+      .talep-card { grid-template-columns: auto 1fr; }
+      .talep-right { grid-column: 1 / -1; flex-direction: row; align-items: center; flex-wrap: wrap; }
+      .welcome-banner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Hamburger (mobile) ──────────────────────────────────── -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ─── Sidebar ────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <img src="logo.png" alt="logo" style="height:30px;border-radius:6px;">
+    hafriyatcim<span class="highlight">.com</span>
+  </a>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-section="genel" onclick="navigate('genel', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span> Genel Bakış
+    </button>
+    <button class="nav-item" data-section="araclar" onclick="navigate('araclar', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span> Araçlarım / İlanlarım
+    </button>
+    <button class="nav-item" data-section="talepler" onclick="navigate('talepler', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span> Tekliflerim
+
+      <span class="nav-badge" id="talepBadge">0</span>
+    </button>
+    <button class="nav-item" data-section="mesajlar" onclick="navigate('mesajlar', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span> Mesajlar
+      <span class="nav-badge" id="mesajBadge">0</span>
+    </button>
+    <button class="nav-item" data-section="profil" onclick="navigate('profil', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Profil
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarName">Yükleniyor...</div>
+        <div class="user-role" id="sidebarRole">—</div>
+      </div>
+      <button onclick="api.logout()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;padding:4px;" title="Çıkış Yap">🚪</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Main ────────────────────────────────────────────────── -->
+<main class="main">
+  <div class="main-header">
+    <div class="page-title">
+      <h1 id="pageTitle">Genel Bakış</h1>
+      <p id="pageSubtitle">Firma panelinize hoş geldiniz</p>
+    </div>
+    <div class="header-actions">
+      <a href="ilan.html?tip=TEKLIF" class="btn-primary btn-sm">+ Yeni İlan</a>
+      <a href="index.html" class="btn-secondary btn-sm">&#8592; Ana Sayfa</a>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ──────────── GENEL BAKIŞ ──────────────────── -->
+    <div class="page-section active" id="sec-genel">
+
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h2 id="welcomeTitle">Merhaba! 👋</h2>
+          <p id="welcomeDesc">Bugün araç ilanlarınızı yönetin ve gelen talepleri inceleyin.</p>
+        </div>
+        <a href="ilan.html?tip=TEKLIF" class="btn-primary">🚛 Yeni Kiralık İlan Ekle</a>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon">📢</div>
+          <div class="stat-card-label">Aktif İlanlar</div>
+          <div class="stat-card-value orange" id="statAktifIlan">—</div>
+          <div class="stat-card-sub">Şu an yayında</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">📥</div>
+          <div class="stat-card-label">Bu Ay Gelen Talep</div>
+          <div class="stat-card-value" id="statTalepSayisi">—</div>
+          <div class="stat-card-sub">Son 30 gün</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">⭐</div>
+          <div class="stat-card-label">Ortalama Puanım</div>
+          <div class="stat-card-value" id="statPuan">—</div>
+          <div class="stat-card-sub">Müşteri değerlendirmesi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">💰</div>
+          <div class="stat-card-label">Toplam Kazanç</div>
+          <div class="stat-card-value orange" id="statKazanc">—</div>
+          <div class="stat-card-sub">Tahmini (yakında)</div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-bottom:16px;">
+        <h2>Hızlı Eylemler</h2>
+      </div>
+      <div class="quick-actions">
+        <a href="ilan.html?tip=TEKLIF" class="quick-action-card">
+          <span class="quick-action-icon">➕</span>
+          <div>
+            <div class="quick-action-label">Yeni İlan Ekle</div>
+            <div class="quick-action-sub">Araç kiraya ver</div>
+          </div>
+        </a>
+        <a class="quick-action-card" href="javascript:void(0)"
+           onclick="navigate('talepler', document.querySelector('[data-section=talepler]'))">
+          <span class="quick-action-icon">📋</span>
+          <div>
+            <div class="quick-action-label">Talepleri Gör</div>
+            <div class="quick-action-sub">Gelen teklifleri incele</div>
+          </div>
+        </a>
+        <a class="quick-action-card" href="javascript:void(0)"
+           onclick="navigate('araclar', document.querySelector('[data-section=araclar]'))">
+          <span class="quick-action-icon">🚛</span>
+          <div>
+            <div class="quick-action-label">İlanlarımı Yönet</div>
+            <div class="quick-action-sub">Düzenle, sil, güncelle</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="section-header">
+        <h2>Son Tekliflerim</h2>
+
+        <button class="btn-secondary btn-sm"
+                onclick="navigate('talepler', document.querySelector('[data-section=talepler]'))">
+          Tümünü Gör →
+        </button>
+      </div>
+      <div id="sonTaleplerContainer">
+        <div class="loading"><div class="spinner"></div> Yükleniyor...</div>
+      </div>
+
+    </div><!-- /sec-genel -->
+
+    <!-- ──────────── ARAÇLARIM / İLANLARIM ────────── -->
+    <div class="page-section" id="sec-araclar">
+      <div class="section-header">
+        <h2>Araçlarım / Kiralık İlanlarım</h2>
+        <a href="ilan.html?tip=TEKLIF" class="btn-primary btn-sm">+ İlan Ekle</a>
+      </div>
+      <div id="araclarContainer">
+        <div class="loading"><div class="spinner"></div> İlanlar yükleniyor...</div>
+      </div>
+    </div><!-- /sec-araclar -->
+
+    <!-- ──────────── GELEN TALEPLER ───────────────── -->
+    <div class="page-section" id="sec-talepler">
+      <div class="section-header">
+        <h2>Tekliflerim</h2>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-secondary btn-sm talep-filtre active" data-filtre="hepsi"     onclick="filterTalepler('hepsi',this)">Hepsi</button>
+          <button class="btn-secondary btn-sm talep-filtre"        data-filtre="BEKLIYOR"  onclick="filterTalepler('BEKLIYOR',this)">Bekleyenler</button>
+          <button class="btn-secondary btn-sm talep-filtre"        data-filtre="KABUL"     onclick="filterTalepler('KABUL',this)">Kabul Edilenler</button>
+          <button class="btn-secondary btn-sm talep-filtre"        data-filtre="RED"       onclick="filterTalepler('RED',this)">Reddedilenler</button>
+        </div>
+      </div>
+      <div id="taleplerContainer">
+        <div class="loading"><div class="spinner"></div> Talepler yükleniyor...</div>
+      </div>
+    </div><!-- /sec-talepler -->
+
+    <!-- ──────────── MESAJLAR ──────────────────────── -->
+    <div class="page-section" id="sec-mesajlar">
+      <div class="chat-layout">
+        <div class="chat-list">
+          <div class="chat-list-header">💬 Sohbetler</div>
+          <div id="chatList">
+            <div class="loading" style="padding:40px 20px;"><div class="spinner"></div></div>
+          </div>
+        </div>
+        <div class="chat-window" id="chatWindow">
+          <div class="empty-state" style="margin:auto;">
+            <div class="empty-icon">💬</div>
+            <h3>Bir sohbet seçin</h3>
+            <p>Sol panelden bir konuşmayı seçerek mesajlaşmaya başlayın.</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-mesajlar -->
+
+    <!-- ──────────── PROFİL ────────────────────────── -->
+    <div class="page-section" id="sec-profil">
+      <div class="profil-card">
+        <div class="profil-header">
+          <div class="profil-avatar-lg" id="profilAvatarLg">?</div>
+          <div class="profil-meta">
+            <h2 id="profilAdSoyad">—</h2>
+            <p id="profilEmailGoster">—</p>
+            <div class="profil-badges">
+              <span class="badge badge-orange" id="profilRolBadge">—</span>
+              <span class="badge badge-blue"   id="profilAracBadge">— İlan</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="input-group">
+            <label>Ad Soyad</label>
+            <div class="input-wrapper"><input type="text" id="profAd" placeholder="Adınız Soyadınız"></div>
+          </div>
+          <div class="input-group">
+            <label>E-posta</label>
+            <div class="input-wrapper"><input type="email" id="profEmail" disabled style="opacity:0.5;"></div>
+          </div>
+          <div class="input-group">
+            <label>Telefon</label>
+            <div class="input-wrapper"><input type="tel" id="profTelefon" placeholder="05XX XXX XX XX"></div>
+          </div>
+          <div class="input-group">
+            <label>Firma / Hakkımda</label>
+            <div class="input-wrapper"><textarea id="profBio" placeholder="Firma bilgisi veya kısa açıklama..."></textarea></div>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+            <button class="btn-primary" onclick="profilKaydet()">💾 Kaydet</button>
+            <a href="profil.html" class="btn-secondary">Detaylı Profil →</a>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:8px 0;">
+          <button class="btn-danger" onclick="api.logout()">🚪 Çıkış Yap</button>
+        </div>
+      </div>
+    </div><!-- /sec-profil -->
+
+  </div><!-- /page-content -->
+</main>
+
+<!-- Scripts -->
+<script src="api.js"></script>
+<script src="supabase.js"></script>
+<script>
+/* ─── Araç ikon + etiket mapping ─────────────────────────── */
+const ARAC_IKONLAR = {
+  kepce: '🦺', vinc: '🏗️', tir: '🚛', kamyon: '🚚',
+  damperli: '🚜', beko: '🔧', forklift: '⬆️', mikser: '🔄',
+  default: '🚧'
+};
+
+const ARAC_ETIKET = {
+  kepce: 'Kepçe', vinc: 'Vinç', tir: 'TIR', kamyon: 'Kamyon',
+  damperli: 'Damperli Kamyon', beko: 'Beko Loder', forklift: 'Forklift', mikser: 'Beton Mikseri'
+};
+
+/* ─── State ───────────────────────────────────────────────── */
+let tumTalepler    = [];
+let mesajlarLoaded = false;
+
+/* ─── Auth Kontrol ────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('accessToken');
+  const user  = getUser();
+
+  if (!token || !user) {
+    window.location.href = 'giris.html';
+    return;
+  }
+
+  /* Rol kontrolü */
+  const izinliRoller = ['SURUCU', 'FIRMA', 'ADMIN'];
+  if (!izinliRoller.includes(user.rol)) {
+    window.location.href = 'dashboard.html';
+    return;
+  }
+
+  initUI(user);
+  await loadGenelBakis();
+});
+
+/* ─── UI Init ─────────────────────────────────────────────── */
+function initUI(user) {
+  const ad      = user.ad || user.name || 'Kullanıcı';
+  const initial = ad.charAt(0).toUpperCase();
+
+  /* Sidebar */
+  document.getElementById('sidebarName').textContent   = ad;
+  document.getElementById('sidebarRole').textContent   = rolLabel(user.rol);
+  document.getElementById('sidebarAvatar').textContent = initial;
+
+  /* Welcome */
+  document.getElementById('welcomeTitle').textContent = 'Merhaba ' + ad + '! 👋';
+
+  /* Profil */
+  document.getElementById('profilAdSoyad').textContent      = ad;
+  document.getElementById('profilEmailGoster').textContent  = user.email || '—';
+  document.getElementById('profAd').value                   = ad;
+  document.getElementById('profEmail').value                = user.email || '';
+  document.getElementById('profTelefon').value              = user.telefon || '';
+  document.getElementById('profilAvatarLg').textContent     = initial;
+  document.getElementById('profilRolBadge').textContent     = rolLabel(user.rol);
+}
+
+function rolLabel(rol) {
+  const map = { SURUCU: '🚛 Makine Sahibi', FIRMA: '🏗️ Firma', ADMIN: '🔑 Admin' };
+  return map[rol] || rol;
+}
+
+/* ─── Navigasyon ──────────────────────────────────────────── */
+const PAGE_META = {
+  genel:    { title: 'Genel Bakış',            sub: 'Özet ve istatistikler' },
+  araclar:  { title: 'Araçlarım / İlanlarım',  sub: 'Kiralık araç ilanlarınızı yönetin' },
+  talepler: { title: 'Tekliflerim', sub: 'Verdiğiniz kiralama teklifleri' },
+
+  mesajlar: { title: 'Mesajlar',                sub: 'Müşterilerle yazışmalar' },
+  profil:   { title: 'Profilim',                sub: 'Hesap ayarları ve bilgileriniz' },
+};
+
+async function navigate(section, btn) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+  document.getElementById('sec-' + section).classList.add('active');
+
+  const meta = PAGE_META[section] || {};
+  document.getElementById('pageTitle').textContent    = meta.title || section;
+  document.getElementById('pageSubtitle').textContent = meta.sub   || '';
+
+  if (window.innerWidth <= 1024) closeSidebar();
+
+  if (section === 'araclar')  await loadAraclar();
+  if (section === 'talepler') await loadTalepler();
+  if (section === 'mesajlar' && !mesajlarLoaded) { await loadMesajlar(); mesajlarLoaded = true; }
+}
+
+/* ─── Mobile Sidebar ──────────────────────────────────────── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+/* ─── GENEL BAKIŞ ─────────────────────────────────────────── */
+async function loadGenelBakis() {
+  try {
+    /* İlanlar */
+    const ilanRes = await api.get('/ilanlar/benim/liste');
+    let ilanlar = [];
+    if (ilanRes && ilanRes.ok) {
+      const d = await ilanRes.json();
+      ilanlar = Array.isArray(d) ? d : (d.ilanlar || []);
+    }
+
+    const aktifSayi = ilanlar.filter(i => i.durum === 'AKTIF').length;
+    document.getElementById('statAktifIlan').textContent = aktifSayi;
+    document.getElementById('profilAracBadge').textContent = ilanlar.length + ' İlan';
+    document.getElementById('welcomeDesc').textContent = aktifSayi > 0
+      ? 'Bugün ' + aktifSayi + ' aktif araç ilanın var. Gelen talepleri aşağıda incele.'
+      : 'Henüz aktif araç ilanın yok. Hemen bir ilan ekle!';
+
+    /* Talepler */
+    const talepRes = await api.get('/teklifler/benim');
+    let talepler = [];
+    if (talepRes && talepRes.ok) {
+      const d = await talepRes.json();
+      talepler = Array.isArray(d) ? d : (d.teklifler || []);
+    }
+    tumTalepler = talepler;
+
+    /* Bu ay */
+    const buAy = new Date();
+    const buAySayi = talepler.filter(t => {
+      const tarih = new Date(t.createdAt || t.created_at || t.tarih);
+      return tarih.getMonth() === buAy.getMonth() && tarih.getFullYear() === buAy.getFullYear();
+    }).length;
+    document.getElementById('statTalepSayisi').textContent = buAySayi;
+
+    /* Badge */
+    const bekleyenSayi = talepler.filter(t => t.durum === 'BEKLIYOR').length;
+    const badge = document.getElementById('talepBadge');
+    if (bekleyenSayi > 0) { badge.textContent = bekleyenSayi; badge.classList.add('visible'); }
+
+    /* Placeholder istatistikler */
+    document.getElementById('statPuan').textContent   = '4.8 ⭐';
+    document.getElementById('statKazanc').textContent = '₺ —';
+
+    renderSonTalepler(talepler.slice(0, 3));
+
+  } catch (err) {
+    console.error('Genel bakış yüklenemedi:', err);
+    document.getElementById('sonTaleplerContainer').innerHTML =
+      '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p>Bağlantı sorunu oluştu.</p></div>';
+  }
+}
+
+function renderSonTalepler(talepler) {
+  const cont = document.getElementById('sonTaleplerContainer');
+  if (!talepler || talepler.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><h3>Henüz talep yok</h3><p>İlanlarınız aktif olunca talepler burada görünür.</p><a href="ilan.html?tip=TEKLIF" class="btn-primary">+ İlan Ekle</a></div>';
+    return;
+  }
+
+  const html = talepler.map(function(t) {
+    const aracTip = (t.aracTipi || t.arac_tipi || t.tip || 'kepce').toLowerCase();
+    const ikon     = ARAC_IKONLAR[aracTip] || ARAC_IKONLAR.default;
+    const talipAd  = (t.talip && t.talip.ad) || (t.gonderen && t.gonderen.ad) || t.talipAd || 'Anonim';
+    const fiyat    = t.teklif_fiyat || t.fiyat || t.butce;
+    const tarih    = t.createdAt || t.created_at || t.tarih;
+    return '<div class="son-talep-item">'
+      + '<span class="son-talep-icon">' + ikon + '</span>'
+      + '<div class="son-talep-info">'
+      + '<div class="son-talep-baslik">' + talipAd + ' — ' + (ARAC_ETIKET[aracTip] || aracTip) + '</div>'
+      + '<div class="son-talep-meta">' + (tarih ? formatTarih(tarih) : '—') + ' · ' + durumBadge(t.durum || 'BEKLIYOR') + '</div>'
+      + '</div>'
+      + '<div class="son-talep-fiyat">' + (fiyat ? formatPara(fiyat) : '₺ —') + '</div>'
+      + '</div>';
+  }).join('');
+
+  cont.innerHTML = '<div class="son-talepler-liste">' + html + '</div>';
+}
+
+/* ─── ARAÇLARIM ───────────────────────────────────────────── */
+async function loadAraclar() {
+  const cont = document.getElementById('araclarContainer');
+  cont.innerHTML = '<div class="loading"><div class="spinner"></div> İlanlar yükleniyor...</div>';
+
+  try {
+    const res = await api.get('/ilanlar/benim/liste');
+    if (!res || !res.ok) throw new Error('API hatası');
+    const d = await res.json();
+    const ilanlar = Array.isArray(d) ? d : (d.ilanlar || []);
+
+    if (ilanlar.length === 0) {
+      cont.innerHTML = '<div class="empty-state"><div class="empty-icon">🚗</div><h3>Henüz ilan yok</h3><p>Araçlarınızı kiraya vermek için ilk ilanınızı ekleyin.</p><a href="ilan.html?tip=TEKLIF" class="btn-primary">🚛 İlan Ekle</a></div>';
+      return;
+    }
+
+    cont.innerHTML = '<div class="arac-grid">' + ilanlar.map(renderAracKarti).join('') + '</div>';
+  } catch (err) {
+    console.error(err);
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p>İlanlar alınamadı.</p><button class="btn-secondary" onclick="loadAraclar()">Tekrar Dene</button></div>';
+  }
+}
+
+function renderAracKarti(ilan) {
+  const tip       = (ilan.aracTipi || ilan.arac_tipi || ilan.tip || 'default').toLowerCase();
+  const ikon      = ARAC_IKONLAR[tip] || ARAC_IKONLAR.default;
+  const etiket    = ARAC_ETIKET[tip]  || ilan.baslik || tip;
+  const fiyat     = ilan.fiyat || ilan.gunluk_fiyat || ilan.ucret;
+  const durum     = ilan.durum || 'AKTIF';
+  const talepSay  = ilan.teklifSayisi || ilan.teklif_sayisi || 0;
+  const id        = ilan.id || ilan._id;
+  const konum     = ilan.konum || ilan.sehir || '—';
+  const createdAt = ilan.createdAt || ilan.created_at;
+
+  return '<div class="arac-card" id="arac-' + id + '">'
+    + '<div class="arac-card-header">'
+    + '<div><div class="arac-icon">' + ikon + '</div><div class="arac-title">' + etiket + '</div><div class="arac-tip">' + tip.toUpperCase() + '</div></div>'
+    + '<div>' + durumBadge(durum) + '</div>'
+    + '</div>'
+    + '<div class="arac-card-body"><div class="arac-meta">'
+    + '<div class="arac-meta-row"><span class="label">Günlük Fiyat</span><span class="value price-value">' + (fiyat ? formatPara(fiyat) : '₺ —') + '</span></div>'
+    + '<div class="arac-meta-row"><span class="label">Konum</span><span class="value">📍 ' + konum + '</span></div>'
+    + '<div class="arac-meta-row"><span class="label">Gelen Talep</span><span class="value">' + talepSay + ' talep</span></div>'
+    + (createdAt ? '<div class="arac-meta-row"><span class="label">Oluşturuldu</span><span class="value" style="font-size:12px;color:var(--text-dim);">' + formatTarih(createdAt) + '</span></div>' : '')
+    + '</div></div>'
+    + '<div class="arac-card-footer">'
+    + '<a href="ilan-detay.html?id=' + id + '" class="btn-secondary btn-sm">👁️ Görüntüle</a>'
+    + (durum === 'AKTIF'
+        ? '<button class="btn-secondary btn-sm" onclick="ilanDurumDegistir(\'' + id + '\',\'IPTAL\')">⏸️ Pasif Et</button>'
+        : '<button class="btn-secondary btn-sm" onclick="ilanDurumDegistir(\'' + id + '\',\'AKTIF\')">▶️ Aktif Et</button>')
+    + '<button class="btn-icon" onclick="ilanSil(\'' + id + '\')" title="Sil">🗑️</button>'
+    + '</div></div>';
+}
+
+async function ilanDurumDegistir(id, yeniDurum) {
+  try {
+    const res = await api.put('/ilanlar/' + id + '/durum', { durum: yeniDurum });
+    if (res && res.ok) {
+      showToast('İlan ' + (yeniDurum === 'AKTIF' ? 'aktif edildi.' : 'pasif edildi.'), 'success');
+      await loadAraclar();
+    } else { showToast('İşlem başarısız.', 'error'); }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+async function ilanSil(id) {
+  if (!confirm('Bu ilanı silmek istediğinizden emin misiniz?')) return;
+  try {
+    const res = await api.delete('/ilanlar/' + id);
+    if (res && res.ok) {
+      showToast('İlan silindi.', 'success');
+      const el = document.getElementById('arac-' + id);
+      if (el) el.remove();
+      const grid = document.querySelector('.arac-grid');
+      if (grid && !grid.children.length) await loadAraclar();
+    } else { showToast('Silinemedi.', 'error'); }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+/* ─── GELEN TALEPLER ──────────────────────────────────────── */
+async function loadTalepler() {
+  const cont = document.getElementById('taleplerContainer');
+  cont.innerHTML = '<div class="loading"><div class="spinner"></div> Talepler yükleniyor...</div>';
+
+  try {
+    const res = await api.get('/teklifler/benim');
+    if (!res || !res.ok) throw new Error('API hatası');
+    const d = await res.json();
+    tumTalepler = Array.isArray(d) ? d : (d.teklifler || []);
+
+    renderTalepler(tumTalepler);
+
+    const bekleyenSayi = tumTalepler.filter(t => t.durum === 'BEKLIYOR').length;
+    const badge = document.getElementById('talepBadge');
+    badge.textContent = bekleyenSayi;
+    badge.classList.toggle('visible', bekleyenSayi > 0);
+  } catch (err) {
+    console.error(err);
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p>Talepler alınamadı.</p><button class="btn-secondary" onclick="loadTalepler()">Tekrar Dene</button></div>';
+  }
+}
+
+function renderTalepler(talepler) {
+  const cont = document.getElementById('taleplerContainer');
+  if (!talepler || talepler.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><h3>Henüz talep yok</h3><p>İlanlarınız aktif olunca talepler burada görünür.</p></div>';
+    return;
+  }
+  cont.innerHTML = talepler.map(renderTalepKarti).join('');
+}
+
+function renderTalepKarti(t) {
+  const id       = t.id || t._id;
+  const talipAd  = (t.talip && t.talip.ad) || (t.gonderen && t.gonderen.ad) || t.talipAd || 'Anonim';
+  const initial  = talipAd.charAt(0).toUpperCase();
+  const aracTip  = (t.aracTipi || t.arac_tipi || t.tip || 'kepce').toLowerCase();
+  const ikon     = ARAC_IKONLAR[aracTip] || ARAC_IKONLAR.default;
+  const etiket   = ARAC_ETIKET[aracTip]  || aracTip;
+  const fiyat    = t.teklif_fiyat || t.fiyat || t.butce;
+  const durum    = t.durum || 'BEKLIYOR';
+  const tarih    = t.createdAt || t.created_at || t.tarih;
+  const not      = t.not || t.mesaj || t.aciklama || '';
+  const dc       = { BEKLIYOR: 'bekliyor', KABUL: 'kabul', RED: 'red' }[durum] || 'bekliyor';
+
+  return '<div class="talep-card ' + dc + '" id="talep-' + id + '">'
+    + '<div class="talep-avatar">' + initial + '</div>'
+    + '<div class="talep-info">'
+    + '<div class="talep-name">' + talipAd + '</div>'
+    + '<div class="talep-details">' + ikon + ' ' + etiket
+    + (not ? ' · "' + not.substring(0, 80) + (not.length > 80 ? '...' : '') + '"' : '')
+    + '</div>'
+    + '<div style="margin-top:6px;">' + durumBadge(durum) + '</div>'
+    + '</div>'
+    + '<div class="talep-right">'
+    + '<div class="talep-fiyat">' + (fiyat ? formatPara(fiyat) : '₺ —') + '</div>'
+    + '<div class="talep-tarih">' + (tarih ? formatTarih(tarih) : '—') + '</div>'
+    + (durum === 'BEKLIYOR'
+        ? '<div class="talep-actions">'
+          + '<button class="btn-success" onclick="talepCevapla(\'' + id + '\',\'KABUL\')">✅ Kabul Et</button>'
+          + '<button class="btn-reject"  onclick="talepCevapla(\'' + id + '\',\'RED\')">❌ Reddet</button>'
+          + '</div>'
+        : '')
+    + '</div></div>';
+}
+
+async function talepCevapla(id, karar) {
+  const label = karar === 'KABUL' ? 'kabul etmek' : 'reddetmek';
+  if (!confirm('Bu talebi ' + label + ' istediğinizden emin misiniz?')) return;
+
+  try {
+    const res = await api.put('/teklifler/' + id + '/durum', { durum: karar });
+    if (res && res.ok) {
+      showToast(karar === 'KABUL' ? '✅ Talep kabul edildi!' : '❌ Talep reddedildi.', karar === 'KABUL' ? 'success' : 'warning');
+      const t = tumTalepler.find(function(x){ return (x.id || x._id) == id; });
+      if (t) t.durum = karar;
+      await loadTalepler();
+    } else { showToast('İşlem başarısız.', 'error'); }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+function filterTalepler(filtre, btn) {
+  document.querySelectorAll('.talep-filtre').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  const filtered = filtre === 'hepsi' ? tumTalepler : tumTalepler.filter(function(t){ return (t.durum || 'BEKLIYOR') === filtre; });
+  renderTalepler(filtered);
+}
+
+/* ─── MESAJLAR ────────────────────────────────────────────── */
+async function loadMesajlar() {
+  const chatListEl = document.getElementById('chatList');
+  chatListEl.innerHTML = '<div class="loading" style="padding:40px 20px;"><div class="spinner"></div></div>';
+
+  try {
+    const res = await api.get('/mesajlar/sohbet/liste');
+    if (!res || !res.ok) throw new Error('API hatası');
+    const d = await res.json();
+    const konusmalar = Array.isArray(d) ? d : (d.sohbetler || []);
+
+    if (konusmalar.length === 0) {
+      chatListEl.innerHTML = '<div class="empty-state" style="padding:40px 16px;"><div class="empty-icon">💬</div><h3 style="font-size:15px;">Mesaj yok</h3><p>Henüz bir mesajlaşmanız yok.</p></div>';
+      return;
+    }
+
+    chatListEl.innerHTML = konusmalar.map(function(k) {
+      const ad        = k.diger_ad || (k.diger_kullanici && k.diger_kullanici.ad) || k.ad || 'Kullanıcı';
+      const initial   = ad.charAt(0).toUpperCase();
+      const preview   = k.son_mesaj || k.sonMesaj || '';
+      const okunmamis = k.okunmamis || k.unread || 0;
+      const kid       = k.diger_user_id || k.id || k.konusma_id;
+      return '<div class="chat-item" onclick="konusmaAc(\'' + kid + '\',\'' + ad + '\')">'
+        + '<div class="chat-avatar">' + initial + '</div>'
+        + '<div class="chat-item-info">'
+        + '<div class="chat-item-name">' + ad + '</div>'
+        + '<div class="chat-item-preview">' + (preview || 'Mesaj yok') + '</div>'
+        + '</div>'
+        + (okunmamis > 0 ? '<span class="chat-unread">' + okunmamis + '</span>' : '')
+        + '</div>';
+    }).join('');
+
+  } catch {
+    chatListEl.innerHTML = '<div class="empty-state" style="padding:40px 16px;"><div class="empty-icon">⚠️</div><h3 style="font-size:15px;">Yüklenemedi</h3></div>';
+  }
+}
+
+async function konusmaAc(kid, ad) {
+  document.querySelectorAll('.chat-item').forEach(function(el){ el.classList.remove('active'); });
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+  const chatWindowEl = document.getElementById('chatWindow');
+  chatWindowEl.innerHTML =
+    '<div class="chat-header">'
+    + '<div class="chat-avatar">' + ad.charAt(0) + '</div>'
+    + '<div><strong>' + ad + '</strong><div style="font-size:12px;color:var(--text-muted);">Konuşma</div></div>'
+    + '</div>'
+    + '<div class="chat-messages" id="chatMessages"><div class="loading"><div class="spinner"></div></div></div>'
+    + '<div class="chat-input-area">'
+    + '<div class="chat-input"><div class="input-wrapper"><input type="text" id="chatInputText" placeholder="Mesaj yaz..." onkeydown="if(event.key===\'Enter\') mesajGonder(\'' + kid + '\')"></div></div>'
+    + '<button class="btn-primary" onclick="mesajGonder(\'' + kid + '\')">Gönder</button>'
+    + '</div>';
+
+  try {
+    const res = await api.get('/mesajlar/' + kid);
+    const msgsEl = document.getElementById('chatMessages');
+    if (!res || !res.ok) { msgsEl.innerHTML = '<div class="empty-state"><p>Mesajlar yüklenemedi.</p></div>'; return; }
+
+    const d = await res.json();
+    const mesajlar = Array.isArray(d) ? d : (d.mesajlar || []);
+    const currentUser = getUser();
+
+    if (mesajlar.length === 0) {
+      msgsEl.innerHTML = '<div class="empty-state" style="padding:40px;"><p>Henüz mesaj yok.</p></div>';
+      return;
+    }
+
+    msgsEl.innerHTML = mesajlar.map(function(m) {
+      const isSent = (m.gonderen_id || m.gonderenId) == (currentUser && currentUser.id);
+      return '<div class="message ' + (isSent ? 'sent' : 'received') + '">'
+        + '<div>' + (m.icerik || m.mesaj || '') + '</div>'
+        + '<div class="message-time">' + (m.createdAt ? formatTarih(m.createdAt) : '') + '</div>'
+        + '</div>';
+    }).join('');
+
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  } catch {
+    const msgsEl = document.getElementById('chatMessages');
+    if (msgsEl) msgsEl.innerHTML = '<div class="empty-state"><p>Yüklenemedi.</p></div>';
+  }
+}
+
+async function mesajGonder(kid) {
+  const inputEl = document.getElementById('chatInputText');
+  const icerik  = inputEl && inputEl.value.trim();
+  if (!icerik) return;
+
+  try {
+    const res = await api.post('/mesajlar', { alici_id: kid, icerik: icerik });
+    if (res && res.ok) {
+      inputEl.value = '';
+      const msgsEl = document.getElementById('chatMessages');
+      if (msgsEl) {
+        const div = document.createElement('div');
+        div.className = 'message sent';
+        div.innerHTML = '<div>' + icerik + '</div><div class="message-time">Şimdi</div>';
+        msgsEl.appendChild(div);
+        msgsEl.scrollTop = msgsEl.scrollHeight;
+      }
+    } else { showToast('Mesaj gönderilemedi.', 'error'); }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+/* ─── PROFİL ──────────────────────────────────────────────── */
+async function profilKaydet() {
+  const ad      = document.getElementById('profAd').value.trim();
+  const telefon = document.getElementById('profTelefon').value.trim();
+  const bio     = document.getElementById('profBio').value.trim();
+
+  if (!ad) { showToast('Ad alanı boş olamaz.', 'warning'); return; }
+
+  try {
+    const res = await api.put('/auth/profil', { ad: ad, telefon: telefon });
+    if (res && res.ok) {
+      const user = getUser();
+      if (user) {
+        user.ad      = ad;
+        user.telefon = telefon;
+        localStorage.setItem('user', JSON.stringify(user));
+        initUI(user);
+      }
+      showToast('Profil güncellendi!', 'success');
+    } else { showToast('Güncelleme başarısız.', 'error'); }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+/* ─── Yardımcı: Durum Badge ───────────────────────────────── */
+function durumBadge(durum) {
+  const map = {
+    AKTIF:      '<span class="badge badge-green">✅ Aktif</span>',
+    IPTAL:      '<span class="badge badge-red">❌ İptal</span>',
+    BEKLIYOR:   '<span class="badge badge-yellow">⏳ Bekliyor</span>',
+    KABUL:      '<span class="badge badge-green">✅ Kabul</span>',
+    RED:        '<span class="badge badge-red">❌ Red</span>',
+    TAMAMLANDI: '<span class="badge badge-blue">✔️ Tamamlandı</span>',
+    KAPALI:     '<span class="badge badge-yellow">🔒 Kapandı</span>',
+  };
+  return map[durum] || '<span class="badge">' + durum + '</span>';
+}
+</script>
+</body>
+</html>

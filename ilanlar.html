@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>İlanlar | Kepçe, Vinç, TIR, Kamyon | hafriyatcim.com</title>
+  <meta name="description" content="Hafriyat ilanları: kepçe, vinç, TIR, kamyon, damperli, beko loder kiralama ve iş ilanları. Firmalar ve inşaat sahipleri ilan açabilir.">
+  <meta name="keywords" content="kepçe kiralama, vinç kiralama, TIR kiralama, kamyon ilanı, hafriyat ilanı, iş makinesi kiralama">
+  <link rel="canonical" href="https://hafriyatcim.com/ilanlar.html">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber:    #f59e0b;
+      --amber-d:  #d97706;
+      --amber-bg: rgba(245,158,11,0.08);
+      --bg:       #09090b;
+      --surface:  #18181b;
+      --border:   #27272a;
+      --border-h: #3f3f46;
+      --text:     #f4f4f5;
+      --muted:    #a1a1aa;
+      --green-bg: #dcfce7;
+      --green-tx: #15803d;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    /* ─── Topbar ─── */
+    .topbar {
+      display:flex; align-items:center; gap:12px;
+      padding:0 24px; height:52px;
+      border-bottom:1px solid var(--border);
+      background:#09090b;
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(8px);
+    }
+    .logo-link { display:flex; align-items:center; gap:8px; text-decoration:none; font-weight:800; font-size:.95rem; color:var(--text); flex-shrink:0; }
+    .logo-link span { color:var(--amber); }
+    .logo-link img { width:26px; height:26px; border-radius:4px; }
+
+    .search-wrap { flex:1; max-width:480px; margin:0 auto; position:relative; }
+    .search-wrap input {
+      width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border);
+      border-radius:4px; padding:8px 14px 8px 36px; color:var(--text);
+      font-family:inherit; font-size:.875rem; outline:none;
+      transition:border-color 0.15s;
+    }
+    .search-wrap input:focus { border-color:var(--amber); }
+    .search-wrap input::placeholder { color:var(--muted); }
+    .search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; display:flex; align-items:center; }
+
+    .topbar-right { display:flex; align-items:center; gap:8px; margin-left:auto; }
+    .btn-top {
+      display:flex; align-items:center; gap:6px;
+      padding:7px 14px; border-radius:4px;
+      font-family:inherit; font-size:.82rem; font-weight:600;
+      cursor:pointer; transition:color 0.15s, border-color 0.15s, background 0.15s;
+      border:none; text-decoration:none; white-space:nowrap;
+    }
+    .btn-top.ghost {
+      background:transparent; color:var(--muted);
+      border:1px solid var(--border);
+    }
+    .btn-top.ghost:hover { color:var(--text); border-color:var(--border-h); }
+    .btn-top.primary {
+      background:var(--amber); color:#09090b;
+      border:1px solid var(--amber); font-weight:700;
+    }
+    .btn-top.primary:hover { background:var(--amber-d); border-color:var(--amber-d); }
+
+    /* ─── Layout ─── */
+    .page { display:grid; grid-template-columns:252px 1fr; min-height:calc(100vh - 52px); }
+
+    /* ─── Sidebar Filters ─── */
+    .filters-panel {
+      border-right:1px solid var(--border);
+      padding:20px 14px;
+      position:sticky; top:52px; height:calc(100vh - 52px);
+      overflow-y:auto;
+    }
+    .filter-section { margin-bottom:22px; }
+    .filter-section + .filter-section { padding-top:20px; border-top:1px solid var(--border); }
+    .filter-label {
+      font-size:.68rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.1em; color:var(--muted); margin-bottom:8px; display:block;
+    }
+
+    /* Category pills — flat text buttons, no emoji */
+    .cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+    .cat-pill {
+      display:flex; align-items:center; justify-content:center;
+      padding:7px 8px; border-radius:4px;
+      background:transparent; border:1px solid var(--border);
+      cursor:pointer; transition:color 0.15s, border-color 0.15s, background 0.15s;
+      font-family:inherit; color:var(--muted);
+      font-size:.72rem; font-weight:600; text-align:center;
+    }
+    .cat-pill .cat-icon { display:none; } /* emoji ikonları gizle */
+    .cat-pill.active { background:var(--amber-bg); border-color:var(--amber); color:var(--amber); }
+    .cat-pill:hover { border-color:var(--border-h); color:var(--text); }
+    .cat-pill.all { grid-column:1/-1; padding:7px 10px; font-size:.75rem; }
+
+    /* Filter selects & inputs */
+    .filter-select, .filter-input {
+      width:100%; background:rgba(255,255,255,.03); border:1px solid var(--border);
+      border-radius:4px; padding:8px 10px; color:var(--text);
+      font-family:inherit; font-size:.82rem; outline:none;
+      transition:border-color 0.15s; cursor:pointer;
+    }
+    .filter-select:focus, .filter-input:focus { border-color:var(--amber); }
+    .filter-select option { background:#18181b; }
+
+    /* Tipo toggle */
+    .tipo-toggle { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+    .tipo-btn {
+      padding:7px 4px; border-radius:4px; border:1px solid var(--border);
+      background:transparent; color:var(--muted); font-family:inherit;
+      font-size:.76rem; font-weight:600; cursor:pointer;
+      transition:color 0.15s, border-color 0.15s, background 0.15s; text-align:center;
+    }
+    .tipo-btn.active { border-color:var(--amber); color:var(--amber); background:var(--amber-bg); }
+    .tipo-btn:hover:not(.active) { border-color:var(--border-h); color:var(--text); }
+
+    /* ─── Main ─── */
+    .main-area { padding:20px 24px; overflow:auto; }
+
+    .results-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+    .results-count { font-size:.83rem; color:var(--muted); }
+    .results-count span { color:var(--text); font-weight:700; }
+
+    .sort-select {
+      background:rgba(255,255,255,.03); border:1px solid var(--border);
+      border-radius:4px; padding:7px 10px; color:var(--muted);
+      font-family:inherit; font-size:.8rem; outline:none; cursor:pointer;
+      transition:border-color 0.15s;
+    }
+    .sort-select:focus { border-color:var(--amber); }
+
+    /* ─── İlan Kartları ─── */
+    .cards-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; }
+
+    .ilan-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:6px; overflow:hidden;
+      cursor:pointer; transition:border-color 0.15s;
+      display:flex; flex-direction:column;
+      text-decoration:none; color:var(--text);
+    }
+    .ilan-card:hover { border-color:var(--border-h); }
+
+    .card-img {
+      height:136px; background:rgba(245,158,11,.04);
+      position:relative; overflow:hidden; flex-shrink:0;
+    }
+    .card-img img { width:100%; height:100%; object-fit:cover; }
+    .card-img-placeholder {
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:2.4rem; background:#18181b;
+    }
+
+    /* Badges */
+    .card-badges { position:absolute; top:8px; left:8px; display:flex; gap:4px; flex-wrap:wrap; }
+    .badge {
+      display:inline-flex; align-items:center; gap:3px;
+      padding:2px 7px; border-radius:4px;
+      font-size:.63rem; font-weight:700;
+    }
+    .badge-talep  { background:#1d4ed8; color:#fff; }
+    .badge-teklif { background:#15803d; color:#fff; }
+    .badge-urgent { background:var(--amber); color:#09090b; }
+    .badge-verified { background:#27272a; color:var(--text); }
+    .badge-operator { background:#6d28d9; color:#fff; }
+
+    .card-body { padding:12px 14px; flex:1; display:flex; flex-direction:column; }
+    .card-category { display:flex; align-items:center; gap:5px; margin-bottom:5px; }
+    .card-cat-icon { font-size:.85rem; }
+    .card-cat-label { font-size:.68rem; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:.06em; }
+
+    .card-title { font-size:.9rem; font-weight:700; line-height:1.35; margin-bottom:7px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card-location { display:flex; align-items:center; gap:4px; font-size:.74rem; color:var(--muted); margin-bottom:7px; }
+    .card-meta-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:9px; }
+    .card-tag {
+      background:rgba(255,255,255,.04); border:1px solid var(--border);
+      border-radius:4px; padding:2px 6px; font-size:.67rem; color:var(--muted);
+    }
+
+    .card-footer { display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:9px; border-top:1px solid var(--border); }
+    .card-price { font-size:.96rem; font-weight:800; color:var(--text); }
+    .card-price .price-unit { font-size:.7rem; color:var(--muted); font-weight:500; }
+    .card-teklif-count { font-size:.7rem; color:var(--muted); }
+    .card-teklif-count span { color:#22c55e; font-weight:700; }
+
+    /* ─── Empty / Loading ─── */
+    .empty-state { text-align:center; padding:64px 20px; color:var(--muted); }
+    .empty-state .es-icon { font-size:3rem; margin-bottom:14px; }
+    .empty-state h3 { font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+    .empty-state p { font-size:.86rem; line-height:1.6; margin-bottom:20px; }
+    .cards-loading { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; }
+    .skeleton-card {
+      height:254px;
+      background:linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%);
+      background-size:200% 100%;
+      animation:shimmer 1.6s infinite;
+      border-radius:6px; border:1px solid var(--border);
+    }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* ─── FAB ─── */
+    .fab {
+      position:fixed; bottom:24px; right:20px; z-index:100;
+      background:var(--amber);
+      color:#09090b; border:none; border-radius:4px; padding:12px 18px;
+      font-family:inherit; font-size:.88rem; font-weight:700;
+      cursor:pointer;
+      display:flex; align-items:center; gap:8px;
+      transition:background 0.15s; text-decoration:none;
+    }
+    .fab:hover { background:var(--amber-d); }
+
+    /* ─── Responsive ─── */
+    @media (max-width:900px) {
+      .page { grid-template-columns:1fr; }
+      .filters-panel { display:none; }
+      .search-wrap { max-width:none; }
+    }
+    @media (max-width:600px) {
+      .cards-grid { grid-template-columns:1fr; }
+      .topbar { padding:0 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Topbar ─── -->
+<header class="topbar">
+  <a href="index.html" class="logo-link">
+    <img src="logo.png" alt="logo">
+    hafriyatcim<span>.com</span>
+  </a>
+
+  <div class="search-wrap">
+    <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+    <input type="search" id="searchInput" placeholder="Kepçe, vinç, TIR, şehir ara..." aria-label="İlan ara">
+  </div>
+
+  <div class="topbar-right">
+    <a href="giris.html" id="loginBtn" class="btn-top ghost">Giriş</a>
+    <a href="ilan.html" class="btn-top primary">+ İlan Aç</a>
+  </div>
+</header>
+
+<!-- ─── Body ─── -->
+<div class="page">
+
+  <!-- ─── Filters Sidebar ─── -->
+  <aside class="filters-panel">
+
+    <!-- İlan Türü -->
+    <div class="filter-section">
+      <span class="filter-label">İlan Türü</span>
+      <div class="tipo-toggle">
+        <button class="tipo-btn active" data-tipo="all" onclick="setTipo('all', this)">Tümü</button>
+        <button class="tipo-btn" data-tipo="TALEP" onclick="setTipo('TALEP', this)">Talep</button>
+        <button class="tipo-btn" data-tipo="TEKLIF" onclick="setTipo('TEKLIF', this)" style="grid-column:1/-1;">Teklif (Kiralık)</button>
+      </div>
+    </div>
+
+    <!-- Araç Kategorisi -->
+    <div class="filter-section">
+      <span class="filter-label">Araç Türü</span>
+      <div class="cat-grid">
+        <button class="cat-pill all active" data-cat="all" onclick="setCategory('all', this)">Tüm Araçlar</button>
+        <button class="cat-pill" data-cat="kepce" onclick="setCategory('kepce', this)">Kepçe</button>
+        <button class="cat-pill" data-cat="vinc" onclick="setCategory('vinc', this)">Vinç</button>
+        <button class="cat-pill" data-cat="tir" onclick="setCategory('tir', this)">TIR</button>
+        <button class="cat-pill" data-cat="kamyon" onclick="setCategory('kamyon', this)">Kamyon</button>
+        <button class="cat-pill" data-cat="damperli" onclick="setCategory('damperli', this)">Damper</button>
+        <button class="cat-pill" data-cat="beko" onclick="setCategory('beko', this)">Beko</button>
+        <button class="cat-pill" data-cat="forklift" onclick="setCategory('forklift', this)">Forklift</button>
+        <button class="cat-pill" data-cat="mikser" onclick="setCategory('mikser', this)">Mikser</button>
+      </div>
+    </div>
+
+    <!-- Şehir -->
+    <div class="filter-section">
+      <span class="filter-label">Şehir</span>
+      <select class="filter-select" id="sehirFilter" onchange="applyFilters()">
+        <option value="">Tüm Şehirler</option>
+        <option>İstanbul</option><option>Ankara</option><option>İzmir</option>
+        <option>Bursa</option><option>Antalya</option><option>Adana</option>
+        <option>Konya</option><option>Gaziantep</option><option>Mersin</option>
+        <option>Kocaeli</option><option>Diyarbakır</option><option>Trabzon</option>
+      </select>
+    </div>
+
+    <!-- Sıralama -->
+    <div class="filter-section">
+      <span class="filter-label">Sırala</span>
+      <select class="filter-select" id="siralamaFilter" onchange="applyFilters()">
+        <option value="newest">En Yeni</option>
+        <option value="price-low">Fiyat: Düşükten Yükseğe</option>
+        <option value="price-high">Fiyat: Yüksekten Düşüğe</option>
+      </select>
+    </div>
+
+    <!-- Operatörlü -->
+    <div class="filter-section">
+      <span class="filter-label">Operatör</span>
+      <div class="tipo-toggle">
+        <button class="tipo-btn active" data-op="all" onclick="setOp('all', this)">Hepsi</button>
+        <button class="tipo-btn" data-op="true" onclick="setOp('true', this)">Operatörlü</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ─── Main Content ─── -->
+  <main class="main-area">
+    <div class="results-header">
+      <p class="results-count" id="resultsCount">Yükleniyor...</p>
+      <select class="sort-select" onchange="document.getElementById('siralamaFilter').value=this.value; applyFilters()">
+        <option value="newest">En Yeni</option>
+        <option value="price-low">Ucuzdan Pahalıya</option>
+        <option value="price-high">Pahalıdan Ucuza</option>
+      </select>
+    </div>
+
+    <div id="cardsContainer" class="cards-loading">
+      <!-- Skeleton placeholders -->
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination" style="display:flex;justify-content:center;gap:8px;margin-top:24px;flex-wrap:wrap;"></div>
+  </main>
+
+</div>
+
+<!-- FAB -->
+<a href="ilan.html" class="fab" id="fabBtn">
+  <span>+</span> İlan Aç
+</a>
+
+<script src="api.js"></script>
+<script>
+  // ─── State ───
+  let state = { arac_tipi: 'all', ilan_tipi: 'all', siralama: 'newest', sehir: '', page: 1, op: 'all', search: '' };
+  let searchTimer;
+
+  // ─── Araç ikonları ───
+  const ARAC_ICON = {
+    kepce:'🦺', vinc:'🏗️', tir:'🚛', kamyon:'🚚', damperli:'🚜',
+    beko:'🔧', forklift:'⬆️', mikser:'🔄', greyder:'⚙️', diger:'🔩'
+  };
+
+  const ARAC_LABEL = {
+    kepce:'Kepçe', vinc:'Vinç', tir:'TIR', kamyon:'Kamyon',
+    damperli:'Damperli', beko:'Beko Loder', forklift:'Forklift',
+    mikser:'Mikser', greyder:'Greyder', diger:'Diğer'
+  };
+
+  // ─── Nav ───
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (user) {
+    document.getElementById('loginBtn').textContent = '📊 Panel';
+    document.getElementById('loginBtn').href = 'dashboard.html';
+  }
+
+  // ─── Filter setters ───
+  function setCategory(cat, btn) {
+    state.arac_tipi = cat;
+    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.page = 1;
+    load();
+  }
+
+  function setTipo(tipo, btn) {
+    state.ilan_tipi = tipo;
+    document.querySelectorAll('.tipo-btn[data-tipo]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.page = 1;
+    load();
+  }
+
+  function setOp(op, btn) {
+    state.op = op;
+    document.querySelectorAll('.tipo-btn[data-op]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.page = 1;
+    load();
+  }
+
+  function applyFilters() {
+    state.siralama = document.getElementById('siralamaFilter').value;
+    state.sehir = document.getElementById('sehirFilter').value;
+    state.page = 1;
+    load();
+  }
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    state.search = e.target.value.trim();
+    searchTimer = setTimeout(() => { state.page = 1; load(); }, 350);
+  });
+
+  // ─── Load ───
+  const API_BASE = ['localhost','127.0.0.1'].includes(location.hostname)
+    ? 'http://localhost:5050/api' : '/api';
+
+  async function load() {
+    document.getElementById('cardsContainer').innerHTML = [1,2,3,4,5,6].map(() => '<div class="skeleton-card"></div>').join('');
+    document.getElementById('pagination').innerHTML = '';
+
+    const params = new URLSearchParams({ page: state.page, limit: 18, siralama: state.siralama });
+    if (state.arac_tipi !== 'all') params.set('arac_tipi', state.arac_tipi);
+    if (state.ilan_tipi !== 'all') params.set('ilan_tipi', state.ilan_tipi);
+    if (state.sehir) params.set('sehir', state.sehir);
+
+    try {
+      const res = await fetch(`${API_BASE}/ilanlar?${params}`);
+      const data = await res.json();
+      let ilanlar = data.ilanlar || DEMO_ILANLAR;
+
+      // Client-side search
+      if (state.search) {
+        const q = state.search.toLowerCase();
+        ilanlar = ilanlar.filter(i =>
+          (i.baslik || '').toLowerCase().includes(q) ||
+          (i.konum_dan || '').toLowerCase().includes(q) ||
+          (i.konum_a || '').toLowerCase().includes(q) ||
+          (i.aciklama || '').toLowerCase().includes(q)
+        );
+      }
+
+      // Op filter
+      if (state.op === 'true') ilanlar = ilanlar.filter(i => i.operatorlu);
+
+      renderCards(ilanlar, data.toplam || ilanlar.length);
+      renderPagination(data.toplam_sayfa || 1);
+    } catch {
+      renderCards(DEMO_ILANLAR, DEMO_ILANLAR.length);
+    }
+  }
+
+  function renderCards(ilanlar, toplam) {
+    document.getElementById('resultsCount').innerHTML = `<span>${ilanlar.length}</span> ilan bulundu`;
+
+    if (!ilanlar.length) {
+      document.getElementById('cardsContainer').innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="es-icon">🔍</div>
+          <h3>İlan Bulunamadı</h3>
+          <p>Bu kriterlere uygun ilan yok. Filtreleyi değiştirin veya yeni ilan ekleyin.</p>
+          <a href="ilan.html" class="fab" style="position:static;display:inline-flex;">+ İlan Aç</a>
+        </div>`;
+      return;
+    }
+
+    document.getElementById('cardsContainer').className = 'cards-grid';
+    document.getElementById('cardsContainer').innerHTML = ilanlar.map(ilan => cardHTML(ilan)).join('');
+  }
+
+  function cardHTML(ilan) {
+    const icon    = ARAC_ICON[ilan.arac_tipi] || '🔩';
+    const label   = ARAC_LABEL[ilan.arac_tipi] || 'Araç';
+    const isTeklif = ilan.ilan_tipi === 'TEKLIF';
+    const konum   = [ilan.konum_dan, ilan.konum_a].filter(Boolean).join(' → ');
+    const fiyat   = ilan.fiyat
+      ? `${Number(ilan.fiyat).toLocaleString('tr-TR')} ₺ <span class="price-unit">/ ${ilan.fiyat_birimi || 'sefer'}</span>`
+      : '<span style="color:var(--muted)">Fiyat belirtilmemiş</span>';
+
+    const ago = ilan.created_at ? timeAgo(ilan.created_at) : '';
+
+    return `
+      <a class="ilan-card" href="ilan-detay.html?id=${ilan.id}" id="ilan-${ilan.id}">
+        <div class="card-img">
+          ${ilan.resim
+            ? `<img src="${ilan.resim}" alt="${ilan.baslik}" loading="lazy">`
+            : `<div class="card-img-placeholder">${icon}</div>`}
+          <div class="card-badges">
+            <span class="badge badge-${isTeklif ? 'teklif' : 'talep'}">${isTeklif ? '✅ Kiralık' : '📋 Talep'}</span>
+            ${ilan.operatorlu ? '<span class="badge badge-operator">👷 Operatörlü</span>' : ''}
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">
+            <span class="card-cat-icon">${icon}</span>
+            <span class="card-cat-label">${label}</span>
+          </div>
+          <div class="card-title">${ilan.baslik || 'İlan Başlığı'}</div>
+          <div class="card-location">📍 ${konum || ilan.konum || 'Konum belirtilmemiş'}</div>
+          ${ilan.yuk_turu ? `<div class="card-meta-row"><span class="card-tag">📦 ${ilan.yuk_turu}</span></div>` : ''}
+          <div class="card-footer">
+            <div class="card-price">${fiyat}</div>
+            <div class="card-teklif-count">
+              ${ilan.teklif_sayisi ? `<span>${ilan.teklif_sayisi}</span> teklif` : ago}
+            </div>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  function renderPagination(totalPages) {
+    const pag = document.getElementById('pagination');
+    if (totalPages <= 1) return;
+    let html = '';
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button onclick="state.page=${i}; load();" style="padding:8px 14px; border-radius:8px; border:1px solid var(--border); background:${i===state.page?'var(--orange)':'transparent'}; color:${i===state.page?'#fff':'var(--muted)'}; font-weight:700; cursor:pointer; font-family:inherit;">${i}</button>`;
+    }
+    pag.innerHTML = html;
+  }
+
+  function timeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const m = Math.floor(diff / 60000);
+    if (m < 60) return `${m}dk önce`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h}sa önce`;
+    return `${Math.floor(h / 24)}g önce`;
+  }
+
+  // ─── Demo ilanlar (backend yokken göster) ───
+  const DEMO_ILANLAR = [
+    { id:'d1', baslik:'CAT 336 Kepçe Kiralık | Operatörlü', ilan_tipi:'TEKLIF', arac_tipi:'kepce', yuk_turu:'hafriyat', fiyat:4500, fiyat_birimi:'saat', konum_dan:'İstanbul', konum_a:'', konum:'İstanbul', operatorlu:true, teklif_sayisi:0, created_at: new Date(Date.now()-3600000).toISOString() },
+    { id:'d2', baslik:'Hafriyat Taşıma TIR Aranıyor', ilan_tipi:'TALEP', arac_tipi:'tir', yuk_turu:'toprak', fiyat:8500, fiyat_birimi:'sefer', konum_dan:'Ankara', konum_a:'Bursa', operatorlu:false, teklif_sayisi:3, created_at: new Date(Date.now()-7200000).toISOString() },
+    { id:'d3', baslik:'50 Ton Mobil Vinç Kiralık', ilan_tipi:'TEKLIF', arac_tipi:'vinc', yuk_turu:null, fiyat:12000, fiyat_birimi:'gun', konum_dan:'İzmir', konum_a:'', konum:'İzmir', operatorlu:true, teklif_sayisi:0, created_at: new Date(Date.now()-10800000).toISOString() },
+    { id:'d4', baslik:'Moloz Taşıma Damperli Kamyon Aranıyor', ilan_tipi:'TALEP', arac_tipi:'damperli', yuk_turu:'moloz', fiyat:3200, fiyat_birimi:'sefer', konum_dan:'Bursa', konum_a:'İstanbul', operatorlu:false, teklif_sayisi:2, created_at: new Date(Date.now()-14400000).toISOString() },
+    { id:'d5', baslik:'JCB Beko Loder Günlük Kiralık', ilan_tipi:'TEKLIF', arac_tipi:'beko', yuk_turu:null, fiyat:2800, fiyat_birimi:'gun', konum_dan:'Ankara', konum_a:'', konum:'Ankara', operatorlu:true, teklif_sayisi:0, created_at: new Date(Date.now()-18000000).toISOString() },
+    { id:'d6', baslik:'Kum-Çakıl Taşıma Kamyon İlanı', ilan_tipi:'TALEP', arac_tipi:'kamyon', yuk_turu:'kum', fiyat:2500, fiyat_birimi:'sefer', konum_dan:'Antalya', konum_a:'Konya', operatorlu:false, teklif_sayisi:5, created_at: new Date(Date.now()-21600000).toISOString() },
+    { id:'d7', baslik:'22 Ton Paletli Ekskavatör Kiralık', ilan_tipi:'TEKLIF', arac_tipi:'kepce', yuk_turu:'hafriyat', fiyat:6000, fiyat_birimi:'gun', konum_dan:'İstanbul', konum_a:'', konum:'İstanbul', operatorlu:true, teklif_sayisi:0, created_at: new Date(Date.now()-25200000).toISOString() },
+    { id:'d8', baslik:'Hazır Beton Mikser Kiralık | Saatlik', ilan_tipi:'TEKLIF', arac_tipi:'mikser', yuk_turu:'beton', fiyat:1800, fiyat_birimi:'saat', konum_dan:'Kocaeli', konum_a:'', konum:'Kocaeli', operatorlu:true, teklif_sayisi:0, created_at: new Date(Date.now()-28800000).toISOString() },
+    { id:'d9', baslik:'Toprak Kazı TIR Talebi — Acil', ilan_tipi:'TALEP', arac_tipi:'tir', yuk_turu:'toprak', fiyat:null, fiyat_birimi:'sefer', konum_dan:'Mersin', konum_a:'Adana', operatorlu:false, teklif_sayisi:1, created_at: new Date(Date.now()-32400000).toISOString() },
+  ];
+
+  // ─── Init ───
+  load();
+</script>
+
+</body>
+</html>

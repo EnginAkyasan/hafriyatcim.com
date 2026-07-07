@@ -1,0 +1,424 @@
+/* Takip Page Layout */
+.takip-page {
+  display: flex;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+/* Harita Paneli */
+.map-panel {
+  flex: 1;
+  position: relative;
+}
+#map { z-index: 1; }
+.leaflet-control-attribution { font-size: 10px !important; }
+
+/* Navigasyon Talimatı (Google Maps benzeri üst kart) */
+.nav-instruction {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 14px;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 350px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+.nav-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(59,130,246,0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-text { flex: 1; }
+.nav-text strong { font-size: 1rem; display: block; margin-bottom: 2px; }
+.nav-text p { color: var(--text-muted); font-size: 0.82rem; }
+.nav-distance {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* Nav Step Items */
+.nav-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
+  transition: background 0.3s;
+  font-size: 0.85rem;
+}
+.nav-step-item.active-step {
+  background: rgba(59,130,246,0.15);
+  border-left: 3px solid #3B82F6;
+}
+.step-icon { font-size: 1.2rem; width: 28px; text-align: center; }
+.step-info strong { font-size: 0.85rem; display: block; }
+.step-info small { color: var(--text-muted); font-size: 0.75rem; }
+
+/* Konum Güncelleme */
+.location-update {
+  position: absolute;
+  top: 4rem;
+  left: 1rem;
+  background: rgba(16,185,129,0.15);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: #10B981;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(6px);
+}
+.update-dot {
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Custom Pin Styles */
+.custom-pin { background: none !important; border: none !important; }
+.leaflet-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.pin-inner {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pin-blue .pin-inner {
+  background: rgba(59,130,246,0.2);
+  border: 2px solid #3B82F6;
+  box-shadow: 0 0 12px rgba(59,130,246,0.4);
+}
+.pin-green .pin-inner {
+  background: rgba(16,185,129,0.2);
+  border: 2px solid #10B981;
+  box-shadow: 0 0 12px rgba(16,185,129,0.4);
+}
+.pin-tooltip {
+  position: absolute;
+  top: -32px;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+/* Tır Marker (Leaflet) */
+.truck-div-icon { background: none !important; border: none !important; }
+.truck-marker-leaf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.truck-pulse-leaf {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(250,204,21,0.15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: truckPulse 2s ease-out infinite;
+}
+@keyframes truckPulse {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+.truck-emoji {
+  font-size: 2rem;
+  filter: drop-shadow(0 0 10px rgba(250,204,21,0.5));
+  z-index: 2;
+  position: relative;
+  animation: truckBounce 1s ease-in-out infinite;
+}
+@keyframes truckBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.truck-speed-leaf {
+  margin-top: 2px;
+  background: var(--primary, #FACC15);
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(250,204,21,0.4);
+  z-index: 2;
+  position: relative;
+}
+
+/* Sağ: Bilgi Paneli */
+.info-panel {
+  width: 380px;
+  background: var(--bg-dark);
+  border-left: 1px solid rgba(255,255,255,0.08);
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Bilgi Kartları */
+.info-card {
+  background: rgba(30,41,59,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.info-card h4 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-muted); }
+
+/* Sipariş Özeti */
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.card-title h3 { font-size: 1rem; }
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+.status-transit {
+  background: rgba(59,130,246,0.15);
+  color: #60A5FA;
+}
+.status-delivered {
+  background: rgba(16,185,129,0.15);
+  color: #10B981;
+}
+.order-details { display: flex; flex-direction: column; gap: 0.6rem; }
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+}
+.order-row span { color: var(--text-muted); }
+.price-text { color: var(--primary); }
+
+/* ETA Kartı */
+.eta-card { border-color: rgba(250,204,21,0.2); }
+.eta-main { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.eta-icon { font-size: 2.5rem; }
+.eta-label { color: var(--text-muted); font-size: 0.8rem; }
+.eta-time { font-size: 1.8rem; color: var(--primary); font-weight: 800; }
+.eta-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.eta-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6, var(--primary));
+  border-radius: 3px;
+  transition: width 2s ease;
+}
+.eta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+.eta-row span { color: var(--text-muted); }
+
+/* Sürücü Kartı */
+.driver-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.driver-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.driver-details h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+.driver-details p { color: var(--text-muted); font-size: 0.82rem; }
+.driver-vehicle { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.vehicle-row { display: flex; justify-content: space-between; font-size: 0.85rem; }
+.vehicle-row span { color: var(--text-muted); }
+
+.driver-actions { display: flex; gap: 0.75rem; }
+.btn-call, .btn-message {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+.btn-call {
+  background: rgba(16,185,129,0.15);
+  color: #10B981;
+  border: 1px solid rgba(16,185,129,0.3);
+}
+.btn-call:hover { background: rgba(16,185,129,0.3); }
+.btn-message {
+  background: rgba(59,130,246,0.15);
+  color: #60A5FA;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+.btn-message:hover { background: rgba(59,130,246,0.3); }
+
+/* Zaman Çizelgesi */
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 8px;
+  bottom: -8px;
+  width: 2px;
+  background: rgba(255,255,255,0.1);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-item.completed::before { background: #10B981; }
+.timeline-item.active::before { background: linear-gradient(to bottom, #3B82F6, rgba(255,255,255,0.1)); }
+.timeline-dot {
+  position: absolute;
+  left: -1.5rem;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translateX(-5px);
+}
+.timeline-item.completed .timeline-dot {
+  background: #10B981;
+  box-shadow: 0 0 8px rgba(16,185,129,0.5);
+}
+.timeline-item.active .timeline-dot {
+  background: #3B82F6;
+  box-shadow: 0 0 8px rgba(59,130,246,0.5);
+  animation: activePulse 1.5s infinite;
+}
+@keyframes activePulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(59,130,246,0.5); }
+  50% { box-shadow: 0 0 16px rgba(59,130,246,0.8); }
+}
+.timeline-item.pending .timeline-dot {
+  background: #334155;
+  border: 2px solid #475569;
+}
+.timeline-content strong { font-size: 0.88rem; display: block; margin-bottom: 2px; }
+.timeline-content p { font-size: 0.78rem; color: var(--text-muted); }
+.timeline-item.active .timeline-content strong { color: #60A5FA; }
+
+/* Active Link */
+.active-link { color: var(--primary) !important; }
+
+/* Role Indicator */
+.role-indicator {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+}
+.role-customer {
+  background: rgba(16,185,129,0.1);
+  color: #10B981;
+  border: 1px solid rgba(16,185,129,0.3);
+}
+.role-driver {
+  background: rgba(250,204,21,0.1);
+  color: var(--primary);
+  border: 1px solid rgba(250,204,21,0.3);
+}
+
+/* View Switch Button */
+.view-switch-btn {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.view-switch-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-main);
+}
+
+/* Truck SVG Wrapper */
+.truck-svg-wrap {
+  z-index: 2;
+  position: relative;
+  filter: drop-shadow(0 0 10px rgba(250,204,21,0.4));
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .takip-page { flex-direction: column; height: auto; }
+  .map-panel { height: 50vh; }
+  .info-panel { width: 100%; border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+  .nav-instruction { min-width: 280px; font-size: 0.85rem; }
+}

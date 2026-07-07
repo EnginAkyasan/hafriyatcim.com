@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sayfa Bulunamadı | hafriyatcim.com</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    /* ── Hamburger Menu ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      min-height: auto;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #f0efe8;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    @media (max-width: 992px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none !important;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: rgba(8,8,16,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1.5rem 5%;
+        gap: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        z-index: 99;
+      }
+      .nav-links.open { display: flex !important; }
+      .nav-links li a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+    }
+
+    .not-found {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 5%;
+    }
+    .not-found .code {
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 900;
+      color: #f97316;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      opacity: 0.15;
+      margin-bottom: -2rem;
+    }
+    .not-found h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+    .not-found p { color: #8a8996; margin-bottom: 2rem; max-width: 400px; }
+    .not-found .actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="hafriyatcim.com" class="logo-img"> hafriyatcim<span class="highlight">.com</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#nasil-calisir">Nasıl Çalışır?</a></li>
+      <li><a href="index.html#ozellikler">Özellikler</a></li>
+      <li><a href="index.html#avantajlar">Avantajlar</a></li>
+      <li><a href="ilanlar.html">İlanlar</a></li>
+      <li><a href="takip.html">Canlı Takip</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-actions">
+      <a href="giris.html" class="btn-login">Giriş Yap</a>
+      <a href="giris.html#kayit" class="btn-primary">Hemen Başla</a>
+    </div>
+  </nav>
+
+  <main class="not-found">
+    <div class="code">404</div>
+    <h1>Sayfa Bulunamadı</h1>
+    <p>Aradığınız sayfa taşınmış veya kaldırılmış olabilir.</p>
+    <div class="actions">
+      <a href="index.html" class="btn-primary" style="text-decoration:none;">Ana Sayfaya Dön</a>
+      <a href="ilanlar.html" class="btn-secondary" style="text-decoration:none;">İlanları Gör</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 hafriyatcim.com — Türkiye'nin Akıllı Hafriyat Platformu. Tüm hakları saklıdır.</p>
+    <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-muted);">
+      <a href="giris.html" style="color:var(--text-muted);">Giriş Yap</a> ·
+      <a href="ilanlar.html" style="color:var(--text-muted);">İlanlar</a> ·
+      <a href="takip.html" style="color:var(--text-muted);">Canlı Takip</a> ·
+      <a href="dashboard.html" style="color:var(--text-muted);">Panel</a> ·
+      <a href="hakkimizda.html" style="color:var(--text-muted);">Hakkımızda</a> ·
+      <a href="iletisim.html" style="color:var(--text-muted);">İletişim</a>
+    </p>
+    <p style="margin-top:0.75rem;font-size:0.8rem;">
+      <a href="kvkk.html" style="color:var(--text-muted);">KVKK</a> ·
+      <a href="gizlilik.html" style="color:var(--text-muted);">Gizlilik Politikası</a> ·
+      <a href="kullanici-sozlesmesi.html" style="color:var(--text-muted);">Kullanıcı Sözleşmesi</a> ·
+      <a href="cerez.html" style="color:var(--text-muted);">Çerez Politikası</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar')) {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('hamburger')?.classList.remove('open');
+        document.querySelector('.nav-links')?.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

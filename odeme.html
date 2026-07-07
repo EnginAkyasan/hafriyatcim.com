@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Güvenli Ödeme — hafriyatcim.com</title>
+    <meta name="description" content="hafriyatcim.com güvenli ödeme sayfası. iyzico altyapısıyla 3D Secure korumalı ödeme.">
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --orange: #f97316;
+            --orange-dark: #ea6c0a;
+            --orange-glow: rgba(249, 115, 22, 0.25);
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-input: #1a1a26;
+            --border: rgba(255,255,255,0.08);
+            --border-focus: rgba(249,115,22,0.5);
+            --text: #f1f0ee;
+            --text-muted: #8b8a96;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 24px 16px;
+        }
+
+        /* ─── Header ─────────────────────────────────────────── */
+        .page-header {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .back-btn {
+            width: 40px; height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .back-btn:hover { border-color: var(--orange); background: rgba(249,115,22,0.08); }
+
+        .logo-text { font-weight: 700; font-size: 1rem; }
+        .logo-text span { color: var(--orange); }
+        .secure-badge {
+            margin-left: auto;
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.78rem; color: var(--success);
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 100px;
+            padding: 4px 10px;
+        }
+
+        /* ─── Ödeme Özeti Kartı ───────────────────────────────── */
+        .payment-summary {
+            width: 100%; max-width: 480px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-title {
+            font-size: 0.78rem; font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .summary-job {
+            display: flex; align-items: center; gap: 12px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .job-icon {
+            width: 44px; height: 44px;
+            background: var(--orange-glow);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+
+        .job-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .job-info p  { font-size: 0.82rem; color: var(--text-muted); }
+
+        .price-rows { display: flex; flex-direction: column; gap: 8px; }
+        .price-row  { display: flex; justify-content: space-between; align-items: center; }
+        .price-row .label { font-size: 0.88rem; color: var(--text-muted); }
+        .price-row .value { font-size: 0.88rem; font-weight: 500; }
+        .price-row.total  { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--border); }
+        .price-row.total .label { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+        .price-row.total .value { font-size: 1.1rem; font-weight: 700; color: var(--orange); }
+
+        /* ─── Ödeme Formu ─────────────────────────────────────── */
+        .payment-card {
+            width: 100%; max-width: 480px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1rem; font-weight: 700;
+            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-label {
+            display: block;
+            font-size: 0.8rem; font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+        }
+        .form-input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+        }
+        .form-input::placeholder { color: var(--text-muted); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        /* Kart numarası - görsel iyileştirme */
+        .card-number-group { position: relative; }
+        .card-icons {
+            position: absolute; right: 12px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; gap: 6px;
+            pointer-events: none;
+        }
+        .card-icon {
+            width: 32px; height: 20px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 9px; color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* ─── Ödeme Butonu ────────────────────────────────────── */
+        .pay-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+            box-shadow: 0 4px 24px rgba(249,115,22,0.35);
+            margin-bottom: 12px;
+        }
+        .pay-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(249,115,22,0.45); }
+        .pay-btn:active { transform: translateY(0); }
+        .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .pay-btn .spinner {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        .pay-btn.loading .btn-text { display: none; }
+        .pay-btn.loading .spinner { display: block; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ─── Güvenlik Notu ──────────────────────────────────── */
+        .security-note {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: 0.8rem; color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* ─── İyzico Güven Rozeti ─────────────────────────────── */
+        .trust-badges {
+            width: 100%; max-width: 480px;
+            display: flex; align-items: center; justify-content: center; gap: 20px;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .trust-badge {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 0.72rem; color: var(--text-muted);
+        }
+        .trust-badge .icon { font-size: 20px; }
+
+        /* ─── Durum Ekranları ─────────────────────────────────── */
+        .status-screen {
+            display: none;
+            width: 100%; max-width: 480px;
+            flex-direction: column; align-items: center;
+            text-align: center; padding: 40px 20px;
+        }
+        .status-screen.visible { display: flex; }
+        .status-icon { font-size: 64px; margin-bottom: 20px; }
+        .status-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .status-desc  { color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
+        .status-btn {
+            background: var(--orange);
+            color: #fff;
+            border: none; border-radius: 12px;
+            padding: 14px 28px;
+            font-family: inherit; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer;
+            text-decoration: none; display: inline-block;
+        }
+
+        /* ─── Responsive ─────────────────────────────────────── */
+        @media (max-width: 400px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── Header ────────────────────────────────────────────────── -->
+<div class="page-header">
+    <a href="javascript:history.back()" class="back-btn" id="backBtn">←</a>
+    <div class="logo-text">hafriyatcim<span>.com</span></div>
+    <div class="secure-badge">
+        🔒 3D Secure
+    </div>
+</div>
+
+<!-- ─── Form Alanı (URL param'larına göre dolu gelir) ──────────── -->
+<div id="mainForm">
+
+    <!-- Ödeme Özeti -->
+    <div class="payment-summary">
+        <div class="summary-title">📋 Ödeme Özeti</div>
+        <div class="summary-job">
+            <div class="job-icon" id="jobIcon">🚛</div>
+            <div class="job-info">
+                <h3 id="jobTitle">Yükleniyor...</h3>
+                <p id="jobRoute">—</p>
+            </div>
+        </div>
+        <div class="price-rows">
+            <div class="price-row">
+                <span class="label">Platform ücreti (net)</span>
+                <span class="value">200,00 ₺</span>
+            </div>
+            <div class="price-row">
+                <span class="label">KDV (%26)</span>
+                <span class="value">52,00 ₺</span>
+            </div>
+            <div class="price-row total">
+                <span class="label">Toplam</span>
+                <span class="value">252,00 ₺</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kart Formu -->
+    <div class="payment-card">
+        <div class="card-title">💳 Kart Bilgileri</div>
+
+        <div class="form-group card-number-group">
+            <label class="form-label">Kart Numarası</label>
+            <input type="tel" class="form-input" id="cardNumber"
+                   placeholder="1234 5678 9012 3456"
+                   maxlength="19" autocomplete="cc-number"
+                   inputmode="numeric">
+            <div class="card-icons">
+                <div class="card-icon" id="cardTypeVisa">VISA</div>
+                <div class="card-icon" id="cardTypeMC">MC</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Kart Üzerindeki Ad Soyad</label>
+            <input type="text" class="form-input" id="cardName"
+                   placeholder="AD SOYAD"
+                   autocomplete="cc-name"
+                   style="text-transform: uppercase;">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Son Kullanma Tarihi</label>
+                <input type="tel" class="form-input" id="cardExpiry"
+                       placeholder="AA/YY" maxlength="5"
+                       autocomplete="cc-exp" inputmode="numeric">
+            </div>
+            <div class="form-group">
+                <label class="form-label">CVV / CVC</label>
+                <input type="tel" class="form-input" id="cardCvv"
+                       placeholder="123" maxlength="4"
+                       autocomplete="cc-csc" inputmode="numeric">
+            </div>
+        </div>
+
+        <button class="pay-btn" id="payBtn" onclick="handlePayment()">
+            <span class="btn-text">🔒 252,00 ₺ Öde</span>
+            <div class="spinner"></div>
+        </button>
+
+        <div class="security-note">
+            🔐 Kart bilgileriniz şifrelenmiş olarak iyzico'ya iletilir
+        </div>
+    </div>
+
+    <!-- Güven Rozetleri -->
+    <div class="trust-badges">
+        <div class="trust-badge"><span class="icon">🔒</span>SSL Güvenli</div>
+        <div class="trust-badge"><span class="icon">🏦</span>iyzico</div>
+        <div class="trust-badge"><span class="icon">🛡️</span>3D Secure</div>
+        <div class="trust-badge"><span class="icon">✅</span>PCI DSS</div>
+    </div>
+
+</div>
+
+<!-- ─── Başarı Ekranı ──────────────────────────────────────────── -->
+<div class="status-screen" id="successScreen">
+    <div class="status-icon">🎉</div>
+    <h2 class="status-title">Ödeme Başarılı!</h2>
+    <p class="status-desc" id="successDesc">
+        Ödemeniz alındı. Karşı taraf bilgilendiriliyor...
+    </p>
+    <a href="/dashboard.html" class="status-btn">Dashboard'a Git →</a>
+</div>
+
+<!-- ─── Hata Ekranı ───────────────────────────────────────────── -->
+<div class="status-screen" id="errorScreen">
+    <div class="status-icon">❌</div>
+    <h2 class="status-title">Ödeme Başarısız</h2>
+    <p class="status-desc" id="errorDesc">
+        Bir hata oluştu. Lütfen kart bilgilerinizi kontrol edip tekrar deneyin.
+    </p>
+    <button class="status-btn" onclick="showForm()">Tekrar Dene</button>
+</div>
+
+<script>
+// ─── URL Parametrelerini Oku ──────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const tip       = params.get('tip') || 'musteri';     // 'musteri' | 'surucu'
+const hedefId   = params.get('id')  || '';             // teklifId | siparisId
+const jobTitle  = params.get('baslik') || 'Hafriyat Taşıma İşi';
+const jobRoute  = params.get('rota')   || '';
+
+// Başarı/hata durumlarını URL'den kontrol et
+if (params.get('durum') === 'basarili') showSuccess('Ödemeniz alındı! Karşı tarafa SMS bildirim gönderildi. 📱');
+if (params.get('durum') === 'hata')    showError(params.get('mesaj') || 'Ödeme başarısız.');
+
+// Özet güncelle
+document.getElementById('jobTitle').textContent = decodeURIComponent(jobTitle);
+document.getElementById('jobRoute').textContent = jobRoute ? decodeURIComponent(jobRoute) : (tip === 'musteri' ? 'İşi Ver Ücreti' : 'İşi Al Ücreti');
+document.getElementById('jobIcon').textContent  = tip === 'surucu' ? '🚛' : '🏗️';
+
+// ─── Kart Formatlamaları ──────────────────────────────────────────
+document.getElementById('cardNumber').addEventListener('input', (e) => {
+    let val = e.target.value.replace(/\D/g, '').slice(0, 16);
+    val = val.replace(/(.{4})/g, '$1 ').trim();
+    e.target.value = val;
+
+    // Kart tipi tespiti
+    const raw = val.replace(/\s/g, '');
+    const visaEl = document.getElementById('cardTypeVisa');
+    const mcEl   = document.getElementById('cardTypeMC');
+    visaEl.style.background = raw.startsWith('4') ? 'rgba(249,115,22,0.2)' : '';
+    visaEl.style.color = raw.startsWith('4') ? '#f97316' : '';
+    mcEl.style.background = /^5[1-5]/.test(raw) ? 'rgba(249,115,22,0.2)' : '';
+    mcEl.style.color = /^5[1-5]/.test(raw) ? '#f97316' : '';
+});
+
+document.getElementById('cardExpiry').addEventListener('input', (e) => {
+    let val = e.target.value.replace(/\D/g, '').slice(0, 4);
+    if (val.length >= 2) val = val.slice(0, 2) + '/' + val.slice(2);
+    e.target.value = val;
+});
+
+document.getElementById('cardCvv').addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+});
+
+document.getElementById('cardName').addEventListener('input', (e) => {
+    e.target.value = e.target.value.toUpperCase();
+});
+
+// ─── Ödeme İşlemi ────────────────────────────────────────────────
+async function handlePayment() {
+    const btn = document.getElementById('payBtn');
+    const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+    const cardName   = document.getElementById('cardName').value.trim();
+    const cardExpiry = document.getElementById('cardExpiry').value;
+    const cardCvv    = document.getElementById('cardCvv').value;
+
+    // Validasyon
+    if (cardNumber.length < 16) return showAlert('Geçerli bir kart numarası girin.');
+    if (!cardName)              return showAlert('Kart üzerindeki adı girin.');
+    if (cardExpiry.length < 5)  return showAlert('Son kullanma tarihini girin (AA/YY).');
+    if (cardCvv.length < 3)     return showAlert('CVV kodunu girin.');
+
+    const token = localStorage.getItem('accessToken');
+    if (!token) { window.location.href = '/giris.html?redirect=' + encodeURIComponent(window.location.href); return; }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+        const endpoint = tip === 'musteri'
+            ? `/api/odeme/musteri/${hedefId}`
+            : `/api/odeme/surucu/${hedefId}`;
+
+        const resp = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ cardNumber, cardName, cardExpiry, cardCvv }),
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            throw new Error(data.hata || 'Ödeme başlatılamadı.');
+        }
+
+        if (data.sandbox) {
+            // Sandbox modu — direkt başarı göster
+            showSuccess(tip === 'musteri'
+                ? '✅ Ödeme simüle edildi! Tırcıya SMS bildirim gönderildi. Dashboard\'dan takip edin.'
+                : '✅ Ödeme simüle edildi! Her iki tarafın iletişim bilgileri SMS ile paylaşıldı. 🎉'
+            );
+        } else if (data.checkoutFormContent) {
+            // iyzico 3D Secure formu
+            document.body.innerHTML = data.checkoutFormContent;
+            const scripts = document.querySelectorAll('script');
+            scripts.forEach(s => { const ns = document.createElement('script'); ns.src = s.src || ''; ns.textContent = s.textContent; document.body.appendChild(ns); });
+        } else {
+            showSuccess('Ödemeniz işleme alındı!');
+        }
+
+    } catch (err) {
+        showError(err.message);
+        btn.classList.remove('loading');
+        btn.disabled = false;
+    }
+}
+
+// ─── UI Yardımcıları ──────────────────────────────────────────────
+function showAlert(msg) {
+    const el = document.createElement('div');
+    el.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+        background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;
+        font-size:0.9rem;font-weight:600;z-index:9999;animation:slideUp 0.3s ease;
+        max-width:calc(100vw - 40px);text-align:center;`;
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+}
+
+function showSuccess(msg) {
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('successDesc').textContent = msg;
+    document.getElementById('successScreen').classList.add('visible');
+}
+
+function showError(msg) {
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('errorDesc').textContent = msg;
+    document.getElementById('errorScreen').classList.add('visible');
+}
+
+function showForm() {
+    document.getElementById('mainForm').style.display = 'block';
+    document.getElementById('errorScreen').classList.remove('visible');
+}
+
+// Enter ile ödeme
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !document.getElementById('payBtn').disabled) handlePayment();
+});
+</script>
+</body>
+</html>

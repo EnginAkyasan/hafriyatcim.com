@@ -1,0 +1,27 @@
+{
+  "name": "hafriyatcim-com",
+  "version": "1.0.0",
+  "description": "Türkiye'nin akıllı hafriyat ve nakliye platformu",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "install:backend": "cd backend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "google-auth-library": "^10.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nedb": "^1.8.0",
+    "nodemailer": "^6.9.9",
+    "socket.io": "^4.6.1",
+    "uuid": "^8.3.2"
+  }
+}

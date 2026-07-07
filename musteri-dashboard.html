@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İş Sahibi Paneli | hafriyatcim.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    body { display: flex; min-height: 100vh; }
+
+    /* ─── Sidebar ─────────────────────────────────────────────── */
+    .sidebar {
+      width: 260px; min-height: 100vh;
+      background: var(--surface-2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 24px 16px;
+      position: fixed; top: 0; left: 0;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 800;
+      padding: 8px 12px; margin-bottom: 32px;
+      text-decoration: none; color: var(--text);
+    }
+
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500;
+      color: var(--text-muted); cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+
+    .nav-item:hover { background: var(--surface-3); color: var(--text); }
+
+    .nav-item.active {
+      background: var(--primary-glow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-item .nav-icon { font-size: 18px; min-width: 24px; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--primary); color: #fff;
+      border-radius: 10px; padding: 2px 7px;
+      font-size: 11px; font-weight: 700;
+      display: none;
+    }
+
+    .nav-badge.visible { display: block; }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 16px; margin-top: 16px;
+    }
+
+    .user-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: var(--radius-sm);
+      background: var(--surface-3);
+    }
+
+    .user-avatar {
+      width: 36px; height: 36px; border-radius: 4px;
+      background: var(--surface-3, #27272a);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .user-info { flex: 1; min-width: 0; }
+    .user-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role-label { font-size: 11px; color: var(--text-muted); }
+
+    /* ─── Main Content ─────────────────────────────────────────── */
+    .main {
+      margin-left: 260px; flex: 1;
+      background: var(--surface);
+      min-height: 100vh;
+    }
+
+    .main-header {
+      padding: 20px 36px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(15,15,26,0.92);
+      backdrop-filter: blur(20px);
+    }
+
+    .page-title h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .page-title p { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    /* ─── Page Content ─────────────────────────────────────────── */
+    .page-content { padding: 36px; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* ─── Hoşgeldin Banner ─────────────────────────────────────── */
+    .welcome-banner {
+      background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.04));
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .welcome-text h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .welcome-text p  { font-size: 14px; color: var(--text-muted); }
+
+    /* ─── Stats Grid ───────────────────────────────────────────── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-bottom: 32px; }
+
+    .stat-card {
+      padding: 22px 24px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .stat-card-icon { font-size: 24px; margin-bottom: 10px; }
+    .stat-card-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card-value { font-size: 30px; font-weight: 900; letter-spacing: -1px; }
+    .stat-card-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+
+    /* ─── Section Header ───────────────────────────────────────── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 { font-size: 18px; font-weight: 800; }
+
+    /* ─── Teklif Özet Kartları ────────────────────────────────── */
+    .teklif-ozet-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .teklif-ozet-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .teklif-ozet-card:hover { border-color: var(--border-hover); background: var(--surface-3); }
+
+    .teklif-ozet-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #c2410c);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .teklif-ozet-info { flex: 1; }
+    .teklif-ozet-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .teklif-ozet-sub { font-size: 12px; color: var(--text-muted); }
+    .teklif-ozet-price { font-size: 18px; font-weight: 900; color: var(--primary); white-space: nowrap; }
+
+    /* ─── İlan Kartları ────────────────────────────────────────── */
+    .ilan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 20px; }
+
+    .ilan-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .ilan-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .ilan-card-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+
+    .ilan-card-body { padding: 14px 20px; }
+    .ilan-card-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+
+    .ilan-icon { font-size: 24px; margin-bottom: 4px; }
+    .ilan-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .ilan-konum { font-size: 12px; color: var(--text-muted); }
+
+    .ilan-meta { display: flex; flex-direction: column; gap: 7px; }
+
+    .ilan-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .ilan-meta-row .label { color: var(--text-muted); }
+    .ilan-meta-row .value { font-weight: 600; }
+    .price-value { color: var(--primary); font-size: 15px; font-weight: 800; }
+
+    .teklif-count-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(249,115,22,0.12); color: var(--primary);
+      border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 700;
+    }
+
+    /* ─── Araç Kartları ────────────────────────────────────────── */
+    .arac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
+
+    .arac-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .arac-card:hover { border-color: var(--border-orange); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(249,115,22,0.07); }
+
+    .arac-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .arac-icon-big { font-size: 36px; flex-shrink: 0; }
+    .arac-info { flex: 1; }
+    .arac-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .arac-firma { font-size: 13px; color: var(--text-muted); }
+
+    .arac-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+
+    .arac-tag {
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .arac-tag.orange { background: rgba(249,115,22,0.1); border-color: rgba(249,115,22,0.25); color: var(--primary); }
+
+    .arac-price { font-size: 20px; font-weight: 900; color: var(--primary); margin-bottom: 14px; }
+    .arac-price span { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+
+    /* ─── Gelen Teklifler ──────────────────────────────────────── */
+    .teklif-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .teklif-full-card {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      transition: var(--transition);
+    }
+
+    .teklif-full-card:hover { border-color: var(--border-hover); }
+
+    .teklif-full-top {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .teklif-full-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #c2410c);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .teklif-full-info { flex: 1; }
+    .teklif-full-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .teklif-full-arac { font-size: 13px; color: var(--text-muted); }
+    .teklif-full-price { font-size: 22px; font-weight: 900; color: var(--primary); }
+
+    .teklif-full-mesaj {
+      font-size: 13px; color: var(--text-muted);
+      background: var(--surface-3); border-radius: var(--radius-sm);
+      padding: 10px 14px; margin-bottom: 14px; line-height: 1.5;
+    }
+
+    .teklif-full-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px;
+    }
+
+    .teklif-tarih { font-size: 12px; color: var(--text-dim); }
+
+    /* ─── Arama + Filtre ───────────────────────────────────────── */
+    .search-bar {
+      display: flex; gap: 10px; align-items: center;
+      margin-bottom: 24px; flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      position: relative; flex: 1; min-width: 220px;
+    }
+
+    .search-input-wrap input {
+      width: 100%; padding: 10px 14px 10px 36px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: var(--font);
+      outline: none; transition: var(--transition);
+    }
+
+    .search-input-wrap input:focus { border-color: var(--primary); background: var(--surface-3); }
+    .search-input-wrap .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+
+    .filter-select {
+      padding: 10px 14px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: var(--font);
+      outline: none; cursor: pointer; transition: var(--transition);
+    }
+
+    .filter-select:focus { border-color: var(--primary); }
+
+    /* ─── Mesajlar ─────────────────────────────────────────────── */
+    .chat-layout { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - 200px); gap: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+
+    .chat-list { background: var(--surface-2); border-right: 1px solid var(--border); overflow-y: auto; }
+    .chat-list-header { padding: 18px 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 14px; }
+
+    .chat-item {
+      padding: 14px 20px; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+      transition: var(--transition);
+    }
+
+    .chat-item:hover, .chat-item.active { background: var(--surface-3); }
+
+    .chat-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface-4);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; flex-shrink: 0;
+    }
+
+    .chat-item-info { flex: 1; min-width: 0; }
+    .chat-item-name { font-size: 14px; font-weight: 600; }
+    .chat-item-preview { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .chat-window { display: flex; flex-direction: column; background: var(--surface); }
+    .chat-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .chat-input-area { padding: 14px 18px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+
+    .message {
+      max-width: 65%; padding: 12px 16px;
+      border-radius: 16px; font-size: 14px; line-height: 1.5;
+    }
+
+    .message.sent { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+    .message.received { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+    .message-time { font-size: 10px; opacity: 0.6; margin-top: 4px; }
+
+    .chat-input-field {
+      flex: 1; padding: 10px 14px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: var(--font);
+      outline: none; resize: none;
+    }
+
+    .chat-input-field:focus { border-color: var(--primary); }
+
+    /* ─── Profil ───────────────────────────────────────────────── */
+    .profil-card {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 36px;
+      max-width: 560px;
+    }
+
+    .profil-card h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .profil-card .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
+
+    .profil-avatar-section {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px; background: var(--surface-3); border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+    }
+
+    .profil-avatar-big {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #c2410c);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 22px; color: #fff; flex-shrink: 0;
+    }
+
+    .profil-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .profil-field label {
+      display: block; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+
+    .profil-field input {
+      width: 100%; padding: 11px 14px;
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: var(--font);
+      outline: none; transition: var(--transition);
+    }
+
+    .profil-field input:focus { border-color: var(--primary); background: var(--surface-4); }
+    .profil-field input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ─── Modal ────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px;
+      width: 100%; max-width: 480px;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.95); transition: transform 0.2s;
+    }
+
+    .modal-overlay.open .modal-box { transform: scale(1); }
+
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .modal-header h3 { font-size: 18px; font-weight: 800; }
+
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--surface-3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 14px; min-height: unset;
+      color: var(--text-muted);
+    }
+
+    .modal-close:hover { background: var(--surface-4); color: var(--text); }
+
+    .modal-field { margin-bottom: 16px; }
+    .modal-field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
+    .modal-field input, .modal-field textarea {
+      width: 100%; padding: 11px 14px;
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-size: 14px; font-family: var(--font);
+      outline: none; transition: var(--transition);
+    }
+    .modal-field textarea { resize: vertical; min-height: 90px; }
+    .modal-field input:focus, .modal-field textarea:focus { border-color: var(--primary); }
+
+    .modal-footer { display: flex; gap: 10px; margin-top: 24px; }
+
+    /* ─── Empty State ──────────────────────────────────────────── */
+    .empty-state {
+      text-align: center; padding: 72px 40px;
+      color: var(--text-muted);
+    }
+
+    .empty-state .empty-icon { font-size: 52px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; margin-bottom: 24px; max-width: 360px; margin-left: auto; margin-right: auto; }
+
+    /* ─── Loading ──────────────────────────────────────────────── */
+    .loading { display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--text-muted); gap: 12px; }
+
+    .spinner {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 3px solid var(--surface-3);
+      border-top-color: var(--primary);
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Hamburger ────────────────────────────────────────────── */
+    .hamburger-btn {
+      display: none; width: 40px; height: 40px; border-radius: var(--radius-sm);
+      background: var(--surface-3); border: 1px solid var(--border);
+      align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer; min-height: unset;
+    }
+
+    /* ─── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .hamburger-btn { display: inline-flex; }
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .page-content { padding: 20px; }
+      .chat-layout { grid-template-columns: 1fr; }
+      .welcome-banner { flex-direction: column; align-items: flex-start; }
+      .arac-grid { grid-template-columns: 1fr; }
+      .ilan-grid { grid-template-columns: 1fr; }
+      .main-header { padding: 14px 20px; }
+      .header-actions { gap: 6px; }
+      .header-actions a { font-size: 12px; padding: 7px 10px; }
+    }
+
+    /* ─── Badge durum renkleri ─────────────────────────────────── */
+    .badge-green  { background: rgba(34,197,94,0.12); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 600; }
+    .badge-yellow { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 600; }
+    .badge-red    { background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid rgba(239,68,68,0.25); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 600; }
+    .badge-blue   { background: rgba(59,130,246,0.12); color: #3b82f6; border: 1px solid rgba(59,130,246,0.25); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ─── Sidebar Overlay (Mobile) ──────────────────────────────── -->
+<div id="sidebarOverlay" onclick="closeSidebar()" style="display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);"></div>
+
+<!-- ─── Sidebar ─────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <img src="logo.png" alt="logo" style="height:30px;border-radius:6px;">
+    hafriyatcim<span class="highlight">.com</span>
+  </a>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-section="genel" onclick="switchSection('genel', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span> Genel Bakış
+    </button>
+    <button class="nav-item" data-section="talepler" onclick="switchSection('talepler', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span> İş Taleplerim
+    </button>
+    <button class="nav-item" data-section="arac-ara" onclick="switchSection('arac-ara', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> Araç Ara / İlanlar
+    </button>
+    <button class="nav-item" data-section="teklifler" onclick="switchSection('teklifler', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span> Gelen Teklifler
+      <span class="nav-badge" id="teklifBadge">0</span>
+    </button>
+    <button class="nav-item" data-section="mesajlar" onclick="switchSection('mesajlar', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span> Mesajlar
+    </button>
+    <button class="nav-item" data-section="profil" onclick="switchSection('profil', this)">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Profil
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar" id="userAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="userName">Yükleniyor...</div>
+        <div class="user-role-label">İş Sahibi / Müşteri</div>
+      </div>
+      <button onclick="api.logout()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;min-height:unset;" title="Çıkış Yap">🚪</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Main ─────────────────────────────────────────────────── -->
+<main class="main">
+  <div class="main-header">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
+      <div class="page-title">
+        <h1 id="pageTitle">Genel Bakış</h1>
+        <p id="pageSubtitle">Hoş geldiniz — İş Sahibi Paneli</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="ilan.html?tip=TALEP" class="btn-primary" style="padding:9px 18px;font-size:13px;">+ Yeni İş Talebi</a>
+      <a href="index.html" class="btn-secondary" style="padding:9px 14px;font-size:13px;">← Ana Sayfa</a>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ─── Genel Bakış ──────────────────────────────────────── -->
+    <div class="page-section active" id="sec-genel">
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h2 id="welcomeMsg">Merhaba! 👋</h2>
+          <p id="welcomeSub">Panelinize hoş geldiniz. İş taleplerinizi yönetin, teklifleri inceleyin.</p>
+        </div>
+        <a href="ilan.html?tip=TALEP" class="btn-primary" style="white-space:nowrap;text-decoration:none;">+ Yeni İş Talebi Oluştur</a>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon">🏗️</div>
+          <div class="stat-card-label">Aktif Talepler</div>
+          <div class="stat-card-value" id="statAktif">—</div>
+          <div class="stat-card-sub">Şu an yayında</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">📨</div>
+          <div class="stat-card-label">Gelen Teklifler</div>
+          <div class="stat-card-value" id="statTeklif">—</div>
+          <div class="stat-card-sub">Firmalardan gelen</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">🚛</div>
+          <div class="stat-card-label">Devam Eden İşler</div>
+          <div class="stat-card-value" id="statDevam">—</div>
+          <div class="stat-card-sub">Aktif çalışma</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon">✅</div>
+          <div class="stat-card-label">Tamamlanan İşler</div>
+          <div class="stat-card-value" id="statTamamlanan">—</div>
+          <div class="stat-card-sub">Başarıyla bitti</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>📨 Son Gelen Teklifler</h2>
+        <button class="btn-outline" onclick="switchSection('teklifler', document.querySelector('[data-section=teklifler]'))">Tümünü Gör →</button>
+      </div>
+      <div id="sonTekliflerContainer">
+        <div class="loading"><div class="spinner"></div><span>Yükleniyor...</span></div>
+      </div>
+    </div>
+
+    <!-- ─── İş Taleplerim ────────────────────────────────────── -->
+    <div class="page-section" id="sec-talepler">
+      <div class="section-header">
+        <h2>🏗️ İş Taleplerim</h2>
+        <a href="ilan.html?tip=TALEP" class="btn-primary" style="padding:9px 18px;font-size:13px;text-decoration:none;">+ Yeni Talep</a>
+      </div>
+      <div id="taleplerContainer">
+        <div class="loading"><div class="spinner"></div><span>Yükleniyor...</span></div>
+      </div>
+    </div>
+
+    <!-- ─── Araç Ara / İlanlar ───────────────────────────────── -->
+    <div class="page-section" id="sec-arac-ara">
+      <div class="section-header">
+        <h2>🔍 Kiralık Araçlar</h2>
+        <span id="aracCount" style="font-size:13px;color:var(--text-muted);"></span>
+      </div>
+
+      <div class="search-bar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="aracSearch" placeholder="Araç tipi, konum, firma ara..." oninput="filterAraclar()">
+        </div>
+        <select class="filter-select" id="aracTipFilter" onchange="filterAraclar()">
+          <option value="">Tüm Araç Tipleri</option>
+          <option value="kepce">Kepçe</option>
+          <option value="vinc">Vinç</option>
+          <option value="tir">TIR</option>
+          <option value="kamyon">Kamyon</option>
+          <option value="damperli">Damperli Kamyon</option>
+          <option value="beko">Beko Loder</option>
+          <option value="forklift">Forklift</option>
+          <option value="mikser">Beton Mikseri</option>
+        </select>
+      </div>
+
+      <div id="araclarContainer">
+        <div class="loading"><div class="spinner"></div><span>İlanlar yükleniyor...</span></div>
+      </div>
+    </div>
+
+    <!-- ─── Gelen Teklifler ──────────────────────────────────── -->
+    <div class="page-section" id="sec-teklifler">
+      <div class="section-header">
+        <h2>📨 Gelen Teklifler</h2>
+        <span id="teklifCount" style="font-size:13px;color:var(--text-muted);"></span>
+      </div>
+      <div id="tekliflerContainer">
+        <div class="loading"><div class="spinner"></div><span>Yükleniyor...</span></div>
+      </div>
+    </div>
+
+    <!-- ─── Mesajlar ─────────────────────────────────────────── -->
+    <div class="page-section" id="sec-mesajlar">
+      <div class="chat-layout">
+        <div class="chat-list">
+          <div class="chat-list-header">💬 Sohbetler</div>
+          <div id="chatList">
+            <div class="empty-state" style="padding:40px 20px;">
+              <div class="empty-icon" style="font-size:36px;">💬</div>
+              <p style="font-size:13px;margin-bottom:0;">Henüz mesajınız yok.</p>
+            </div>
+          </div>
+        </div>
+        <div class="chat-window" id="chatWindow">
+          <div class="empty-state" style="margin:auto;">
+            <div class="empty-icon">💬</div>
+            <h3>Mesaj Seçin</h3>
+            <p>Sol panelden bir konuşma seçerek mesajlaşmaya başlayın.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Profil ───────────────────────────────────────────── -->
+    <div class="page-section" id="sec-profil">
+      <div class="profil-card">
+        <h2>👤 Profilim</h2>
+        <p class="subtitle">Hesap ve şirket bilgilerinizi buradan güncelleyebilirsiniz.</p>
+
+        <div class="profil-avatar-section">
+          <div class="profil-avatar-big" id="profilAvatarBig">?</div>
+          <div>
+            <div id="profilAdSoyad" style="font-weight:700;font-size:16px;">—</div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:3px;">İş Sahibi / Müşteri</div>
+            <div id="profilUyelik" style="font-size:12px;color:var(--text-dim);margin-top:3px;">—</div>
+          </div>
+        </div>
+
+        <div class="profil-form">
+          <div class="profil-field">
+            <label>Ad Soyad</label>
+            <input type="text" id="profAd" placeholder="Adınız Soyadınız">
+          </div>
+          <div class="profil-field">
+            <label>E-posta</label>
+            <input type="email" id="profEmail" disabled>
+          </div>
+          <div class="profil-field">
+            <label>Telefon</label>
+            <input type="tel" id="profTelefon" placeholder="05XX XXX XX XX">
+          </div>
+          <div class="profil-field">
+            <label>Şirket Adı</label>
+            <input type="text" id="profSirket" placeholder="Şirket veya firma adınız">
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+            <button class="btn-primary" onclick="showToast('Profil güncelleme yakında aktif olacak!','info')" style="flex:1;min-width:140px;">💾 Değişiklikleri Kaydet</button>
+            <button class="btn-danger" onclick="api.logout()">🚪 Çıkış Yap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+</main>
+
+<!-- ─── Teklif Gönder Modalı ──────────────────────────────────── -->
+<div class="modal-overlay" id="teklifModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>💬 Teklif Gönder</h3>
+      <button class="modal-close" onclick="closeTeklifModal()">✕</button>
+    </div>
+
+    <div id="modalIlanBilgi" style="background:var(--surface-3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:20px;">
+      <div id="modalIlanTitle" style="font-weight:700;margin-bottom:3px;"></div>
+      <div id="modalIlanFirma" style="font-size:13px;color:var(--text-muted);"></div>
+    </div>
+
+    <input type="hidden" id="modalIlanId">
+
+    <div class="modal-field">
+      <label>Teklifiniz (₺)</label>
+      <input type="number" id="modalFiyat" placeholder="örn. 2500" min="1">
+    </div>
+
+    <div class="modal-field">
+      <label>Mesajınız</label>
+      <textarea id="modalMesaj" placeholder="İş hakkında bilgi, deneyim, uygunluk durumunuzu yazın..."></textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-primary btn-full" onclick="teklifGonder()" id="teklifGonderBtn">🚀 Teklif Gönder</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── İletişim Modalı ───────────────────────────────────────── -->
+<div class="modal-overlay" id="iletisimModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📞 İletişim</h3>
+      <button class="modal-close" onclick="closeIletisimModal()">✕</button>
+    </div>
+    <div style="text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">👷</div>
+      <div id="iletisimAd" style="font-size:18px;font-weight:800;margin-bottom:8px;">—</div>
+      <div id="iletisimTelefon" style="font-size:15px;color:var(--text-muted);margin-bottom:24px;">—</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <a id="iletisimAraBtn" href="#" class="btn-primary" style="text-decoration:none;">📞 Ara</a>
+        <button class="btn-secondary" onclick="closeIletisimModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="supabase.js"></script>
+<script src="api.js"></script>
+<script>
+// ─── Araç İkon Mapping ─────────────────────────────────────────
+const ARAC_ICONS = {
+  kepce: '🦺', vinc: '🏗️', tir: '🚛', kamyon: '🚚',
+  damperli: '🚜', beko: '🔧', forklift: '⬆️', mikser: '🔄'
+};
+
+function getAracIcon(tip) {
+  if (!tip) return '🚧';
+  const key = tip.toLowerCase()
+    .replace(/\s+/g,'')
+    .replace(/ı/g,'i').replace(/ö/g,'o').replace(/ü/g,'u')
+    .replace(/ş/g,'s').replace(/ç/g,'c').replace(/ğ/g,'g');
+  for (const [k, v] of Object.entries(ARAC_ICONS)) {
+    if (key.includes(k)) return v;
+  }
+  return '🚧';
+}
+
+// ─── Auth Kontrol ──────────────────────────────────────────────
+let currentUser = null;
+
+(function authCheck() {
+  const token = localStorage.getItem('accessToken');
+  const userRaw = localStorage.getItem('user');
+  if (!token || !userRaw) { window.location.href = 'giris.html'; return; }
+  try { currentUser = JSON.parse(userRaw); }
+  catch { window.location.href = 'giris.html'; return; }
+  if (currentUser.rol !== 'MUSTERI' && currentUser.rol !== 'ADMIN') {
+    window.location.href = 'dashboard.html'; return;
+  }
+  initDashboard();
+})();
+
+// ─── Dashboard Başlat ─────────────────────────────────────────
+function initDashboard() {
+  const ad = currentUser.ad || currentUser.email || 'Kullanıcı';
+  const initial = ad.charAt(0).toUpperCase();
+
+  document.getElementById('userAvatar').textContent = initial;
+  document.getElementById('userName').textContent = ad;
+  document.getElementById('welcomeMsg').textContent = 'Merhaba ' + ad + '! 👋';
+  document.getElementById('profilAvatarBig').textContent = initial;
+  document.getElementById('profilAdSoyad').textContent = ad;
+  document.getElementById('profAd').value = ad;
+  document.getElementById('profEmail').value = currentUser.email || '';
+  document.getElementById('profTelefon').value = currentUser.telefon || '';
+  document.getElementById('profSirket').value = currentUser.sirket_adi || currentUser.sirketAdi || '';
+  if (currentUser.created_at) {
+    document.getElementById('profilUyelik').textContent =
+      'Üye: ' + new Date(currentUser.created_at).toLocaleDateString('tr-TR');
+  }
+  loadGenelBakis();
+}
+
+// ─── Sayfa Değiştir ───────────────────────────────────────────
+const sectionTitles = {
+  genel:     ['Genel Bakış', 'Güncel durumunuza hızlı bakış'],
+  talepler:  ['İş Taleplerim', 'Oluşturduğunuz iş taleplerini yönetin'],
+  'arac-ara':['Araç Ara / İlanlar', 'Kiralık araç ve ekipman ilanlarını keşfedin'],
+  teklifler: ['Gelen Teklifler', 'Firmalardan gelen teklifleri inceleyin'],
+  mesajlar:  ['Mesajlar', 'Firmalar ile iletişim kurun'],
+  profil:    ['Profilim', 'Hesap ve şirket bilgileriniz'],
+};
+
+function switchSection(id, btn) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+  const titles = sectionTitles[id] || [id, ''];
+  document.getElementById('pageTitle').textContent = titles[0];
+  document.getElementById('pageSubtitle').textContent = titles[1];
+  if (id === 'talepler') loadTalepler();
+  if (id === 'arac-ara') loadAraclar();
+  if (id === 'teklifler') loadTeklifler();
+  closeSidebar();
+}
+
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  s.classList.toggle('open');
+  o.style.display = s.classList.contains('open') ? 'block' : 'none';
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').style.display = 'none';
+}
+
+// ─── GENEL BAKIŞ ──────────────────────────────────────────────
+async function loadGenelBakis() {
+  try {
+    const ilanRes = await api.get('/ilanlar/benim/liste');
+
+    let ilanlar = [], teklifler = [];
+
+    if (ilanRes && ilanRes.ok) {
+      const d = await ilanRes.json();
+      ilanlar = d.ilanlar || d || [];
+    }
+
+    // Müşteri için doğru endpoint: her ilanın tekliflerini /teklifler/ilan/:id'den çek
+    if (ilanlar.length > 0) {
+      const teklifSonuclari = await Promise.all(
+        ilanlar.map(async (ilan) => {
+          try {
+            const r = await api.get('/teklifler/ilan/' + ilan.id);
+            if (r && r.ok) {
+              const d = await r.json();
+              return d.teklifler || [];
+            }
+          } catch (e) { /* sessizce devam */ }
+          return [];
+        })
+      );
+      teklifler = teklifSonuclari.flat();
+    }
+
+    const aktif       = ilanlar.filter(i => i.durum === 'AKTIF').length;
+    const devam       = ilanlar.filter(i => ['YUKLENIYOR','YOLDA','KAPALI'].includes(i.durum)).length;
+    const tamamlanan  = ilanlar.filter(i => i.durum === 'TAMAMLANDI').length;
+
+    document.getElementById('statAktif').textContent = aktif;
+    document.getElementById('statTeklif').textContent = teklifler.length;
+    document.getElementById('statDevam').textContent = devam;
+    document.getElementById('statTamamlanan').textContent = tamamlanan;
+
+    document.getElementById('welcomeSub').textContent = aktif > 0
+      ? aktif + ' aktif iş talebiniz var. ' + teklifler.length + ' teklif bekleniyor.'
+      : 'Henüz aktif iş talebiniz yok. Yeni bir talep oluşturun!';
+
+    if (teklifler.length > 0) {
+      const badge = document.getElementById('teklifBadge');
+      badge.textContent = teklifler.length;
+      badge.classList.add('visible');
+    }
+
+    renderSonTeklifler(teklifler.slice(0, 3));
+  } catch (err) {
+    console.error('Genel bakış hatası:', err);
+    document.getElementById('sonTekliflerContainer').innerHTML =
+      '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Veri yüklenemedi</h3><p>Sunucuya bağlanılamadı.</p></div>';
+    ['statAktif','statTeklif','statDevam','statTamamlanan'].forEach(id => {
+      document.getElementById(id).textContent = '—';
+    });
+  }
+}
+
+function renderSonTeklifler(teklifler) {
+  const container = document.getElementById('sonTekliflerContainer');
+  if (!teklifler || teklifler.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📨</div><h3>Henüz teklif yok</h3><p>İş talebi oluşturun, firmalar size teklif göndersin!</p><a href="ilan.html?tip=TALEP" class="btn-primary" style="text-decoration:none;">🏗️ İş Talebi Oluştur</a></div>';
+    return;
+  }
+  container.innerHTML = '<div class="teklif-ozet-list">' + teklifler.map(t => {
+    const ad = t.gonderen_adi || (t.gonderen && t.gonderen.ad) || (t.user && t.user.ad) || 'Firma';
+    const initial = ad.charAt(0).toUpperCase();
+    const arac = t.arac_tipi || (t.ilan && t.ilan.arac_tipi) || '—';
+    const fiyat = t.fiyat ? formatPara(t.fiyat) : '—';
+    return '<div class="teklif-ozet-card">' +
+      '<div class="teklif-ozet-avatar">' + initial + '</div>' +
+      '<div class="teklif-ozet-info"><div class="teklif-ozet-name">' + ad + '</div>' +
+      '<div class="teklif-ozet-sub">' + getAracIcon(arac) + ' ' + arac + ' &bull; ' + formatTarih(t.created_at) + '</div></div>' +
+      '<div class="teklif-ozet-price">' + fiyat + '</div>' +
+      '</div>';
+  }).join('') + '</div>';
+}
+
+// ─── İŞ TALEPLERİM ────────────────────────────────────────────
+let taleplerLoaded = false;
+
+async function loadTalepler() {
+  if (taleplerLoaded) return;
+  const container = document.getElementById('taleplerContainer');
+  try {
+    const res = await api.get('/ilanlar/benim/liste');
+    if (!res || !res.ok) throw new Error('API hatası');
+    const data = await res.json();
+    taleplerLoaded = true;
+    renderTalepler(data.ilanlar || data || []);
+  } catch {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p><button class="btn-outline" onclick="taleplerLoaded=false;loadTalepler()">Tekrar Dene</button></p></div>';
+  }
+}
+
+function renderTalepler(ilanlar) {
+  const container = document.getElementById('taleplerContainer');
+  if (!ilanlar || ilanlar.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🏗️</div><h3>Henüz iş talebiniz yok</h3><p>İlk iş talebinizi oluşturun, firmalar size teklif göndersin!</p><a href="ilan.html?tip=TALEP" class="btn-primary" style="text-decoration:none;">+ Yeni İş Talebi Oluştur</a></div>';
+    return;
+  }
+  container.innerHTML = '<div class="ilan-grid">' + ilanlar.map(i => {
+    const icon = getAracIcon(i.arac_tipi);
+    const teklif_sayisi = i.teklif_sayisi || 0;
+    return '<div class="ilan-card">' +
+      '<div class="ilan-card-header">' +
+        '<div><div class="ilan-icon">' + icon + '</div>' +
+        '<div class="ilan-title">' + (i.baslik || i.arac_tipi || 'İş Talebi') + '</div>' +
+        '<div class="ilan-konum">📍 ' + (i.konum || i.il || '—') + '</div></div>' +
+        '<div>' + formatDurum(i.durum) + '</div>' +
+      '</div>' +
+      '<div class="ilan-card-body"><div class="ilan-meta">' +
+        '<div class="ilan-meta-row"><span class="label">Araç Tipi</span><span class="value">' + icon + ' ' + (i.arac_tipi || '—') + '</span></div>' +
+        '<div class="ilan-meta-row"><span class="label">Bütçe</span><span class="value price-value">' + (i.butce ? formatPara(i.butce) : (i.fiyat ? formatPara(i.fiyat) : 'Belirtilmedi')) + '</span></div>' +
+        '<div class="ilan-meta-row"><span class="label">Tarih</span><span class="value" style="font-size:12px;">' + formatTarih(i.created_at) + '</span></div>' +
+        '<div class="ilan-meta-row"><span class="label">Teklifler</span><span class="teklif-count-badge">📨 ' + teklif_sayisi + ' teklif</span></div>' +
+      '</div></div>' +
+      '<div class="ilan-card-footer">' +
+        '<a href="ilan-detay.html?id=' + i.id + '" class="btn-outline" style="flex:1;text-align:center;">Detaylar</a>' +
+        (i.durum === 'AKTIF' ? '<button class="btn-danger" onclick="iptalEt(\'' + i.id + '\')">İptal</button>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+async function iptalEt(ilanId) {
+  if (!confirm('Bu iş talebini iptal etmek istediğinizden emin misiniz?')) return;
+  try {
+    const res = await api.put('/ilanlar/' + ilanId, { durum: 'IPTAL' });
+    if (res && res.ok) {
+      showToast('İş talebi iptal edildi.', 'success');
+      taleplerLoaded = false;
+      loadTalepler();
+    } else {
+      showToast('İptal işlemi başarısız oldu.', 'error');
+    }
+  } catch { showToast('Bir hata oluştu.', 'error'); }
+}
+
+// ─── ARAÇ ARA ─────────────────────────────────────────────────
+let tumAraclar = [];
+let araclarLoaded = false;
+
+async function loadAraclar() {
+  if (araclarLoaded) return;
+  const container = document.getElementById('araclarContainer');
+  try {
+    const res = await api.get('/ilanlar?ilan_tipi=TEKLIF');
+    if (!res || !res.ok) throw new Error('API hatası');
+    const data = await res.json();
+    tumAraclar = data.ilanlar || data || [];
+    araclarLoaded = true;
+    document.getElementById('aracCount').textContent = tumAraclar.length + ' ilan bulundu';
+    renderAraclar(tumAraclar);
+  } catch {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p><button class="btn-outline" onclick="araclarLoaded=false;loadAraclar()">Tekrar Dene</button></p></div>';
+  }
+}
+
+function filterAraclar() {
+  const query = document.getElementById('aracSearch').value.toLowerCase();
+  const tip = document.getElementById('aracTipFilter').value.toLowerCase();
+  const filtered = tumAraclar.filter(a => {
+    const aracTip = (a.arac_tipi || '').toLowerCase();
+    const konum   = (a.konum || a.il || '').toLowerCase();
+    const firma   = (a.firma_adi || (a.user && a.user.ad) || '').toLowerCase();
+    return (!query || aracTip.includes(query) || konum.includes(query) || firma.includes(query))
+        && (!tip || aracTip.includes(tip));
+  });
+  document.getElementById('aracCount').textContent = filtered.length + ' ilan bulundu';
+  renderAraclar(filtered);
+}
+
+function renderAraclar(ilanlar) {
+  const container = document.getElementById('araclarContainer');
+  if (!ilanlar || ilanlar.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><h3>İlan bulunamadı</h3><p>Arama kriterlerinize uygun araç ilanı bulunamadı.</p></div>';
+    return;
+  }
+  container.innerHTML = '<div class="arac-grid">' + ilanlar.map(i => {
+    const icon = getAracIcon(i.arac_tipi);
+    const firma = i.firma_adi || (i.user && i.user.ad) || i.gonderen_adi || 'Firma';
+    const operatorlu = i.operatorlu !== undefined ? i.operatorlu : i['operatörlü'];
+    const fiyat = i.fiyat ? formatPara(i.fiyat) : 'Fiyat belirtilmedi';
+    const konum = i.konum || i.il || 'Konum belirtilmedi';
+    const safeBaslik = (i.baslik || i.arac_tipi || 'Araç').replace(/'/g, '&#39;');
+    const safeFirma = firma.replace(/'/g, '&#39;');
+    return '<div class="arac-card">' +
+      '<div class="arac-card-top">' +
+        '<div class="arac-icon-big">' + icon + '</div>' +
+        '<div class="arac-info"><div class="arac-title">' + (i.baslik || i.arac_tipi || 'Araç') + '</div>' +
+        '<div class="arac-firma">👷 ' + firma + '</div></div>' +
+      '</div>' +
+      '<div class="arac-tags">' +
+        '<span class="arac-tag">📍 ' + konum + '</span>' +
+        (operatorlu !== undefined ? '<span class="arac-tag ' + (operatorlu ? 'orange' : '') + '">👨‍💼 ' + (operatorlu ? 'Operatörlü' : 'Operatörsüz') + '</span>' : '') +
+        (i.durum ? '<span class="arac-tag">' + formatDurum(i.durum) + '</span>' : '') +
+      '</div>' +
+      '<div class="arac-price">' + fiyat + ' <span>/ gün</span></div>' +
+      '<button class="btn-primary btn-full" onclick="openIletisimModal(\'' + (i.musteri_telefon || i.user_telefon || '') + '\',\'' + safeBaslik + '\',\'' + safeFirma + '\')">' +
+        '📞 İletişime Geç' +
+      '</button>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+// ─── İLETİŞİM MODALİ (Araç sahibi için) ─────────────────────────────
+// İlk önce bir talep ilanı oluşturmasını öner, ya da doğrudan İş Talebi Oluştur sayfasına yönlendir
+function openIletisimModal(telefon, ilanBaslik, firmaAd) {
+  // Talep oluşturma sayfasına yönlendir — doğru akış bu
+  const mesaj = `"${ilanBaslik}" ilanı için İş Talebi oluşturun. Firmalar sizi bulsun ve en uygun teklifi sunsun.`;
+  if (confirm(mesaj + '\n\nTalep oluşturma sayfasına gitmek ister misiniz?')) {
+    window.location.href = 'ilan.html?tip=TALEP';
+  }
+}
+
+
+// ─── TEKLİF GÖNDER MODALİ ─────────────────────────────────────
+function openTeklifModal(ilanId, ilanBaslik, firmaAd) {
+  document.getElementById('modalIlanId').value = ilanId;
+  document.getElementById('modalIlanTitle').textContent = ilanBaslik;
+  document.getElementById('modalIlanFirma').textContent = '👷 ' + firmaAd;
+  document.getElementById('modalFiyat').value = '';
+  document.getElementById('modalMesaj').value = '';
+  document.getElementById('teklifModal').classList.add('open');
+}
+
+function closeTeklifModal() {
+  document.getElementById('teklifModal').classList.remove('open');
+}
+
+async function teklifGonder() {
+  const ilanId = document.getElementById('modalIlanId').value;
+  const fiyat  = parseFloat(document.getElementById('modalFiyat').value);
+  const mesaj  = document.getElementById('modalMesaj').value.trim();
+
+  if (!ilanId) { showToast('İlan bilgisi eksik.', 'error'); return; }
+  if (!fiyat || fiyat <= 0) { showToast('Geçerli bir fiyat giriniz.', 'error'); return; }
+  if (!mesaj) { showToast('Mesaj alanını doldurunuz.', 'error'); return; }
+
+  const btn = document.getElementById('teklifGonderBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Gönderiliyor...';
+
+  try {
+    const res = await api.post('/teklifler', { ilan_id: ilanId, fiyat, mesaj });
+    if (res && res.ok) {
+      showToast('Teklifiniz başarıyla gönderildi! 🎉', 'success');
+      closeTeklifModal();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      showToast(err.mesaj || 'Teklif gönderilemedi.', 'error');
+    }
+  } catch {
+    showToast('Bağlantı hatası. İnternet bağlantınızı kontrol edin.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Teklif Gönder';
+  }
+}
+
+// ─── GELEN TEKLİFLER ──────────────────────────────────────────
+let tekliflerLoaded = false;
+
+async function loadTeklifler() {
+  if (tekliflerLoaded) return;
+  const container = document.getElementById('tekliflerContainer');
+  try {
+    // Önce kullanıcının ilanlarını çek
+    const ilanRes = await api.get('/ilanlar/benim/liste');
+    if (!ilanRes || !ilanRes.ok) throw new Error('İlanlar yüklenemedi');
+    const ilanData = await ilanRes.json();
+    const ilanlar = ilanData.ilanlar || ilanData || [];
+
+    // Her ilanın tekliflerini /teklifler/ilan/:id ile çek
+    let teklifler = [];
+    if (ilanlar.length > 0) {
+      const teklifSonuclari = await Promise.all(
+        ilanlar.map(async (ilan) => {
+          try {
+            const r = await api.get('/teklifler/ilan/' + ilan.id);
+            if (r && r.ok) {
+              const d = await r.json();
+              // İlan bilgisini teklif kartlarına ekle
+              return (d.teklifler || []).map(t => ({
+                ...t,
+                ilan_baslik: ilan.baslik || ilan.arac_tipi,
+                arac_tipi: t.arac_tipi || ilan.arac_tipi,
+                gonderen_adi: t.surucu_ad || t.gonderen_adi,
+                telefon: t.surucu_telefon || t.telefon,
+              }));
+            }
+          } catch (e) { /* sessizce devam */ }
+          return [];
+        })
+      );
+      teklifler = teklifSonuclari.flat();
+    }
+
+    tekliflerLoaded = true;
+    document.getElementById('teklifCount').textContent = teklifler.length + ' teklif';
+    renderTeklifler(teklifler);
+  } catch {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p><button class="btn-outline" onclick="tekliflerLoaded=false;loadTeklifler()">Tekrar Dene</button></p></div>';
+  }
+}
+
+function renderTeklifler(teklifler) {
+  const container = document.getElementById('tekliflerContainer');
+  if (!teklifler || teklifler.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📨</div><h3>Henüz teklif yok</h3><p>İş talebi oluşturun, firmalar size teklif göndersin!</p><a href="ilan.html?tip=TALEP" class="btn-primary" style="text-decoration:none;">🏗️ İş Talebi Oluştur</a></div>';
+    return;
+  }
+  container.innerHTML = '<div class="teklif-list">' + teklifler.map(t => {
+    const ad = t.gonderen_adi || (t.gonderen && t.gonderen.ad) || (t.user && t.user.ad) || 'Firma';
+    const initial = ad.charAt(0).toUpperCase();
+    const arac = t.arac_tipi || (t.ilan && (t.ilan.arac_tipi || t.ilan.baslik)) || '—';
+    const fiyat = t.fiyat ? formatPara(t.fiyat) : '—';
+    const tel = (t.gonderen && t.gonderen.telefon) || t.telefon || '';
+    const safeAd = ad.replace(/'/g, '&#39;');
+    const safeTel = tel.replace(/'/g, '&#39;');
+    return '<div class="teklif-full-card">' +
+      '<div class="teklif-full-top">' +
+        '<div class="teklif-full-avatar">' + initial + '</div>' +
+        '<div class="teklif-full-info"><div class="teklif-full-name">' + ad + '</div>' +
+        '<div class="teklif-full-arac">' + getAracIcon(arac) + ' ' + arac + '</div></div>' +
+        '<div class="teklif-full-price">' + fiyat + '</div>' +
+      '</div>' +
+      (t.mesaj ? '<div class="teklif-full-mesaj">💬 &ldquo;' + t.mesaj + '&rdquo;</div>' : '') +
+      '<div class="teklif-full-footer">' +
+        '<span class="teklif-tarih">📅 ' + formatTarih(t.created_at) + '</span>' +
+        '<div style="display:flex;gap:8px;align-items:center;">' +
+          formatDurum(t.durum || 'BEKLIYOR') +
+          (t.durum === 'BEKLIYOR' ? '<button class="btn-primary" style="padding:6px 14px;font-size:12px;min-height:unset;background:var(--success);" onclick="teklifKabulEt(\'' + t.id + '\')">✅ Kabul Et</button>' : '') +
+          '<button class="btn-secondary" style="padding:6px 14px;font-size:12px;min-height:unset;" onclick="openIletisimModal(\'' + safeAd + '\',\'' + safeTel + '\')">' +
+            '📞 İletişime Geç' +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+async function teklifKabulEt(teklifId) {
+  if (!confirm('Bu teklifi kabul etmek istiyor musunuz? Sipariş oluşturulacak.')) return;
+  try {
+    const res = await api.put('/teklifler/' + teklifId + '/kabul', {});
+    if (res && res.ok) {
+      showToast('🎉 Teklif kabul edildi! Sipariş oluşturuldu.', 'success');
+      tekliflerLoaded = false;
+      loadTeklifler();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      showToast(err.hata || 'Kabul işlemi başarısız.', 'error');
+    }
+  } catch { showToast('Bağlantı hatası.', 'error'); }
+}
+
+// ─── İLETİŞİM MODALİ ──────────────────────────────────────────
+function openIletisimModal(ad, telefon) {
+  document.getElementById('iletisimAd').textContent = ad;
+  document.getElementById('iletisimTelefon').textContent = telefon || 'Telefon bilgisi henüz paylaşılmadı.';
+  const araBtn = document.getElementById('iletisimAraBtn');
+  if (telefon) {
+    araBtn.href = 'tel:' + telefon;
+    araBtn.style.display = 'inline-flex';
+  } else {
+    araBtn.style.display = 'none';
+  }
+  document.getElementById('iletisimModal').classList.add('open');
+}
+
+function closeIletisimModal() {
+  document.getElementById('iletisimModal').classList.remove('open');
+}
+
+// ─── Modal Dışı Tıklama / ESC ─────────────────────────────────
+document.getElementById('teklifModal').addEventListener('click', function(e) {
+  if (e.target === this) closeTeklifModal();
+});
+document.getElementById('iletisimModal').addEventListener('click', function(e) {
+  if (e.target === this) closeIletisimModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeTeklifModal(); closeIletisimModal(); }
+});
+</script>
+</body>
+</html>

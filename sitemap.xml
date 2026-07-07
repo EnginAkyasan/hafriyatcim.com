@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Ana Sayfa -->
+  <url>
+    <loc>https://hafriyatcim.com/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- İlanlar -->
+  <url>
+    <loc>https://hafriyatcim.com/ilanlar.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- İlan Detay -->
+  <url>
+    <loc>https://hafriyatcim.com/ilan-detay.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- İlan Oluştur -->
+  <url>
+    <loc>https://hafriyatcim.com/ilan.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Giriş / Kayıt -->
+  <url>
+    <loc>https://hafriyatcim.com/giris.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Canlı Takip -->
+  <url>
+    <loc>https://hafriyatcim.com/takip.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- KVKK -->
+  <url>
+    <loc>https://hafriyatcim.com/kvkk.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Gizlilik Politikası -->
+  <url>
+    <loc>https://hafriyatcim.com/gizlilik.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Kullanıcı Sözleşmesi -->
+  <url>
+    <loc>https://hafriyatcim.com/kullanici-sozlesmesi.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Çerez Politikası -->
+  <url>
+    <loc>https://hafriyatcim.com/cerez.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- NOT: dashboard.html, odeme.html, profil.html → private, sitemap'e dahil edilmedi -->
+
+</urlset>
