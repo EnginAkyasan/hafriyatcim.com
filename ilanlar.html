@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
@@ -8,20 +8,20 @@
   <meta name="keywords" content="kepçe kiralama, vinç kiralama, TIR kiralama, kamyon ilanı, hafriyat ilanı, iş makinesi kiralama">
   <link rel="canonical" href="https://hafriyatcim.com/ilanlar.html">
   <link rel="icon" href="logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700\&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --amber:    #f59e0b;
-      --amber-d:  #d97706;
-      --amber-bg: rgba(245,158,11,0.08);
-      --bg:       #09090b;
-      --surface:  #18181b;
-      --border:   #27272a;
-      --border-h: #3f3f46;
-      --text:     #f4f4f5;
-      --muted:    #a1a1aa;
+      --amber:    #F5C518;
+      --amber-d:  #D4A017;
+      --amber-bg: rgba(245,197,24,0.10);
+      --bg:       #FAFAF5;
+      --surface:  #FFFFFF;
+      --border:   #E5E3D8;
+      --border-h: #D0CEC2;
+      --text:     #0D0C08;
+      --muted:    #6B6952;
       --green-bg: #dcfce7;
       --green-tx: #15803d;
     }
@@ -32,7 +32,7 @@
       display:flex; align-items:center; gap:12px;
       padding:0 24px; height:52px;
       border-bottom:1px solid var(--border);
-      background:#09090b;
+      background:rgba(250,250,245,0.92);
       position:sticky; top:0; z-index:50;
       backdrop-filter:blur(8px);
     }
@@ -42,7 +42,7 @@
 
     .search-wrap { flex:1; max-width:480px; margin:0 auto; position:relative; }
     .search-wrap input {
-      width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border);
+      width:100%; background:#F0EEE6; border:1.5px solid var(--border);
       border-radius:4px; padding:8px 14px 8px 36px; color:var(--text);
       font-family:inherit; font-size:.875rem; outline:none;
       transition:border-color 0.15s;
@@ -65,7 +65,7 @@
     }
     .btn-top.ghost:hover { color:var(--text); border-color:var(--border-h); }
     .btn-top.primary {
-      background:var(--amber); color:#09090b;
+      background:var(--amber); color:#111111;
       border:1px solid var(--amber); font-weight:700;
     }
     .btn-top.primary:hover { background:var(--amber-d); border-color:var(--amber-d); }
@@ -110,7 +110,7 @@
       transition:border-color 0.15s; cursor:pointer;
     }
     .filter-select:focus, .filter-input:focus { border-color:var(--amber); }
-    .filter-select option { background:#18181b; }
+    .filter-select option { background:#FFFFFF; }
 
     /* Tipo toggle */
     .tipo-toggle { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
@@ -151,14 +151,14 @@
     .ilan-card:hover { border-color:var(--border-h); }
 
     .card-img {
-      height:136px; background:rgba(245,158,11,.04);
+      height:136px; background:rgba(245,197,24,.04);
       position:relative; overflow:hidden; flex-shrink:0;
     }
     .card-img img { width:100%; height:100%; object-fit:cover; }
     .card-img-placeholder {
       width:100%; height:100%;
       display:flex; align-items:center; justify-content:center;
-      font-size:2.4rem; background:#18181b;
+      font-size:2.4rem; background:#F0EEE6;
     }
 
     /* Badges */
@@ -170,7 +170,7 @@
     }
     .badge-talep  { background:#1d4ed8; color:#fff; }
     .badge-teklif { background:#15803d; color:#fff; }
-    .badge-urgent { background:var(--amber); color:#09090b; }
+    .badge-urgent { background:var(--amber); color:#111111; }
     .badge-verified { background:#27272a; color:var(--text); }
     .badge-operator { background:#6d28d9; color:#fff; }
 
@@ -201,7 +201,7 @@
     .cards-loading { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; }
     .skeleton-card {
       height:254px;
-      background:linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%);
+      background:linear-gradient(90deg, #F8F7F0 0%, #F0EEE6 50%, #F8F7F0 100%);
       background-size:200% 100%;
       animation:shimmer 1.6s infinite;
       border-radius:6px; border:1px solid var(--border);

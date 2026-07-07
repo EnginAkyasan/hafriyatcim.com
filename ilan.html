@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
@@ -6,22 +6,22 @@
   <title>İlan Oluştur | hafriyatcim.com</title>
   <meta name="description" content="Kepçe, vinç, TIR, kamyon kiralama veya hafriyat iş ilanı oluşturun.">
   <link rel="icon" href="logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700\&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:     #09090b;  /* zinc-950 */
-      --card:   #18181b;  /* zinc-900 */
-      --card2:  #27272a;  /* zinc-800 */
-      --border: #27272a;
-      --border2:#3f3f46;
-      --text:   #f4f4f5;
-      --muted:  #a1a1aa;
-      --dim:    #52525b;
-      --orange: #f59e0b;  /* amber-500 */
-      --orange-d:#d97706; /* amber-600 */
-      --og:     rgba(245,158,11,0.08);
-      --green:  #16a34a;
+      --bg:     #FAFAF5;  /* warm off-white */
+      --card:   #FFFFFF;
+      --card2:  #F8F7F0;
+      --border: #E5E3D8;
+      --border2:#D6D3C8;
+      --text:   #0D0C08;
+      --muted:  #6B6952;
+      --dim:    #9C9A87;
+      --orange: #F5C518;  /* primary yellow */
+      --orange-d:#D4A017;
+      --og:     rgba(245,197,24,0.08);
+      --green:  #15803D;
       --font:   'Inter', -apple-system, sans-serif;
     }
     body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; -webkit-font-smoothing:antialiased; }
@@ -154,8 +154,8 @@
 
     /* ── Form error ── */
     .form-error {
-      background:rgba(220,38,38,.08); border:1px solid rgba(220,38,38,.25);
-      color:#f87171; border-radius:4px; padding:10px 14px;
+      background:rgba(220,38,38,.06); border:1px solid rgba(220,38,38,.22);
+      color:#DC2626; border-radius:4px; padding:10px 14px;
       font-size:13px; margin-bottom:12px; display:none;
     }
     .form-error.show { display:block; }
@@ -192,7 +192,7 @@
     }
     .foto-thumb-del:hover { background:rgba(220,38,38,.9); }
     .foto-count-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); margin-top:6px; }
-    .foto-count-badge.warn { color:#fb923c; }
+    .foto-count-badge.warn { color:#D4A017; }
 
     /* ── Toast ── */
     #toastEl {
@@ -205,8 +205,8 @@
       z-index:999; transition:transform .25s ease; white-space:nowrap;
     }
     #toastEl.show { transform:translateX(-50%) translateY(0); }
-    #toastEl.toast-ok { border-color:rgba(22,163,74,.4); color:#4ade80; }
-    #toastEl.toast-err { border-color:rgba(220,38,38,.4); color:#f87171; }
+    #toastEl.toast-ok { border-color:rgba(21,128,61,.4); color:#15803D; }
+    #toastEl.toast-err { border-color:rgba(220,38,38,.4); color:#DC2626; }
   </style>
 </head>
 <body>
@@ -420,7 +420,7 @@
           </select>
         </div>
       </div>
-      <div id="ilanOzet" style="background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.2); border-radius:6px; padding:16px; margin-bottom:4px;">
+      <div id="ilanOzet" style="background:rgba(245,197,24,.06); border:1px solid rgba(245,197,24,.2); border-radius:6px; padding:16px; margin-bottom:4px;">
         <div style="font-size:.78rem; font-weight:800; color:var(--orange); margin-bottom:8px;">📋 İlan Özeti</div>
         <div style="font-size:.82rem; color:var(--muted); line-height:1.8;" id="ozetContent">Önceki adımları doldurun...</div>
       </div>

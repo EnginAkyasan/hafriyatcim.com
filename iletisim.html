@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
   <meta property="og:image" content="https://hafriyatcim.com/logo.png">
   <meta property="og:locale" content="tr_TR">
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700\&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="icon" href="logo.png" type="image/png">
   <style>
     /* ── Hamburger Menu ── */
@@ -31,7 +31,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: #f0efe8;
+      background: #0D0C08;
       border-radius: 2px;
       transition: all 0.3s;
     }
@@ -45,13 +45,13 @@
         display: none !important;
         position: fixed;
         top: 64px; left: 0; right: 0;
-        background: rgba(8,8,16,0.98);
+        background: rgba(255,255,255,0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 1.5rem 5%;
         gap: 0;
-        border-bottom: 1px solid rgba(255,255,255,0.07);
+        border-bottom: 1px solid #E5E3D8;
         z-index: 99;
       }
       .nav-links.open { display: flex !important; }
@@ -59,7 +59,8 @@
         display: block;
         padding: 1rem 0;
         font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        color: #0D0C08;
+        border-bottom: 1px solid #E5E3D8;
       }
     }
 
@@ -67,14 +68,14 @@
     .page-hero {
       padding: 5rem 5% 3rem;
       text-align: center;
-      background: radial-gradient(ellipse at center top, rgba(249,115,22,0.07) 0%, transparent 65%);
+      background: radial-gradient(ellipse at center top, rgba(245,197,24,0.07) 0%, transparent 65%);
     }
     .page-hero h1 {
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 900;
       margin-bottom: 0.75rem;
     }
-    .page-hero p { color: #8a8996; font-size: 1.05rem; }
+    .page-hero p { color: #6B6952; font-size: 1.05rem; }
 
     /* ── Contact Cards ── */
     .contact-section {
@@ -89,8 +90,8 @@
       margin-bottom: 3.5rem;
     }
     .contact-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 16px;
       padding: 1.75rem 1.5rem;
       display: flex;
@@ -98,11 +99,11 @@
       gap: 0.5rem;
       transition: border-color 0.2s;
     }
-    .contact-card:hover { border-color: rgba(249,115,22,0.35); }
+    .contact-card:hover { border-color: rgba(245,197,24,0.5); }
     .contact-card .icon { font-size: 1.75rem; }
-    .contact-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: #8a8996; }
-    .contact-card p { font-size: 1rem; color: #f1f0ee; margin: 0; }
-    .contact-card a { color: #f97316; text-decoration: none; font-weight: 600; }
+    .contact-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6B6952; }
+    .contact-card p { font-size: 1rem; color: #0D0C08; margin: 0; }
+    .contact-card a { color: #D4A017; text-decoration: none; font-weight: 600; }
     .contact-card a:hover { text-decoration: underline; }
 
     /* ── Form ── */
@@ -117,18 +118,18 @@
       display: block;
       font-size: 0.875rem;
       font-weight: 600;
-      color: #c8c7d0;
+      color: #6B6952;
       margin-bottom: 0.5rem;
     }
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 10px;
       padding: 0.75rem 1rem;
-      color: #f1f0ee;
+      color: #0D0C08;
       font-family: Inter, sans-serif;
       font-size: 0.95rem;
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -138,11 +139,11 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: #f97316;
-      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+      border-color: #D4A017;
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
     }
     .form-group textarea { min-height: 130px; resize: vertical; }
-    .form-group select option { background: #12121a; color: #f1f0ee; }
+    .form-group select option { background: #FFFFFF; color: #0D0C08; }
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -157,9 +158,9 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(6px);
-      background: #1a1a28;
-      border: 1px solid rgba(249,115,22,0.4);
-      color: #f1f0ee;
+      background: #FFFFFF;
+      border: 1px solid rgba(245,197,24,0.5);
+      color: #0D0C08;
       padding: 0.9rem 1.5rem;
       border-radius: 12px;
       font-size: 0.9rem;
@@ -187,13 +188,13 @@
       margin-bottom: 1.5rem;
     }
     .faq-item {
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid #E5E3D8;
     }
     .faq-question {
       width: 100%;
       background: none;
       border: none;
-      color: #f1f0ee;
+      color: #0D0C08;
       font-family: Inter, sans-serif;
       font-size: 0.98rem;
       font-weight: 600;
@@ -206,14 +207,14 @@
       gap: 1rem;
       transition: color 0.2s;
     }
-    .faq-question:hover { color: #f97316; }
+    .faq-question:hover { color: #D4A017; }
     .faq-question .arrow {
       font-size: 1.1rem;
       transition: transform 0.3s;
       flex-shrink: 0;
-      color: #8a8996;
+      color: #6B6952;
     }
-    .faq-item.open .faq-question .arrow { transform: rotate(180deg); color: #f97316; }
+    .faq-item.open .faq-question .arrow { transform: rotate(180deg); color: #D4A017; }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
@@ -222,7 +223,7 @@
     .faq-item.open .faq-answer { max-height: 200px; }
     .faq-answer p {
       padding-bottom: 1.1rem;
-      color: #8a8996;
+      color: #6B6952;
       font-size: 0.93rem;
       line-height: 1.75;
       margin: 0;
@@ -268,7 +269,7 @@
       <div class="contact-card">
         <div class="icon">📱</div>
         <h3>WhatsApp</h3>
-        <p>Destek hattı <span style="color:#8a8996;">(yakında aktif)</span></p>
+        <p>Destek hattı <span style="color:#6B6952;">(yakında aktif)</span></p>
       </div>
       <div class="contact-card">
         <div class="icon">🕐</div>

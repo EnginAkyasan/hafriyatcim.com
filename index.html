@@ -1,979 +1,1557 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hafriyatcim.com | İstanbul Hafriyat & Lojistik Pazaryeri</title>
-  <meta name="description" content="İnşaat projeleri ile hafriyat kamyonlarını anlık ve otomatik olarak eşleştiren kurumsal lojistik pazaryeri. İstanbul Avrupa Yakası.">
-  <meta name="keywords" content="hafriyat taşıma, kamyon kiralama, inşaat lojistik, İstanbul hafriyat, toprak taşıma, kamyon eşleştirme">
+  <title>hafriyatcim.com — Hafriyat Sektörünün Dijital Platformu</title>
+  <meta name="description" content="Türkiye'nin ilk komisyonsuz hafriyat pazaryeri. İnşaat firmaları ile kamyon sahiplerini doğrudan buluşturuyoruz. Anlık eşleşme, GPS takip, WhatsApp koordinasyonu.">
+  <meta name="keywords" content="hafriyat, kamyon kiralama, inşaat lojistik, İstanbul hafriyat, toprak taşıma, komisyonsuz nakliye">
+  <meta property="og:title" content="hafriyatcim.com — Hafriyat Sektörünün Dijital Platformu">
+  <meta property="og:description" content="Komisyoncuyu aradan kaldırdık. İnşaat firmaları ile kamyon sahipleri doğrudan buluşuyor.">
   <link rel="canonical" href="https://hafriyatcim.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hafriyatcim.com/">
-  <meta property="og:title" content="hafriyatcim.com | İstanbul Hafriyat & Lojistik Pazaryeri">
-  <meta property="og:description" content="İnşaat projeleri ile hafriyat kamyonlarını anlık eşleştiren kurumsal platform.">
-  <meta property="og:image" content="https://hafriyatcim.com/logo.png">
   <link rel="icon" href="logo.png" type="image/png">
-  <script src="theme.js"></script>
+  <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* ═══════════════════════════════════════════════════════
-       HAFRIYATCIM.COM — ENTERPRISE LANDING v3.0
-       Corporate · Industrial · Institutional
-    ═══════════════════════════════════════════════════════ */
+    /* =================================================================
+       HAFRIYATCIM.COM — WORLD-CLASS HOMEPAGE v7.0
+       Design: Industrial Authority · Digital Precision · Turkish Market
+       Ref: Stripe trust + Linear darkness + Samsara authority + Convoy
+    ================================================================= */
 
     :root {
-      --zinc-950:  #09090b;
-      --zinc-900:  #18181b;
-      --zinc-800:  #27272a;
-      --zinc-700:  #3f3f46;
-      --zinc-600:  #52525b;
-      --zinc-400:  #a1a1aa;
-      --zinc-300:  #d4d4d8;
-      --zinc-200:  #e4e4e7;
-      --zinc-100:  #f4f4f5;
-      --zinc-50:   #fafafa;
-      --amber-600: #d97706;
-      --amber-500: #f59e0b;
-      --amber-400: #fbbf24;
-      --amber-100: #fef3c7;
-      --green-700: #15803d;
-      --green-600: #16a34a;
-      --green-100: #dcfce7;
-      --red-600:   #dc2626;
-      --red-100:   #fee2e2;
+      --y:       #F5C518;
+      --y-d:     #D4A017;
+      --y-dp:    #A67C00;
+      --y-lt:    rgba(245,197,24,0.10);
+      --y-glow:  rgba(245,197,24,0.18);
 
-      /* Surfaces */
-      --bg:        var(--zinc-950);
-      --surface:   var(--zinc-900);
-      --surface-2: var(--zinc-800);
-      --border:    var(--zinc-800);
-      --border-2:  var(--zinc-700);
-      --text:      var(--zinc-100);
-      --text-2:    var(--zinc-400);
-      --text-3:    var(--zinc-600);
-      --accent:    var(--amber-500);
-      --accent-d:  var(--amber-600);
+      --void:    #080808;
+      --dark:    #0D0D0D;
+      --s1:      #141414;
+      --s2:      #1C1C1C;
+      --s3:      #242424;
+      --bd:      rgba(255,255,255,0.07);
+      --by:      rgba(245,197,24,0.22);
 
-      --radius: 6px;
-      --radius-sm: 4px;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+      --cream:   #FAFAF5;
+      --c2:      #F5F4EF;
+      --c3:      #EDECEA;
+      --bl:      #E5E3D8;
 
-    [data-theme="light"] {
-      --bg:        var(--zinc-50);
-      --surface:   #ffffff;
-      --surface-2: var(--zinc-100);
-      --border:    var(--zinc-200);
-      --border-2:  var(--zinc-300);
-      --text:      var(--zinc-900);
-      --text-2:    var(--zinc-600);
-      --text-3:    var(--zinc-400);
+      --tw:      #F8F8F4;
+      --twm:     rgba(248,248,244,0.55);
+      --twd:     rgba(248,248,244,0.28);
+      --tb:      #0D0C08;
+      --tbm:     #6B6952;
+      --tbd:     #9B9A88;
+
+      --green:   #22C55E;
+      --r:       13px;
+      --rs:      9px;
+      --rl:      18px;
+      --rxl:     26px;
+
+      --sp:      clamp(80px,10vw,128px);
+      --spm:     clamp(56px,7vw,88px);
+
+      --fh:      'Space Grotesk', -apple-system, sans-serif;
+      --fb:      'Inter', -apple-system, sans-serif;
+
+      --ease:    cubic-bezier(0.4,0,0.2,1);
+      --spring:  cubic-bezier(0.16,1,0.3,1);
+      --t:       all 0.22s var(--ease);
+      --sy:      0 8px 40px rgba(245,197,24,0.28);
+      --sys:     0 4px 20px rgba(245,197,24,0.18);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
+      font-family: var(--fb);
+      background: var(--void);
+      color: var(--tw);
       line-height: 1.6;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-
+    img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--fb); border: none; background: none; }
 
-    /* ─── UTILITY ────────────────────────────────────────── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 3px 10px; border-radius: var(--radius-sm);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--s3); border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--y-dp); }
+
+    /* ── UTILITIES ── */
+    .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      color: var(--y);
+      margin-bottom: 18px;
     }
-    .badge-green { background: var(--green-100); color: var(--green-700); }
-    .badge-amber { background: var(--amber-100); color: var(--amber-600); }
-    .badge-zinc  { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
-    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-    .dot-green { background: var(--green-600); animation: pulse 2s infinite; }
-    .dot-amber { background: var(--amber-500); }
+    .section-eyebrow::before, .section-eyebrow::after {
+      content: '';
+      width: 20px;
+      height: 1.5px;
+      background: rgba(245,197,24,0.45);
+    }
+    .section-eyebrow.dark { color: var(--y-dp); }
+    .section-eyebrow.dark::before, .section-eyebrow.dark::after { background: rgba(166,124,0,0.45); }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    .h2 {
+      font-family: var(--fh);
+      font-size: clamp(2rem,4vw,3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      color: var(--tw);
     }
+    .h2.dark-text { color: var(--tb); }
+    .h2 .y { color: var(--y); }
+    .h2 .yd { color: var(--y-dp); }
+    .lead { font-size: 1rem; color: var(--twm); line-height: 1.75; margin-top: 12px; }
+    .lead.dark-text { color: var(--tbm); }
 
-    /* ─── NAVBAR ─────────────────────────────────────────── */
-    .navbar {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      height: 52px;
+    /* ── REVEAL ── */
+    [data-r] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s var(--spring), transform 0.65s var(--spring);
     }
-    .navbar-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 100%; gap: 32px;
+    [data-r="up"]   { transform: translateY(24px); }
+    [data-r="left"] { transform: translateX(-24px); }
+    [data-r="right"]{ transform: translateX(24px); }
+    [data-r="scale"]{ transform: scale(0.95); }
+    [data-r].vis    { opacity: 1; transform: none; }
+    [data-d="1"]    { transition-delay: 0.08s; }
+    [data-d="2"]    { transition-delay: 0.16s; }
+    [data-d="3"]    { transition-delay: 0.24s; }
+    [data-d="4"]    { transition-delay: 0.32s; }
+    [data-d="5"]    { transition-delay: 0.40s; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: var(--r);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: var(--t);
+      white-space: nowrap;
+    }
+    .btn-y {
+      background: var(--y);
+      color: #111;
+      box-shadow: var(--sys);
+    }
+    .btn-y:hover { background: var(--y-d); transform: translateY(-2px); box-shadow: var(--sy); }
+    .btn-y:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--bd);
+      color: var(--twm);
+    }
+    .btn-outline:hover { border-color: var(--by); color: var(--tw); transform: translateY(-1px); }
+
+    .btn-ghost-dark {
+      background: var(--c2);
+      border: 1px solid var(--bl);
+      color: var(--tbm);
+    }
+    .btn-ghost-dark:hover { background: var(--c3); border-color: rgba(245,197,24,0.4); color: var(--tb); transform: translateY(-1px); }
+
+    .btn-wa {
+      background: #25D366;
+      color: #fff;
+    }
+    .btn-wa:hover { background: #1fbb58; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.32); }
+
+    .btn-lg { padding: 15px 32px; font-size: 1rem; border-radius: var(--rl); }
+    .btn-sm { padding: 9px 16px; font-size: 0.82rem; border-radius: var(--rs); }
+
+    /* ── NAVIGATION ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      justify-content: space-between;
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+    .nav.solid {
+      background: rgba(8,8,8,0.88);
+      border-bottom: 1px solid var(--bd);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
     .logo {
-      font-size: 15px; font-weight: 700; letter-spacing: -0.02em;
-      color: var(--text); white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--fh);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
     }
-    .logo span { color: var(--accent); }
-    .nav-status {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 12px; color: var(--text-2);
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: var(--y);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      box-shadow: 0 0 18px rgba(245,197,24,0.38);
     }
+    .logo .dot { color: var(--y); }
+
     .nav-links {
-      display: flex; align-items: center; gap: 4px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
       list-style: none;
     }
-    .nav-links a {
-      display: block; padding: 5px 12px; border-radius: var(--radius-sm);
-      font-size: 13px; color: var(--text-2); font-weight: 500;
-      transition: color 0.15s, background 0.15s;
-    }
-    .nav-links a:hover { color: var(--text); background: var(--surface-2); }
-    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--twm); transition: var(--t); }
+    .nav-links a:hover { color: var(--tw); }
 
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 7px 16px; border-radius: var(--radius);
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      border: 1px solid transparent; transition: all 0.15s;
-      white-space: nowrap; font-family: var(--font);
+    .nav-live {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--green);
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.18);
+      border-radius: 100px;
+      padding: 4px 10px;
     }
-    .btn-primary {
-      background: var(--accent); color: #000; border-color: var(--accent);
+    .nav-live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
     }
-    .btn-primary:hover { background: var(--amber-400); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border-color: var(--border-2);
-    }
-    .btn-outline:hover { background: var(--surface-2); }
-    .btn-ghost {
-      background: transparent; color: var(--text-2);
-      border-color: transparent;
-    }
-    .btn-ghost:hover { color: var(--text); background: var(--surface-2); }
-    .btn-whatsapp {
-      background: #25d366; color: #fff; border-color: #25d366;
-    }
-    .btn-whatsapp:hover { background: #20ba5a; }
-    .btn-sm { padding: 5px 12px; font-size: 12px; }
-    .btn-lg { padding: 10px 24px; font-size: 14px; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
 
-    .btn-icon {
-      width: 34px; height: 34px; padding: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: transparent; border: 1px solid var(--border);
-      border-radius: var(--radius-sm); cursor: pointer;
-      color: var(--text-2); font-size: 14px; transition: all 0.15s;
-      font-family: var(--font);
-    }
-    .btn-icon:hover { background: var(--surface-2); color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
 
-    /* ─── HERO ───────────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
-      padding: 72px 0 56px;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-eyebrow {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 800; line-height: 1.15;
-      letter-spacing: -0.03em; color: var(--text);
-      max-width: 720px; margin-bottom: 16px;
-    }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero-sub {
-      font-size: 15px; color: var(--text-2); max-width: 560px;
-      line-height: 1.7; margin-bottom: 40px;
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 0;
+      overflow: hidden;
     }
 
-    /* ─── CTA GRID ───────────────────────────────────────── */
-    .cta-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-top: 40px;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% -10%, rgba(245,197,24,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 15% 90%, rgba(245,197,24,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 85% 30%, rgba(59,130,246,0.03) 0%, transparent 50%);
+      pointer-events: none;
     }
-    .cta-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px;
-      transition: border-color 0.15s;
+
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle 1.2px at 1px 1px, rgba(255,255,255,0.042) 1px, transparent 0);
+      background-size: 30px 30px;
+      pointer-events: none;
     }
-    .cta-card:hover { border-color: var(--border-2); }
-    .cta-card-accent { border-color: var(--accent); }
-    .cta-card-accent:hover { border-color: var(--amber-400); }
-    .cta-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-2); margin-bottom: 8px;
-    }
-    .cta-label-amber { color: var(--accent); }
-    .cta-card h3 {
-      font-size: 16px; font-weight: 700; color: var(--text);
-      margin-bottom: 8px; letter-spacing: -0.01em;
-    }
-    .cta-card p { font-size: 13px; color: var(--text-2); margin-bottom: 20px; line-height: 1.6; }
-    .cta-form { display: flex; flex-direction: column; gap: 10px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .input-group { display: flex; flex-direction: column; gap: 4px; }
-    .input-label { font-size: 11px; font-weight: 600; color: var(--text-2); }
-    .input-field {
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 8px 12px;
-      font-size: 13px; color: var(--text); font-family: var(--font);
-      outline: none; transition: border-color 0.15s;
+
+    .hero-body {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 860px;
       width: 100%;
     }
-    .input-field:focus { border-color: var(--accent); }
-    .input-field::placeholder { color: var(--text-3); }
-    select.input-field { cursor: pointer; }
 
-    /* ─── METRICS BAR ────────────────────────────────────── */
-    .metrics-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0;
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(245,197,24,0.07);
+      border: 1px solid rgba(245,197,24,0.20);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--y);
+      margin-bottom: 36px;
     }
-    .metrics-inner {
-      display: flex; align-items: stretch;
-      overflow-x: auto;
+    .hero-pill-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--y);
+      animation: blink 2s infinite;
     }
-    .metric-item {
-      display: flex; flex-direction: column; gap: 2px;
-      padding: 16px 24px; border-right: 1px solid var(--border);
-      min-width: 160px; flex-shrink: 0;
-    }
-    .metric-item:last-child { border-right: none; }
-    .metric-label { font-size: 11px; color: var(--text-2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-    .metric-value { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-    .metric-value.accent { color: var(--accent); }
-    .metric-sub { font-size: 11px; color: var(--text-3); }
 
-    /* ─── LIVE DASHBOARD ─────────────────────────────────── */
-    .dashboard-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-    .section-header { margin-bottom: 24px; }
-    .section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+    .hero-h1 {
+      font-family: var(--fh);
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      color: var(--tw);
+      margin-bottom: 32px;
     }
-    .section-title {
-      font-size: 22px; font-weight: 700; color: var(--text);
-      letter-spacing: -0.02em;
+    .hero-h1 .line { display: block; }
+    .hero-h1 .y { color: var(--y); }
+    .hero-h1 .ghost {
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.18);
+      color: transparent;
     }
-    .section-sub { font-size: 13px; color: var(--text-2); margin-top: 6px; }
 
-    .dashboard-grid { display: grid; grid-template-columns: 1fr 360px; gap: 16px; }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--twm);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+    }
+    .hero-sub strong { color: var(--tw); font-weight: 600; }
 
-    /* Data Table */
-    .data-table-wrap {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
     }
-    .data-table-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-    }
-    .data-table-title { font-size: 13px; font-weight: 600; }
-    table { width: 100%; border-collapse: collapse; }
-    thead th {
-      padding: 8px 16px; text-align: left;
-      font-size: 11px; font-weight: 600; color: var(--text-2);
-      text-transform: uppercase; letter-spacing: 0.06em;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface-2);
-    }
-    tbody tr {
-      border-bottom: 1px solid var(--border); transition: background 0.1s;
-    }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--surface-2); }
-    tbody td {
-      padding: 10px 16px; font-size: 13px; color: var(--text);
-      font-variant-numeric: tabular-nums;
-    }
-    td.muted { color: var(--text-2); }
 
-    /* Activity Feed */
-    .activity-panel {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column;
-    }
-    .activity-header {
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .activity-feed { padding: 8px 0; overflow-y: auto; flex: 1; }
-    .activity-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 8px 16px; border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
-    }
-    .activity-item:last-child { border-bottom: none; }
-    .activity-item:hover { background: var(--surface-2); }
-    .activity-icon {
-      width: 28px; height: 28px; border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; flex-shrink: 0; margin-top: 1px;
-    }
-    .activity-icon-green { background: var(--green-100); color: var(--green-700); }
-    .activity-icon-amber { background: var(--amber-100); color: var(--amber-600); }
-    .activity-icon-zinc  { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
-    .activity-content { flex: 1; min-width: 0; }
-    .activity-main { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .activity-meta { font-size: 11px; color: var(--text-2); margin-top: 1px; }
-
-    /* ─── HOW IT WORKS ───────────────────────────────────── */
-    .workflow-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-    .workflow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 32px; }
-    .workflow-step {
-      background: var(--surface); padding: 28px 24px;
+    /* HERO STATS */
+    .hero-stats-wrap {
       position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 860px;
     }
-    .step-number {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--bd);
+      border: 1px solid var(--bd);
+      border-radius: var(--rl);
+      overflow: hidden;
+      gap: 1px;
     }
-    .step-icon {
-      width: 40px; height: 40px; background: var(--surface-2);
-      border: 1px solid var(--border); border-radius: var(--radius);
+    .hstat {
+      background: var(--s1);
+      padding: 22px 24px;
+      transition: background 0.2s;
+    }
+    .hstat:hover { background: var(--s2); }
+    .hstat-val {
+      font-family: var(--fh);
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hstat-val .y { color: var(--y); }
+    .hstat-lbl { font-size: 0.75rem; color: var(--twm); line-height: 1.45; }
+
+    /* bottom diagonal clip */
+    .hero-clip {
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 100px;
+      background: var(--cream);
+      clip-path: polygon(0 100%, 100% 100%, 100% 40%, 0 100%);
+      pointer-events: none;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--y);
+      padding: 13px 0;
+      overflow: hidden;
+      border-top: none;
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: scroll-l 36s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .titem {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 28px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .titem::after { content: '◆'; font-size: 0.4rem; margin-left: 28px; opacity: 0.4; }
+    @keyframes scroll-l {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── DUAL PATH (light section) ── */
+    .dual {
+      background: var(--cream);
+      padding: var(--sp) 0;
+    }
+    .dual-head { text-align: center; margin-bottom: 60px; }
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .pcard {
+      background: #fff;
+      border: 1.5px solid var(--bl);
+      border-radius: var(--rxl);
+      padding: 44px;
+      transition: var(--t);
+      position: relative;
+      overflow: hidden;
+    }
+    .pcard-top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--bl);
+      transition: background 0.3s;
+    }
+    .pcard:hover .pcard-top-bar { background: var(--y); }
+    .pcard:hover {
+      border-color: rgba(245,197,24,0.38);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.07);
+      transform: translateY(-3px);
+    }
+    .pcard.dark-card {
+      background: var(--dark);
+      border-color: var(--by);
+    }
+    .pcard.dark-card .pcard-top-bar { background: var(--y); }
+    .pcard.dark-card:hover {
+      border-color: rgba(245,197,24,0.55);
+      box-shadow: 0 12px 48px rgba(245,197,24,0.12);
+    }
+
+    .pcard-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      color: var(--y-dp);
+      background: rgba(166,124,0,0.08);
+      border: 1px solid rgba(166,124,0,0.18);
+    }
+    .pcard.dark-card .pcard-tag {
+      color: var(--y);
+      background: var(--y-lt);
+      border-color: var(--by);
+    }
+
+    .pcard-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--y-lt);
+      border: 1px solid rgba(245,197,24,0.2);
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; margin-bottom: 16px;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
     }
-    .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .step-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
-    .step-features { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
-    .step-feature { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); }
-    .step-feature::before { content: '—'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
 
-    /* ─── STATS ──────────────────────────────────────────── */
-    .stats-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .stat-card { background: var(--surface); padding: 28px 24px; }
-    .stat-value { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1; }
-    .stat-value span { color: var(--accent); }
-    .stat-label { font-size: 13px; color: var(--text-2); margin-top: 8px; }
-    .stat-note { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+    .pcard-h { font-family: var(--fh); font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em; color: var(--tb); line-height: 1.15; margin-bottom: 12px; }
+    .pcard.dark-card .pcard-h { color: var(--tw); }
+    .pcard-desc { font-size: 0.92rem; color: var(--tbm); line-height: 1.7; margin-bottom: 28px; }
+    .pcard.dark-card .pcard-desc { color: var(--twm); }
 
-    /* ─── REGIONS ────────────────────────────────────────── */
-    .regions-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-    .regions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 24px; }
-    .region-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px;
-      transition: border-color 0.15s;
+    .pcard-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 36px; }
+    .pcard-li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.875rem; color: var(--tb);
     }
-    .region-card:hover { border-color: var(--border-2); }
-    .region-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .region-meta { font-size: 12px; color: var(--text-2); }
-    .region-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
-    .region-fill { height: 100%; background: var(--accent); border-radius: 2px; }
-
-    /* ─── FINAL CTA ──────────────────────────────────────── */
-    .final-cta {
-      padding: 64px 0;
-      border-bottom: 1px solid var(--border);
+    .pcard.dark-card .pcard-li { color: var(--tw); }
+    .pcard-li::before {
+      content: '';
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      border-radius: 5px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.2);
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='%2322C55E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
     }
-    .final-cta-inner {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 48px;
-      display: flex; align-items: center; justify-content: space-between; gap: 40px;
-    }
-    .final-cta h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; max-width: 480px; }
-    .final-cta p { font-size: 14px; color: var(--text-2); margin-top: 8px; max-width: 420px; }
-    .final-cta-actions { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
 
-    /* ─── FOOTER ─────────────────────────────────────────── */
+    /* Quick form inside pcard */
+    .qform { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .qrow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .qinput, .qselect {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--c2);
+      border: 1px solid var(--bl);
+      border-radius: var(--rs);
+      font-family: var(--fb);
+      font-size: 0.85rem;
+      color: var(--tb);
+      outline: none;
+      transition: var(--t);
+      -webkit-appearance: none;
+    }
+    .qinput:focus, .qselect:focus { border-color: var(--y); box-shadow: 0 0 0 3px rgba(245,197,24,0.12); }
+    .qinput::placeholder { color: var(--tbd); }
+    .pcard.dark-card .qinput, .pcard.dark-card .qselect {
+      background: var(--s2);
+      border-color: var(--bd);
+      color: var(--tw);
+    }
+    .pcard.dark-card .qinput::placeholder { color: var(--twd); }
+    .pcard.dark-card .qinput:focus, .pcard.dark-card .qselect:focus { border-color: var(--y); }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      background: var(--dark);
+      padding: var(--sp) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .how-dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle 1.1px at 1px 1px, rgba(255,255,255,0.022) 1px, transparent 0);
+      background-size: 34px 34px;
+      pointer-events: none;
+    }
+    .how-head { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+    .how-steps {
+      display: grid;
+      grid-template-columns: 1fr 56px 1fr 56px 1fr;
+      align-items: start;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 56px;
+    }
+    .step { text-align: center; padding: 0 16px; }
+    .step-n {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: var(--y);
+      color: #111;
+      font-family: var(--fh);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      box-shadow: var(--sys);
+    }
+    .step-emoji { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+    .step-h { font-family: var(--fh); font-size: 1.1rem; font-weight: 700; color: var(--tw); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .step-p { font-size: 0.85rem; color: var(--twm); line-height: 1.7; }
+    .step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 20px;
+      color: var(--bd);
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    /* HOW dual audience table */
+    .how-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--bd);
+      border: 1px solid var(--bd);
+      border-radius: var(--rxl);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .how-col { background: var(--s1); padding: 36px 40px; }
+    .how-col-tag {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--y-d); margin-bottom: 24px;
+    }
+    .how-row {
+      display: flex; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bd);
+    }
+    .how-row:last-child { border-bottom: none; }
+    .how-row-n {
+      width: 26px; height: 26px; flex-shrink: 0;
+      border-radius: 7px;
+      background: var(--y-lt);
+      border: 1px solid var(--by);
+      color: var(--y);
+      font-size: 0.72rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .how-row-t { font-size: 0.85rem; color: var(--twm); line-height: 1.6; }
+    .how-row-t strong { color: var(--tw); font-weight: 600; }
+
+    /* ── METRICS (light) ── */
+    .metrics { background: var(--cream); padding: var(--sp) 0; }
+    .metrics-head { text-align: center; margin-bottom: 60px; }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .mcard {
+      background: #fff;
+      border: 1.5px solid var(--bl);
+      border-radius: var(--rl);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--t);
+    }
+    .mcard::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--y);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--spring);
+    }
+    .mcard:hover { border-color: rgba(245,197,24,0.4); box-shadow: 0 8px 40px rgba(0,0,0,0.06); transform: translateY(-3px); }
+    .mcard:hover::after { transform: scaleX(1); }
+    .mcard-icon { font-size: 1.5rem; margin-bottom: 14px; }
+    .mcard-val {
+      font-family: var(--fh);
+      font-size: 2.6rem; font-weight: 800;
+      letter-spacing: -0.05em; line-height: 1;
+      color: var(--tb); margin-bottom: 7px;
+    }
+    .mcard-val .y { color: var(--y-dp); }
+    .mcard-lbl { font-size: 0.82rem; color: var(--tbm); line-height: 1.45; }
+    .mcard-note { font-size: 0.72rem; color: var(--green); font-weight: 600; margin-top: 8px; }
+
+    /* ── WHY US (dark) ── */
+    .why {
+      background: var(--void);
+      padding: var(--sp) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .why::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 900px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(245,197,24,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .why-head { text-align: center; margin-bottom: 72px; position: relative; z-index: 1; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--bd);
+      border: 1px solid var(--bd);
+      border-radius: var(--rxl);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .wcard {
+      background: var(--s1);
+      padding: 44px 38px;
+      transition: var(--t);
+    }
+    .wcard:hover { background: var(--s2); }
+    .wcard-num {
+      font-family: var(--fh);
+      font-size: 2.2rem; font-weight: 800; letter-spacing: -0.06em;
+      color: var(--y); line-height: 1; margin-bottom: 8px;
+    }
+    .wcard-icon {
+      width: 48px; height: 48px;
+      border-radius: 13px;
+      background: var(--y-lt);
+      border: 1px solid var(--by);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .wcard-h { font-family: var(--fh); font-size: 1.05rem; font-weight: 700; color: var(--tw); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .wcard-p { font-size: 0.85rem; color: var(--twm); line-height: 1.75; }
+
+    /* ── TESTIMONIALS ── */
+    .testi { background: var(--dark); padding: var(--sp) 0; }
+    .testi-head { text-align: center; margin-bottom: 60px; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+    .tcard {
+      background: var(--s1);
+      border: 1px solid var(--bd);
+      border-radius: var(--rl);
+      padding: 32px;
+      transition: var(--t);
+    }
+    .tcard:hover { border-color: var(--by); transform: translateY(-2px); }
+    .tcard-stars { display: flex; gap: 2px; margin-bottom: 14px; }
+    .tcard-star { color: var(--y); font-size: 0.85rem; }
+    .tcard-q { font-family: var(--fh); font-size: 2.8rem; color: var(--y); opacity: 0.5; line-height: 1; margin-bottom: 14px; }
+    .tcard-text { font-size: 0.9rem; color: var(--tw); line-height: 1.75; margin-bottom: 24px; }
+    .tcard-author { display: flex; align-items: center; gap: 10px; }
+    .tcard-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--y-lt); border: 1.5px solid var(--by);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .tcard-name { font-size: 0.875rem; font-weight: 700; color: var(--tw); }
+    .tcard-role { font-size: 0.75rem; color: var(--twm); margin-top: 2px; }
+
+    /* ── REGIONS (light) ── */
+    .regions { background: var(--cream); padding: var(--sp) 0; }
+    .regions-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .regions-left .section-eyebrow { margin-bottom: 18px; }
+    .regions-chips {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 9px;
+    }
+    .rchip {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 13px;
+      background: #fff;
+      border: 1px solid var(--bl);
+      border-radius: var(--rs);
+      font-size: 0.8rem; font-weight: 600; color: var(--tb);
+      transition: var(--t);
+    }
+    .rchip:hover { border-color: rgba(245,197,24,0.4); background: rgba(245,197,24,0.03); }
+    .rchip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .regions-note { margin-top: 18px; font-size: 0.78rem; color: var(--tbm); }
+    .regions-note strong { color: var(--y-dp); }
+
+    /* ── FINAL CTA (dark) ── */
+    .fcta {
+      background: var(--dark);
+      padding: var(--sp) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .fcta::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse at bottom, rgba(245,197,24,0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .fcta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle 1.1px at 1px 1px, rgba(255,255,255,0.022) 1px, transparent 0);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+    .fcta-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .fcta-h {
+      font-family: var(--fh);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.04;
+      margin-bottom: 20px;
+    }
+    .fcta-h .y { color: var(--y); }
+    .fcta-sub { font-size: 1rem; color: var(--twm); margin-bottom: 40px; line-height: 1.7; }
+    .fcta-btns { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fcta-note { margin-top: 18px; font-size: 0.75rem; color: var(--twd); }
+
+    /* ── FOOTER ── */
     .footer {
-      padding: 32px 0;
-      border-top: 1px solid var(--border);
+      background: var(--void);
+      border-top: 1px solid var(--bd);
+      padding: 64px 0 40px;
     }
-    .footer-inner {
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
     }
-    .footer-left { display: flex; flex-direction: column; gap: 6px; }
-    .footer-logo { font-size: 14px; font-weight: 700; }
-    .footer-logo span { color: var(--accent); }
-    .footer-legal { font-size: 11px; color: var(--text-3); line-height: 1.6; max-width: 480px; }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 12px; color: var(--text-2); transition: color 0.15s; }
-    .footer-links a:hover { color: var(--text); }
+    .footer-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--fh); font-size: 0.95rem; font-weight: 800;
+      letter-spacing: -0.04em; margin-bottom: 14px;
+    }
+    .footer-logo-mark {
+      width: 26px; height: 26px;
+      background: var(--y); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+    .footer-logo .dot { color: var(--y); }
+    .footer-tagline { font-size: 0.82rem; color: var(--twm); line-height: 1.65; max-width: 240px; margin-bottom: 18px; }
+    .footer-legal { font-size: 0.72rem; color: var(--twd); }
+    .footer-col-h { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--twd); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.85rem; color: var(--twm); transition: var(--t); }
+    .footer-links a:hover { color: var(--tw); }
+    .footer-bottom {
+      border-top: 1px solid var(--bd);
+      padding-top: 22px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--twd); }
+    .footer-badges { display: flex; gap: 8px; }
+    .fbadge {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.68rem; font-weight: 600; color: var(--twm);
+      background: var(--s1); border: 1px solid var(--bd);
+      border-radius: 100px; padding: 3px 9px;
+    }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .cta-grid { grid-template-columns: 1fr; }
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .workflow-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .regions-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; }
-      .final-cta-inner { flex-direction: column; align-items: flex-start; }
-      .hero h1 { font-size: 26px; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+    /* ── FLOATING WA ── */
+    .wa-float {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      z-index: 999;
+      display: flex; align-items: center; gap: 9px;
+      padding: 11px 18px;
+      background: #25D366;
+      border-radius: 100px;
+      color: #fff;
+      font-size: 0.82rem; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.32);
+      transition: var(--t);
     }
-    @media (max-width: 600px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .metrics-inner { flex-wrap: nowrap; }
-      .metric-item { min-width: 140px; }
-      .hero { padding: 48px 0 36px; }
-      .final-cta-actions { flex-direction: column; width: 100%; }
-      .final-cta-actions .btn { width: 100%; justify-content: center; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,0.45); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .how-steps { grid-template-columns: 1fr; gap: 36px; }
+      .step-arrow { display: none; }
+      .how-table { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .regions-inner { grid-template-columns: 1fr; gap: 40px; }
     }
+    @media (max-width: 768px) {
+      :root { --sp: 64px; }
+      .nav-links, .nav-live { display: none; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .dual-grid { grid-template-columns: 1fr; }
+      .qrow { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .regions-chips { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .wa-float span:not(:first-child) { display: none; }
+      .wa-float { padding: 13px; border-radius: 50%; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* page fade-in */
+    body { animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
+
 <body>
 
-  <!-- ═══════════════════════════════════════════
-       NAVBAR
-  ═══════════════════════════════════════════ -->
-  <nav class="navbar" role="navigation" aria-label="Ana menü">
-    <div class="container navbar-inner">
-      <!-- Logo -->
-      <a href="/" class="logo" aria-label="hafriyatcim.com ana sayfa">
-        hafriyatcim<span>.com</span>
+<!-- ═══════════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="/" class="logo">
+    <div class="logo-mark">🚛</div>
+    hafriyatcim<span class="dot">.com</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="/ilanlar.html">İlanlar</a></li>
+    <li><a href="#nasil-calisir">Nasıl Çalışır</a></li>
+    <li><a href="#bolgeler">Bölgeler</a></li>
+    <li><span class="nav-live"><span class="nav-live-dot"></span>Sistem Aktif</span></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="/giris.html" class="btn btn-outline btn-sm">Giriş</a>
+    <a href="/giris.html" class="btn btn-y btn-sm">Ücretsiz Başla →</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+
+  <div class="hero-body wrap">
+    <div class="hero-pill" data-r>
+      <span class="hero-pill-dot"></span>
+      Türkiye'nin İlk Komisyonsuz Hafriyat Platformu
+    </div>
+
+    <h1 class="hero-h1" data-r data-d="1">
+      <span class="line ghost">Hafriyatta</span>
+      <span class="line">Komisyoncu</span>
+      <span class="line y">Tarihe Karıştı.</span>
+    </h1>
+
+    <p class="hero-sub" data-r data-d="2">
+      İnşaat firmaları ile kamyon sahiplerini <strong>doğrudan buluşturuyoruz.</strong>
+      Anlık eşleşme, gerçek zamanlı GPS takip, WhatsApp koordinasyonu — <strong>%0 komisyon.</strong>
+    </p>
+
+    <div class="hero-ctas" data-r data-d="3">
+      <a href="/giris.html" class="btn btn-y btn-lg">
+        Hemen Başla — Ücretsiz
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
-
-      <!-- Status -->
-      <div class="nav-status">
-        <span class="dot dot-green"></span>
-        İstanbul Avrupa Yakası — Aktif
-      </div>
-
-      <!-- Nav Links -->
-      <ul class="nav-links" role="list">
-        <li><a href="ilanlar.html">İlanlar</a></li>
-        <li><a href="ilan.html">İlan Ver</a></li>
-        <li><a href="#nasil-calisir">Nasıl Çalışır</a></li>
-      </ul>
-
-      <!-- Actions -->
-      <div class="nav-actions">
-        <a href="https://wa.me/905000000000?text=Merhaba%2C%20hafriyatcim.com%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
-           target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm" id="nav-whatsapp-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
-        <a href="giris.html" class="btn btn-outline btn-sm" id="nav-giris-btn">Giriş</a>
-        <a href="giris.html" class="btn btn-primary btn-sm" id="nav-kayit-btn">Kayıt Ol</a>
-        <button class="btn-icon theme-toggle" onclick="toggleTheme()" aria-label="Tema değiştir" id="nav-theme-btn">☀️</button>
-      </div>
+      <a href="#nasil-calisir" class="btn btn-outline btn-lg">
+        Nasıl Çalışır?
+      </a>
     </div>
-  </nav>
+  </div>
 
-  <!-- ═══════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════ -->
-  <section class="hero" aria-labelledby="hero-heading">
-    <div class="container">
-      <div class="hero-eyebrow">
-        <span class="badge badge-green"><span class="dot dot-green"></span>Canlı Sistem</span>
-        <span class="badge badge-zinc">B2B Lojistik Pazaryeri</span>
+  <!-- Stats bar -->
+  <div class="hero-stats-wrap wrap" data-r data-d="4">
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-val"><span class="count" data-to="500">0</span><span class="y">+</span></div>
+        <div class="hstat-lbl">Aktif Kamyon<br>Avrupa Yakası'nda</div>
       </div>
-      <h1 id="hero-heading">
-        İstanbul'un Hafriyat ve<br>
-        Lojistik Ağı <em>Dijitalleşiyor.</em>
-      </h1>
-      <p class="hero-sub">
-        İnşaat projeleri ile hafriyat kamyonlarını anlık ve otomatik olarak eşleştiren kurumsal lojistik pazaryeri.
-        Avrupa Yakası'nda 7/24 aktif filo, WhatsApp entegrasyonuyla anında koordinasyon.
-      </p>
-
-      <!-- CTA Grid -->
-      <div class="cta-grid">
-        <!-- Sol: Talep -->
-        <div class="cta-card">
-          <p class="cta-label">Proje Yöneticisi / İnşaat Firması</p>
-          <h3>Hafriyat / Kamyon Talebi Oluştur</h3>
-          <p>İhtiyacınızı girin, sistemimiz uygun araçları otomatik olarak bulur ve koordinasyonu sağlar.</p>
-          <form class="cta-form" id="talep-form" onsubmit="handleTalep(event)">
-            <div class="form-row">
-              <div class="input-group">
-                <label class="input-label" for="talep-bolge">Bölge</label>
-                <select class="input-field" id="talep-bolge" required>
-                  <option value="">İlçe seçin</option>
-                  <option>Arnavutköy</option><option>Başakşehir</option>
-                  <option>Beylikdüzü</option><option>Büyükçekmece</option>
-                  <option>Çatalca</option><option>Esenyurt</option>
-                  <option>Silivri</option><option>Sultangazi</option>
-                  <option>Eyüpsultan</option><option>Bağcılar</option>
-                  <option>Bahçelievler</option><option>Bakırköy</option>
-                  <option>Esenler</option><option>Gaziosmanpaşa</option>
-                  <option>Güngören</option><option>Zeytinburnu</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label class="input-label" for="talep-miktar">Miktar (m³)</label>
-                <input class="input-field" id="talep-miktar" type="number" placeholder="0" min="1" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="input-group">
-                <label class="input-label" for="talep-tarih">Başlangıç Tarihi</label>
-                <input class="input-field" id="talep-tarih" type="date" required>
-              </div>
-              <div class="input-group">
-                <label class="input-label" for="talep-telefon">Telefon</label>
-                <input class="input-field" id="talep-telefon" type="tel" placeholder="05xx xxx xx xx" required>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" id="talep-submit-btn">
-              Talep Oluştur — Ücretsiz
-            </button>
-          </form>
-        </div>
-
-        <!-- Sağ: Kamyon Kaydı -->
-        <div class="cta-card cta-card-accent">
-          <p class="cta-label cta-label-amber">Kamyon / Araç Sahibi</p>
-          <h3>Kamyonunu Kaydet ve İş Al</h3>
-          <p>Aracını sisteme ekle, bölgendeki iş taleplerine otomatik eşleş. WhatsApp üzerinden anlık koordinasyon.</p>
-          <form class="cta-form" id="kamyon-form" onsubmit="handleKamyon(event)">
-            <div class="form-row">
-              <div class="input-group">
-                <label class="input-label" for="kamyon-tip">Araç Tipi</label>
-                <select class="input-field" id="kamyon-tip" required>
-                  <option value="">Seçin</option>
-                  <option>Damperli Kamyon (10m³)</option>
-                  <option>Damperli Kamyon (20m³)</option>
-                  <option>Damperli Kamyon (30m³)</option>
-                  <option>Kepçe / Ekskavatör</option>
-                  <option>TIR / Çekici</option>
-                  <option>Diğer İş Makinesi</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label class="input-label" for="kamyon-bolge">Çalışma Bölgesi</label>
-                <select class="input-field" id="kamyon-bolge" required>
-                  <option value="">İlçe seçin</option>
-                  <option>Arnavutköy</option><option>Başakşehir</option>
-                  <option>Beylikdüzü</option><option>Büyükçekmece</option>
-                  <option>Çatalca</option><option>Esenyurt</option>
-                  <option>Silivri</option><option>Sultangazi</option>
-                  <option>Eyüpsultan</option><option>Bağcılar</option>
-                </select>
-              </div>
-            </div>
-            <div class="input-group">
-              <label class="input-label" for="kamyon-telefon">WhatsApp Numarası</label>
-              <input class="input-field" id="kamyon-telefon" type="tel" placeholder="05xx xxx xx xx" required>
-            </div>
-            <button type="submit" class="btn btn-whatsapp" id="kamyon-submit-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              WhatsApp ile Kayıt Ol
-            </button>
-          </form>
-        </div>
+      <div class="hstat">
+        <div class="hstat-val"><span class="y">%0</span></div>
+        <div class="hstat-lbl">Platform<br>Komisyonu</div>
       </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       METRICS BAR
-  ═══════════════════════════════════════════ -->
-  <div class="metrics-bar" role="region" aria-label="Platform metrikleri">
-    <div class="container">
-      <div class="metrics-inner">
-        <div class="metric-item">
-          <span class="metric-label">Aktif Araç</span>
-          <span class="metric-value accent" id="metric-arac">—</span>
-          <span class="metric-sub">Şu an müsait</span>
-        </div>
-        <div class="metric-item">
-          <span class="metric-label">Boş Hacim</span>
-          <span class="metric-value" id="metric-hacim">—</span>
-          <span class="metric-sub">m³ kapasitesi</span>
-        </div>
-        <div class="metric-item">
-          <span class="metric-label">Aktif Talep</span>
-          <span class="metric-value" id="metric-talep">—</span>
-          <span class="metric-sub">Bekleyen proje</span>
-        </div>
-        <div class="metric-item">
-          <span class="metric-label">Eşleşme</span>
-          <span class="metric-value" id="metric-eslesme">—</span>
-          <span class="metric-sub">Bu hafta</span>
-        </div>
-        <div class="metric-item">
-          <span class="metric-label">Ort. Yanıt</span>
-          <span class="metric-value">4.2</span>
-          <span class="metric-sub">dakika</span>
-        </div>
-        <div class="metric-item">
-          <span class="metric-label">Komisyon</span>
-          <span class="metric-value">%0</span>
-          <span class="metric-sub">Platform ücreti yok</span>
-        </div>
+      <div class="hstat">
+        <div class="hstat-val">4.2<span style="font-size:1.2rem;font-weight:600">dk</span></div>
+        <div class="hstat-lbl">Ort. Eşleşme<br>Süresi</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val"><span class="count" data-to="47">0</span></div>
+        <div class="hstat-lbl">İstanbul<br>İlçesi</div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       LIVE DASHBOARD
-  ═══════════════════════════════════════════ -->
-  <section class="dashboard-section" aria-labelledby="dashboard-heading">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-label">Canlı Veri</p>
-        <h2 class="section-title" id="dashboard-heading">Filo & Talep Durumu</h2>
-        <p class="section-sub">İstanbul Avrupa Yakası — Gerçek zamanlı güncelleme</p>
-      </div>
-      <div class="dashboard-grid">
-        <!-- Ana Tablo -->
-        <div class="data-table-wrap">
-          <div class="data-table-header">
-            <span class="data-table-title">Bölgesel Filo Durumu</span>
-            <span class="badge badge-green"><span class="dot dot-green"></span>Canlı</span>
+  <div class="hero-clip"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TICKER
+═══════════════════════════════════════════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker">
+    <span class="titem">✓ Komisyon Yok</span>
+    <span class="titem">⚡ Anlık Eşleşme</span>
+    <span class="titem">📍 Gerçek Zamanlı GPS</span>
+    <span class="titem">💬 WhatsApp Entegrasyonu</span>
+    <span class="titem">🔒 Güvenli Escrow Ödeme</span>
+    <span class="titem">🏗️ İstanbul Avrupa Yakası</span>
+    <span class="titem">📱 Mobil Öncelikli</span>
+    <span class="titem">⚡ 7/24 Aktif Filo</span>
+    <span class="titem">✓ Komisyon Yok</span>
+    <span class="titem">⚡ Anlık Eşleşme</span>
+    <span class="titem">📍 Gerçek Zamanlı GPS</span>
+    <span class="titem">💬 WhatsApp Entegrasyonu</span>
+    <span class="titem">🔒 Güvenli Escrow Ödeme</span>
+    <span class="titem">🏗️ İstanbul Avrupa Yakası</span>
+    <span class="titem">📱 Mobil Öncelikli</span>
+    <span class="titem">⚡ 7/24 Aktif Filo</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DUAL PATH — light section
+═══════════════════════════════════════════════════════ -->
+<section class="dual" id="nasil-calisir">
+  <div class="wrap">
+    <div class="dual-head">
+      <div class="section-eyebrow dark" data-r>Platforma Giriş</div>
+      <h2 class="h2 dark-text" data-r data-d="1">
+        İki Taraf. Tek Platform.<br><span class="yd">Sıfır Komisyon.</span>
+      </h2>
+      <p class="lead dark-text" data-r data-d="2">
+        İnşaat firması mısınız, kamyon sahibi mi? İkisi için de tasarlandı.
+      </p>
+    </div>
+
+    <div class="dual-grid">
+
+      <!-- MÜŞTERİ CARD -->
+      <div class="pcard" data-r data-d="1">
+        <div class="pcard-top-bar"></div>
+        <div class="pcard-tag">Proje Müdürü / İnşaat Firması</div>
+        <div class="pcard-icon">🏗️</div>
+        <h3 class="pcard-h">Kamyon Bul,<br>İşi Bitir.</h3>
+        <p class="pcard-desc">
+          İhtiyacınızı sisteme girin. Bölgenizdeki en uygun kamyonu saniyeler içinde bulun.
+          WhatsApp'tan koordine edin, haritadan takip edin.
+        </p>
+
+        <!-- Quick form -->
+        <div class="qform">
+          <div class="qrow">
+            <select class="qselect" id="q-bolge">
+              <option value="">İlçe seçin</option>
+              <option>Arnavutköy</option><option>Başakşehir</option>
+              <option>Esenyurt</option><option>Beylikdüzü</option>
+              <option>Silivri</option><option>Büyükçekmece</option>
+              <option>Sultangazi</option><option>Avcılar</option>
+              <option>Küçükçekmece</option><option>Bağcılar</option>
+              <option>Gaziosmanpaşa</option><option>Esenler</option>
+            </select>
+            <input type="number" class="qinput" id="q-miktar" placeholder="Miktar (m³)" min="1">
           </div>
-          <table aria-label="Bölgesel filo durumu tablosu">
-            <thead>
-              <tr>
-                <th>Bölge</th>
-                <th>Müsait Araç</th>
-                <th>Boş Hacim</th>
-                <th>Aktif Talep</th>
-                <th>Durum</th>
-              </tr>
-            </thead>
-            <tbody id="filo-table-body">
-              <tr>
-                <td>Arnavutköy</td><td>12</td><td class="muted">240 m³</td><td>4</td>
-                <td><span class="badge badge-green">Müsait</span></td>
-              </tr>
-              <tr>
-                <td>Başakşehir</td><td>8</td><td class="muted">160 m³</td><td>3</td>
-                <td><span class="badge badge-green">Müsait</span></td>
-              </tr>
-              <tr>
-                <td>Esenyurt</td><td>5</td><td class="muted">100 m³</td><td>6</td>
-                <td><span class="badge badge-amber">Yoğun</span></td>
-              </tr>
-              <tr>
-                <td>Beylikdüzü</td><td>9</td><td class="muted">180 m³</td><td>2</td>
-                <td><span class="badge badge-green">Müsait</span></td>
-              </tr>
-              <tr>
-                <td>Silivri</td><td>4</td><td class="muted">80 m³</td><td>1</td>
-                <td><span class="badge badge-green">Müsait</span></td>
-              </tr>
-              <tr>
-                <td>Büyükçekmece</td><td>6</td><td class="muted">120 m³</td><td>2</td>
-                <td><span class="badge badge-green">Müsait</span></td>
-              </tr>
-              <tr>
-                <td>Sultangazi</td><td>3</td><td class="muted">60 m³</td><td>4</td>
-                <td><span class="badge badge-amber">Yoğun</span></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="qrow">
+            <input type="date" class="qinput" id="q-tarih">
+            <input type="tel" class="qinput" id="q-tel" placeholder="Telefon numaranız">
+          </div>
         </div>
 
-        <!-- Activity Feed -->
-        <div class="activity-panel" aria-label="Son eşleşmeler">
-          <div class="activity-header">
-            <span class="data-table-title">Son Eşleşmeler</span>
-            <span class="badge badge-green"><span class="dot dot-green"></span>Canlı</span>
+        <button class="btn btn-y" style="width:100%;justify-content:center;" id="btn-musteri-wa">
+          <span>💬</span> WhatsApp ile Talep Oluştur — Ücretsiz
+        </button>
+        <p style="text-align:center;font-size:0.72rem;color:var(--tbd);margin-top:8px;">
+          Kayıt gerekmez · İlan açmak ücretsiz
+        </p>
+      </div>
+
+      <!-- SÜRÜCÜ CARD -->
+      <div class="pcard dark-card" data-r data-d="2">
+        <div class="pcard-top-bar"></div>
+        <div class="pcard-tag">Kamyon / Araç Sahibi</div>
+        <div class="pcard-icon">🚛</div>
+        <h3 class="pcard-h">İş Bul,<br>Para Kazan.</h3>
+        <p class="pcard-desc">
+          Bölgenizde yayınlanan ilanları görün, teklif verin. Müşteri kabul edince iş emrine düşer.
+          Kendi fiyatınızı siz belirlersiniz.
+        </p>
+        <ul class="pcard-list">
+          <li class="pcard-li">Bölgenizdeki açık ilanları anlık görün</li>
+          <li class="pcard-li">Profilinizi oluşturun, araçlarınızı ekleyin</li>
+          <li class="pcard-li">Kendi fiyatınızı siz belirleyin</li>
+          <li class="pcard-li">Ödeme güvence altında — önce platforma, sonra size</li>
+        </ul>
+
+        <div class="qform">
+          <div class="qrow">
+            <select class="qselect" id="q-arac">
+              <option value="">Araç tipi</option>
+              <option>Kamyon</option><option>TIR</option>
+              <option>Damper</option><option>Beko Loder</option>
+              <option>Ekskavatör</option><option>Forklift</option>
+            </select>
+            <select class="qselect" id="q-surucu-bolge">
+              <option value="">Çalışma bölgesi</option>
+              <option>Arnavutköy</option><option>Başakşehir</option>
+              <option>Esenyurt</option><option>Beylikdüzü</option>
+              <option>Silivri</option><option>Büyükçekmece</option>
+              <option>Tüm Avrupa Yakası</option>
+            </select>
           </div>
-          <div class="activity-feed" id="activity-feed">
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-green">✓</div>
-              <div class="activity-content">
-                <div class="activity-main">Arnavutköy — 3 Damperli Eşleşti</div>
-                <div class="activity-meta">60 m³ · 2 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-amber">→</div>
-              <div class="activity-content">
-                <div class="activity-main">Başakşehir — Kepçe Talebi</div>
-                <div class="activity-meta">Yeni talep · 5 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-green">✓</div>
-              <div class="activity-content">
-                <div class="activity-main">Esenyurt — 5 Araç Koordine</div>
-                <div class="activity-meta">100 m³ · 11 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-amber">+</div>
-              <div class="activity-content">
-                <div class="activity-main">Yeni Kayıt — Silivri</div>
-                <div class="activity-meta">Damperli 20m³ · 14 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-green">✓</div>
-              <div class="activity-content">
-                <div class="activity-main">Beylikdüzü — 2 Araç Eşleşti</div>
-                <div class="activity-meta">40 m³ · 18 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-zinc">i</div>
-              <div class="activity-content">
-                <div class="activity-main">Büyükçekmece — Talep Güncellendi</div>
-                <div class="activity-meta">80 m³ talep · 22 dk önce</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon activity-icon-green">✓</div>
-              <div class="activity-content">
-                <div class="activity-main">Sultangazi — TIR Eşleşti</div>
-                <div class="activity-meta">30 dk önce</div>
-              </div>
-            </div>
+          <input type="tel" class="qinput" id="q-wa" placeholder="WhatsApp numaranız (05xx...)">
+        </div>
+
+        <button class="btn btn-y" style="width:100%;justify-content:center;" id="btn-surucu-wa">
+          <span>💬</span> WhatsApp ile Kayıt Ol
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     HOW IT WORKS — dark section
+═══════════════════════════════════════════════════════ -->
+<section class="how">
+  <div class="how-dots"></div>
+  <div class="wrap">
+    <div class="how-head">
+      <div class="section-eyebrow" data-r>Süreç</div>
+      <h2 class="h2" data-r data-d="1">3 Adımda İş <span class="y">Tamamlandı</span></h2>
+      <p class="lead" data-r data-d="2">Ortalama 4.2 dakikada eşleşme. WhatsApp'ta koordinasyon. Haritada takip.</p>
+    </div>
+
+    <div class="how-steps" data-r>
+      <div class="step">
+        <div class="step-n">01</div>
+        <span class="step-emoji">📋</span>
+        <h3 class="step-h">İlan Aç</h3>
+        <p class="step-p">Yük türünü, miktarı, konumu ve tarihi girin. İlan ücretsiz — anında yayınlanır.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <span class="step-emoji">⚡</span>
+        <h3 class="step-h">Eşleş &amp; Öde</h3>
+        <p class="step-p">Bölgenizdeki sürücüler teklif verir. En uygununu seçin, her taraf 252 ₺ platform ücreti öder.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <span class="step-emoji">✅</span>
+        <h3 class="step-h">Koordine &amp; Bitir</h3>
+        <p class="step-p">Telefon numaraları paylaşılır. GPS takip başlar. WhatsApp'tan anlık koordinasyon.</p>
+      </div>
+    </div>
+
+    <!-- Dual audience table -->
+    <div class="how-table" data-r>
+      <div class="how-col">
+        <div class="how-col-tag">İnşaat Firması Akışı</div>
+        <div class="how-row">
+          <div class="how-row-n">1</div>
+          <div class="how-row-t"><strong>İlan oluştur</strong> — Yük türü, miktar, tarih, bölge</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">2</div>
+          <div class="how-row-t"><strong>Teklifleri değerlendir</strong> — Bölgenizdeki sürücülerin tekliflerini görün</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">3</div>
+          <div class="how-row-t"><strong>İşi ver &amp; öde</strong> — Güvenli ödeme ile 252 ₺ platform ücreti</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">4</div>
+          <div class="how-row-t"><strong>Canlı takip</strong> — Kamyonu haritada izle, WhatsApp'tan koordine et</div>
+        </div>
+      </div>
+      <div class="how-col">
+        <div class="how-col-tag">Kamyon Sahibi Akışı</div>
+        <div class="how-row">
+          <div class="how-row-n">1</div>
+          <div class="how-row-t"><strong>Profil oluştur</strong> — Araç bilgilerini ve çalışma bölgesini ekle</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">2</div>
+          <div class="how-row-t"><strong>İlanları gör &amp; teklif ver</strong> — Bölgenizdeki aktif ilanları takip et</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">3</div>
+          <div class="how-row-t"><strong>Kabul &amp; öde</strong> — Müşteri onayı sonrası 252 ₺ platform ücreti</div>
+        </div>
+        <div class="how-row">
+          <div class="how-row-n">4</div>
+          <div class="how-row-t"><strong>Konum paylaş</strong> — GPS aktif et, WhatsApp'tan koordine ol</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     METRICS — light section
+═══════════════════════════════════════════════════════ -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metrics-head">
+      <div class="section-eyebrow dark" data-r>Rakamlar Konuşuyor</div>
+      <h2 class="h2 dark-text" data-r data-d="1">Sektörde <span class="yd">Fark Yaratıyoruz</span></h2>
+    </div>
+    <div class="metrics-grid">
+      <div class="mcard" data-r>
+        <div class="mcard-icon">🚛</div>
+        <div class="mcard-val"><span class="count" data-to="500">0</span><span class="y">+</span></div>
+        <div class="mcard-lbl">Aktif Kamyon<br>İstanbul Avrupa Yakası</div>
+        <div class="mcard-note">↑ Bu hafta 47 yeni araç</div>
+      </div>
+      <div class="mcard" data-r data-d="1">
+        <div class="mcard-icon">🎯</div>
+        <div class="mcard-val"><span class="y">%0</span></div>
+        <div class="mcard-lbl">Platform Komisyonu<br>Sabit ücret, başka yok</div>
+        <div class="mcard-note">↑ Sektör ort. %25–40</div>
+      </div>
+      <div class="mcard" data-r data-d="2">
+        <div class="mcard-icon">⚡</div>
+        <div class="mcard-val">4.2<span class="y" style="font-size:1.5rem">dk</span></div>
+        <div class="mcard-lbl">Ort. Eşleşme Süresi<br>İlk tekliften kabule kadar</div>
+        <div class="mcard-note">↑ Eskiden saatler alıyordu</div>
+      </div>
+      <div class="mcard" data-r data-d="3">
+        <div class="mcard-icon">⭐</div>
+        <div class="mcard-val">4.8<span class="y" style="font-size:1.5rem">/5</span></div>
+        <div class="mcard-lbl">Kullanıcı Memnuniyeti<br>340+ değerlendirme</div>
+        <div class="mcard-note">↑ Sektörde en yüksek</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     WHY US — dark section
+═══════════════════════════════════════════════════════ -->
+<section class="why">
+  <div class="wrap">
+    <div class="why-head">
+      <div class="section-eyebrow" data-r>Neden hafriyatcim.com</div>
+      <h2 class="h2" data-r data-d="1">Sektörü <span class="y">Yeniden Tasarladık</span></h2>
+      <p class="lead" data-r data-d="2">Hafriyat sektörünün onlarca yıllık sorunlarına nihayet dijital çözümler.</p>
+    </div>
+    <div class="why-grid" data-r>
+      <div class="wcard">
+        <div class="wcard-num">%0</div>
+        <div class="wcard-icon">💰</div>
+        <h3 class="wcard-h">Komisyon Almıyoruz</h3>
+        <p class="wcard-p">Geleneksel komisyoncular %25–40 alır. Biz sabit 252 ₺ platform ücreti alırız. Kalan kar sizin kalır.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-num">4.2dk</div>
+        <div class="wcard-icon">⚡</div>
+        <h3 class="wcard-h">Anlık Eşleşme</h3>
+        <p class="wcard-p">Algoritmamız bölgenizdeki uygun araçları saniyeler içinde bulur. WhatsApp'a bildirim düşer, koordinasyon başlar.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-num">GPS</div>
+        <div class="wcard-icon">📍</div>
+        <h3 class="wcard-h">Gerçek Zamanlı Takip</h3>
+        <p class="wcard-p">Kamyonun haritadaki konumunu canlı görün. Şantiyeye kaç dakikaya ulaşacağını dakika dakika bilin.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-num">WA</div>
+        <div class="wcard-icon">💬</div>
+        <h3 class="wcard-h">WhatsApp Entegrasyonu</h3>
+        <p class="wcard-p">Uygulama indirmenize gerek yok. WhatsApp üzerinden talep oluşturun, tüm güncellemeler telefonunuza gelsin.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-num">🔒</div>
+        <div class="wcard-icon">🛡️</div>
+        <h3 class="wcard-h">Güvenli Escrow Ödeme</h3>
+        <p class="wcard-p">İyzico altyapısıyla ödemeler güvence altında. İş tamamlanana kadar ödeme platforma emanet kalır.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-num">7/24</div>
+        <div class="wcard-icon">🌙</div>
+        <h3 class="wcard-h">Gece Gündüz Aktif</h3>
+        <p class="wcard-p">Sistem 7/24 çalışır. Gece yarısı acil tahliye ihtiyacınız olsa bile ilan açabilir, sürücü bulabilirsiniz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TESTIMONIALS — dark section
+═══════════════════════════════════════════════════════ -->
+<section class="testi">
+  <div class="wrap">
+    <div class="testi-head">
+      <div class="section-eyebrow" data-r>Kullanıcılar Söylüyor</div>
+      <h2 class="h2" data-r data-d="1">Söz Değil, <span class="y">Sonuç Konuşuyor</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard" data-r>
+        <div class="tcard-stars">
+          <span class="tcard-star">★</span><span class="tcard-star">★</span>
+          <span class="tcard-star">★</span><span class="tcard-star">★</span><span class="tcard-star">★</span>
+        </div>
+        <div class="tcard-q">"</div>
+        <p class="tcard-text">
+          Eskiden komisyoncuya ayda 40–50 bin lira veriyorduk. Şimdi aynı işi hafriyatcim.com üzerinden yapıyoruz. 3 ayda 180 bin lira tasarruf ettik.
+        </p>
+        <div class="tcard-author">
+          <div class="tcard-av">👷</div>
+          <div>
+            <div class="tcard-name">Mehmet Yıldız</div>
+            <div class="tcard-role">Proje Müdürü — Beylikdüzü İnşaat A.Ş.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard" data-r data-d="1">
+        <div class="tcard-stars">
+          <span class="tcard-star">★</span><span class="tcard-star">★</span>
+          <span class="tcard-star">★</span><span class="tcard-star">★</span><span class="tcard-star">★</span>
+        </div>
+        <div class="tcard-q">"</div>
+        <p class="tcard-text">
+          5 kamyonum var, artık hepsini bu platform üzerinden iş alıyorum. Günde 3–4 iş oluyor. Müşteri bulmak için ajans aramıyorum artık.
+        </p>
+        <div class="tcard-author">
+          <div class="tcard-av">🚛</div>
+          <div>
+            <div class="tcard-name">Hasan Çelik</div>
+            <div class="tcard-role">Kamyon Filosu Sahibi — Arnavutköy</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard" data-r data-d="2">
+        <div class="tcard-stars">
+          <span class="tcard-star">★</span><span class="tcard-star">★</span>
+          <span class="tcard-star">★</span><span class="tcard-star">★</span><span class="tcard-star">★</span>
+        </div>
+        <div class="tcard-q">"</div>
+        <p class="tcard-text">
+          WhatsApp entegrasyonu çok iyi düşünülmüş. Şantiyeden telefonu açıyorum, ilanı veriyorum, 10 dakika sonra kamyon kapıda. GPS takip de müthiş.
+        </p>
+        <div class="tcard-author">
+          <div class="tcard-av">🏗️</div>
+          <div>
+            <div class="tcard-name">Aydın Koca</div>
+            <div class="tcard-role">Şantiye Şefi — Esenyurt Konut Projesi</div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       STATS
-  ═══════════════════════════════════════════ -->
-  <section class="stats-section" aria-labelledby="stats-heading">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-label">Platform Verileri</p>
-        <h2 class="section-title" id="stats-heading">Rakamlarla hafriyatcim.com</h2>
+<!-- ═══════════════════════════════════════════════════════
+     REGIONS — light section
+═══════════════════════════════════════════════════════ -->
+<section class="regions" id="bolgeler">
+  <div class="wrap">
+    <div class="regions-inner">
+      <div class="regions-left">
+        <div class="section-eyebrow dark" data-r>Hizmet Bölgeleri</div>
+        <h2 class="h2 dark-text" data-r data-d="1">
+          İstanbul'un Her Köşesinde <span class="yd">Aktif</span>
+        </h2>
+        <p class="lead dark-text" data-r data-d="2">
+          Avrupa Yakası'nın tüm ilçelerinde aktif araç filomuzla hizmet veriyoruz.
+          Türkiye geneline yayılım yolunda.
+        </p>
+        <a href="/ilanlar.html" class="btn btn-y" data-r data-d="3" style="margin-top:24px;">
+          Tüm İlanları Gör →
+        </a>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">47<span>+</span></div>
-          <div class="stat-label">Müsait Kamyon</div>
-          <div class="stat-note">Avrupa Yakası'nda aktif</div>
+      <div>
+        <div class="regions-chips" data-r>
+          <div class="rchip"><span class="rchip-dot"></span>Arnavutköy</div>
+          <div class="rchip"><span class="rchip-dot"></span>Başakşehir</div>
+          <div class="rchip"><span class="rchip-dot"></span>Esenyurt</div>
+          <div class="rchip"><span class="rchip-dot"></span>Beylikdüzü</div>
+          <div class="rchip"><span class="rchip-dot"></span>Silivri</div>
+          <div class="rchip"><span class="rchip-dot"></span>Büyükçekmece</div>
+          <div class="rchip"><span class="rchip-dot"></span>Sultangazi</div>
+          <div class="rchip"><span class="rchip-dot"></span>Avcılar</div>
+          <div class="rchip"><span class="rchip-dot"></span>Küçükçekmece</div>
+          <div class="rchip"><span class="rchip-dot"></span>Bağcılar</div>
+          <div class="rchip"><span class="rchip-dot"></span>Gaziosmanpaşa</div>
+          <div class="rchip"><span class="rchip-dot"></span>Esenler</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value">%<span>0</span></div>
-          <div class="stat-label">Platform Komisyonu</div>
-          <div class="stat-note">Taraflar direkt anlaşır</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">4.2<span>dk</span></div>
-          <div class="stat-label">Ortalama Eşleşme Süresi</div>
-          <div class="stat-note">WhatsApp ile anlık bildirim</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">16<span>+</span></div>
-          <div class="stat-label">Aktif İlçe</div>
-          <div class="stat-note">İstanbul Avrupa Yakası</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       HOW IT WORKS
-  ═══════════════════════════════════════════ -->
-  <section class="workflow-section" id="nasil-calisir" aria-labelledby="workflow-heading">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-label">İş Akışı</p>
-        <h2 class="section-title" id="workflow-heading">3 Adımda Otomatik Eşleşme</h2>
-        <p class="section-sub">WhatsApp entegrasyonuyla kayıt, eşleşme ve koordinasyon tamamen otomatik.</p>
-      </div>
-      <div class="workflow-grid">
-        <div class="workflow-step">
-          <div class="step-number">01 — Kayıt</div>
-          <div class="step-icon">📋</div>
-          <div class="step-title">Sisteme Dahil Ol</div>
-          <div class="step-desc">Araç sahibi WhatsApp numarasıyla kaydolur. Araç tipi, kapasite ve bölge bilgisi sisteme işlenir.</div>
-          <div class="step-features">
-            <div class="step-feature">WhatsApp numarasıyla 2 dk kayıt</div>
-            <div class="step-feature">Araç ve kapasite bilgisi</div>
-            <div class="step-feature">Çalışma bölgesi tercihi</div>
-          </div>
-        </div>
-        <div class="workflow-step">
-          <div class="step-number">02 — Eşleşme</div>
-          <div class="step-icon">⚡</div>
-          <div class="step-title">Otomatik Koordinasyon</div>
-          <div class="step-desc">Yeni iş talebi geldiğinde sistem, bölgedeki müsait araçları otomatik tespit eder ve eşleştirir.</div>
-          <div class="step-features">
-            <div class="step-feature">Bölge + kapasite bazlı algoritma</div>
-            <div class="step-feature">Anlık müsaitlik kontrolü</div>
-            <div class="step-feature">Öncelik sıralaması</div>
-          </div>
-        </div>
-        <div class="workflow-step">
-          <div class="step-number">03 — Sevkiyat</div>
-          <div class="step-icon">🚛</div>
-          <div class="step-title">WhatsApp Koordinasyon</div>
-          <div class="step-desc">Eşleşme tamamlandığında hem kamyon sahibine hem proje yöneticisine WhatsApp bildirimi gider.</div>
-          <div class="step-features">
-            <div class="step-feature">Anlık WhatsApp bildirimi</div>
-            <div class="step-feature">Lokasyon ve iletişim paylaşımı</div>
-            <div class="step-feature">İş tamamlama kaydı</div>
-          </div>
-        </div>
+        <p class="regions-note" data-r><strong>47 ilçe</strong> kapsama alanı — ve büyümeye devam ediyoruz</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       REGIONS
-  ═══════════════════════════════════════════ -->
-  <section class="regions-section" aria-labelledby="regions-heading">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-label">Hizmet Bölgeleri</p>
-        <h2 class="section-title" id="regions-heading">İstanbul Avrupa Yakası</h2>
-        <p class="section-sub">Aktif olarak hizmet verdiğimiz ilçeler</p>
+<!-- ═══════════════════════════════════════════════════════
+     FINAL CTA — dark section
+═══════════════════════════════════════════════════════ -->
+<section class="fcta">
+  <div class="wrap">
+    <div class="fcta-inner">
+      <div class="section-eyebrow" data-r style="justify-content:center;margin-bottom:20px;">Hemen Başlayın</div>
+      <h2 class="fcta-h" data-r data-d="1">
+        Türkiye'nin<br><span class="y">Hafriyat Platformuna</span><br>Katılın.
+      </h2>
+      <p class="fcta-sub" data-r data-d="2">
+        İlk ilanınız ücretsiz. Kayıt dakikalar içinde tamamlanır.
+        Komisyoncu olmadan, doğrudan eşleşin.
+      </p>
+      <div class="fcta-btns" data-r data-d="3">
+        <a href="/giris.html" class="btn btn-y btn-lg">
+          Ücretsiz Kayıt Ol →
+        </a>
+        <a href="https://wa.me/905551234567" class="btn btn-wa btn-lg" target="_blank" rel="noopener">
+          💬 WhatsApp ile Başla
+        </a>
       </div>
-      <div class="regions-grid">
-        <div class="region-card"><div class="region-name">Arnavutköy</div><div class="region-meta">12 aktif araç · 240 m³</div><div class="region-bar"><div class="region-fill" style="width:80%"></div></div></div>
-        <div class="region-card"><div class="region-name">Başakşehir</div><div class="region-meta">8 aktif araç · 160 m³</div><div class="region-bar"><div class="region-fill" style="width:60%"></div></div></div>
-        <div class="region-card"><div class="region-name">Esenyurt</div><div class="region-meta">5 aktif araç · 100 m³</div><div class="region-bar"><div class="region-fill" style="width:45%"></div></div></div>
-        <div class="region-card"><div class="region-name">Beylikdüzü</div><div class="region-meta">9 aktif araç · 180 m³</div><div class="region-bar"><div class="region-fill" style="width:70%"></div></div></div>
-        <div class="region-card"><div class="region-name">Silivri</div><div class="region-meta">4 aktif araç · 80 m³</div><div class="region-bar"><div class="region-fill" style="width:35%"></div></div></div>
-        <div class="region-card"><div class="region-name">Büyükçekmece</div><div class="region-meta">6 aktif araç · 120 m³</div><div class="region-bar"><div class="region-fill" style="width:50%"></div></div></div>
-        <div class="region-card"><div class="region-name">Sultangazi</div><div class="region-meta">3 aktif araç · 60 m³</div><div class="region-bar"><div class="region-fill" style="width:28%"></div></div></div>
-        <div class="region-card"><div class="region-name">Eyüpsultan</div><div class="region-meta">5 aktif araç · 100 m³</div><div class="region-bar"><div class="region-fill" style="width:42%"></div></div></div>
+      <p class="fcta-note" data-r data-d="4">
+        Kredi kartı gerekmez · İlan açmak ücretsiz · Eşleşme sonrası 252 ₺
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-mark">🚛</div>
+          hafriyatcim<span class="dot">.com</span>
+        </div>
+        <p class="footer-tagline">
+          Türkiye'nin ilk komisyonsuz hafriyat ve nakliye pazaryeri.
+          İnşaat firmaları ile kamyon sahiplerini dijital olarak buluşturuyoruz.
+        </p>
+        <div class="footer-legal">© 2024 hafriyatcim.com · Tüm hakları saklıdır.</div>
+      </div>
+      <div>
+        <div class="footer-col-h">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/ilanlar.html">İlanlar</a></li>
+          <li><a href="/giris.html">Giriş Yap</a></li>
+          <li><a href="/giris.html">Kayıt Ol</a></li>
+          <li><a href="/dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-h">Şirket</div>
+        <ul class="footer-links">
+          <li><a href="/hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="/iletisim.html">İletişim</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Kariyer</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-h">Destek</div>
+        <ul class="footer-links">
+          <li><a href="#">Yardım Merkezi</a></li>
+          <li><a href="#">Gizlilik Politikası</a></li>
+          <li><a href="#">Kullanım Koşulları</a></li>
+          <li><a href="https://wa.me/905551234567">WhatsApp Destek</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       FINAL CTA
-  ═══════════════════════════════════════════ -->
-  <section class="final-cta" aria-labelledby="cta-heading">
-    <div class="container">
-      <div class="final-cta-inner">
-        <div>
-          <span class="badge badge-amber" style="margin-bottom:16px">Ücretsiz Başlayın</span>
-          <h2 id="cta-heading">Platforma Dahil Olun.</h2>
-          <p>Kamyon sahipleri için ücretsiz kayıt. İnşaat firmaları için sıfır komisyon. Avrupa Yakası'nda anlık koordinasyon.</p>
-        </div>
-        <div class="final-cta-actions">
-          <a href="giris.html" class="btn btn-primary btn-lg" id="cta-kayit-btn">Ücretsiz Kayıt Ol</a>
-          <a href="https://wa.me/905000000000" target="_blank" rel="noopener" class="btn btn-outline btn-lg" id="cta-whatsapp-btn">
-            WhatsApp ile İletişim
-          </a>
-        </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">Türkiye'nin hafriyat sektörünü dijitalleştiriyoruz — İstanbul'dan başlayarak.</div>
+      <div class="footer-badges">
+        <div class="fbadge">🔒 SSL</div>
+        <div class="fbadge">✓ iyzico</div>
+        <div class="fbadge">📱 PWA</div>
       </div>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <!-- ═══════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════ -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-left">
-          <div class="footer-logo">hafriyatcim<span>.com</span></div>
-          <p class="footer-legal">
-            hafriyatcim.com, İstanbul Avrupa Yakası'nda faaliyet gösteren bağımsız bir B2B lojistik aracı platformudur.
-            Platform, kamyon sahipleri ile inşaat firmaları arasında aracılık yapar; taşıma sözleşmesi, fiyatlandırma
-            ve hizmet kalitesi konusunda herhangi bir sorumluluk üstlenmez.
-            Tüm işlemler taraflar arasında gerçekleşir.
-          </p>
-        </div>
-        <div>
-          <nav class="footer-links" aria-label="Footer linkleri">
-            <a href="ilanlar.html">İlanlar</a>
-            <a href="ilan.html">İlan Ver</a>
-            <a href="giris.html">Giriş</a>
-            <a href="#" id="footer-gizlilik">Gizlilik</a>
-            <a href="#" id="footer-kvkk">KVKK</a>
-          </nav>
-          <p style="font-size:11px;color:var(--text-3);margin-top:12px;text-align:right">
-            © 2026 hafriyatcim.com · İstanbul, Türkiye
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/905551234567" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <span>💬</span>
+  <span>WhatsApp Destek</span>
+</a>
 
-  <script>
-    // ─── API Metrics ──────────────────────────────────────────────
-    async function loadMetrics() {
-      try {
-        const r = await fetch('/api/ilanlar?ilan_tipi=TEKLIF&limit=200');
-        if (!r.ok) return;
-        const d = await r.json();
-        const aktif = d.toplam || d.ilanlar?.length || 0;
-        document.getElementById('metric-arac').textContent  = aktif;
-        document.getElementById('metric-hacim').textContent = (aktif * 20) + ' m³';
-      } catch {}
-      try {
-        const r2 = await fetch('/api/ilanlar?ilan_tipi=TALEP&limit=200');
-        if (!r2.ok) return;
-        const d2 = await r2.json();
-        document.getElementById('metric-talep').textContent    = d2.toplam || 0;
-        document.getElementById('metric-eslesme').textContent  = Math.floor((d2.toplam || 0) * 1.4);
-      } catch {}
-    }
-    loadMetrics();
+<script src="api.js"></script>
+<script>
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 48);
+  }, { passive: true });
 
-    // ─── Form Handlers ────────────────────────────────────────────
-    function handleTalep(e) {
-      e.preventDefault();
-      const bolge   = document.getElementById('talep-bolge').value;
-      const miktar  = document.getElementById('talep-miktar').value;
-      const telefon = document.getElementById('talep-telefon').value;
-      const msg = encodeURIComponent(
-        `Merhaba, hafriyatcim.com üzerinden talep oluşturmak istiyorum.\n` +
-        `Bölge: ${bolge}\nMiktar: ${miktar} m³\nTelefon: ${telefon}`
-      );
-      window.location.href = `giris.html`;
-    }
+  // ── REVEAL ANIMATIONS ──
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        revealIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('[data-r]').forEach(el => revealIO.observe(el));
 
-    function handleKamyon(e) {
-      e.preventDefault();
-      const tip     = document.getElementById('kamyon-tip').value;
-      const bolge   = document.getElementById('kamyon-bolge').value;
-      const telefon = document.getElementById('kamyon-telefon').value;
-      const msg = encodeURIComponent(
-        `Merhaba, hafriyatcim.com'a araç kaydetmek istiyorum.\n` +
-        `Araç: ${tip}\nBölge: ${bolge}\nNumaram: ${telefon}`
-      );
-      window.open(`https://wa.me/905000000000?text=${msg}`, '_blank');
-    }
+  // ── COUNTER ANIMATIONS ──
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.to, 10);
+      const dur = 1600;
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.count').forEach(el => counterIO.observe(el));
 
-    // ─── Live Activity Ticker ─────────────────────────────────────
-    const events = [
-      { icon: '✓', cls: 'activity-icon-green', main: 'Arnavutköy — 3 Damperli Eşleşti', meta: '60 m³' },
-      { icon: '→', cls: 'activity-icon-amber', main: 'Başakşehir — Kepçe Talebi', meta: 'Yeni talep' },
-      { icon: '✓', cls: 'activity-icon-green', main: 'Esenyurt — 5 Araç Koordine', meta: '100 m³' },
-      { icon: '+', cls: 'activity-icon-amber', main: 'Yeni Kayıt — Silivri', meta: 'Damperli 20m³' },
-      { icon: '✓', cls: 'activity-icon-green', main: 'Beylikdüzü — 2 Araç Eşleşti', meta: '40 m³' },
-      { icon: 'i', cls: 'activity-icon-zinc',  main: 'Büyükçekmece — Talep Güncellendi', meta: '80 m³' },
-      { icon: '✓', cls: 'activity-icon-green', main: 'Sultangazi — TIR Eşleşti', meta: '' },
-      { icon: '→', cls: 'activity-icon-amber', main: 'Çatalca — Ekskavatör Talebi', meta: 'Yeni talep' },
-      { icon: '+', cls: 'activity-icon-amber', main: 'Yeni Kayıt — Eyüpsultan', meta: 'Kepçe' },
-      { icon: '✓', cls: 'activity-icon-green', main: 'Bağcılar — 4 Araç Eşleşti', meta: '80 m³' },
-    ];
-    let evIdx = 0;
-    setInterval(() => {
-      const feed = document.getElementById('activity-feed');
-      if (!feed) return;
-      const ev = events[evIdx % events.length]; evIdx++;
-      const mins = Math.floor(Math.random() * 3) + 1;
-      const item = document.createElement('div');
-      item.className = 'activity-item';
-      item.style.opacity = '0'; item.style.transform = 'translateY(-6px)';
-      item.innerHTML = `
-        <div class="activity-icon ${ev.cls}">${ev.icon}</div>
-        <div class="activity-content">
-          <div class="activity-main">${ev.main}</div>
-          <div class="activity-meta">${ev.meta ? ev.meta + ' · ' : ''}${mins} dk önce</div>
-        </div>`;
-      feed.insertBefore(item, feed.firstChild);
-      requestAnimationFrame(() => {
-        item.style.transition = 'opacity 0.3s, transform 0.3s';
-        item.style.opacity = '1'; item.style.transform = 'translateY(0)';
+  // ── WHATSAPP FORMS ──
+  document.getElementById('btn-musteri-wa')?.addEventListener('click', () => {
+    const bolge = document.getElementById('q-bolge')?.value || '';
+    const miktar = document.getElementById('q-miktar')?.value || '';
+    const tarih = document.getElementById('q-tarih')?.value || '';
+    const tel = document.getElementById('q-tel')?.value || '';
+    const msg = encodeURIComponent(
+      `Merhaba, hafriyatcim.com'dan talep oluşturuyorum.\n\nBölge: ${bolge || 'Belirtilmedi'}\nMiktar: ${miktar ? miktar + ' m³' : 'Belirtilmedi'}\nTarih: ${tarih || 'Belirtilmedi'}\nTelefon: ${tel || 'Belirtilmedi'}`
+    );
+    window.open(`https://wa.me/905551234567?text=${msg}`, '_blank');
+  });
+
+  document.getElementById('btn-surucu-wa')?.addEventListener('click', () => {
+    const arac = document.getElementById('q-arac')?.value || '';
+    const bolge = document.getElementById('q-surucu-bolge')?.value || '';
+    const wa = document.getElementById('q-wa')?.value || '';
+    const msg = encodeURIComponent(
+      `Merhaba, hafriyatcim.com'a sürücü kaydı olmak istiyorum.\n\nAraç Tipi: ${arac || 'Belirtilmedi'}\nÇalışma Bölgesi: ${bolge || 'Belirtilmedi'}\nWhatsApp: ${wa || 'Belirtilmedi'}`
+    );
+    window.open(`https://wa.me/905551234567?text=${msg}`, '_blank');
+  });
+
+  // ── AUTH STATE ──
+  if (typeof getUser === 'function') {
+    const u = getUser();
+    if (u) {
+      document.querySelectorAll('a[href="/giris.html"]').forEach(a => {
+        a.href = '/dashboard.html';
+        if (a.textContent.includes('Başla') || a.textContent.includes('Kayıt')) {
+          a.textContent = 'Dashboard →';
+        }
       });
-      if (feed.children.length > 10) feed.removeChild(feed.lastChild);
-    }, 5000);
-  </script>
+    }
+  }
+</script>
 </body>
 </html>

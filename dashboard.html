@@ -78,7 +78,7 @@
 
     .user-avatar {
       width: 38px; height: 38px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), #c2410c);
+      background: linear-gradient(135deg, var(--primary), #D4A017);
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 14px; color: #fff;
       flex-shrink: 0;
@@ -100,7 +100,7 @@
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 50;
-      background: rgba(15,23,42,0.9);
+      background: rgba(250,250,245,0.95);
       backdrop-filter: blur(20px);
     }
 
@@ -200,7 +200,7 @@
 
     .teklif-avatar {
       width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), #c2410c);
+      background: linear-gradient(135deg, var(--primary), #D4A017);
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 15px; color: #fff;
       flex-shrink: 0;
@@ -306,7 +306,7 @@
     }
 
     .notif-item:hover { background: var(--surface-3); }
-    .notif-item.unread { background: rgba(249,115,22,0.05); }
+    .notif-item.unread { background: rgba(245,197,24,0.05); }
     .notif-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
     .notif-body { font-size: 13px; color: var(--text-muted); }
     .notif-time { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
@@ -418,6 +418,99 @@
         </button>
       </div>
       <a href="index.html" class="btn-secondary" style="padding:9px 16px;font-size:13px;">← Ana Sayfa</a>
+    </div>
+  </div><!-- /main-header -->
+
+  <div class="page-content">
+
+    <!-- ─── Ana Dashboard ── -->
+    <div class="page-section" id="sec-dashboard">
+      <div class="stats-grid" id="statsGrid">
+        <div class="loading" style="grid-column:1/-1;"><div class="spinner"></div></div>
+      </div>
+      <div class="ilan-grid" id="dashboardCards"></div>
+    </div>
+
+    <!-- ─── İlanlarım ── -->
+    <div class="page-section" id="sec-ilanlar">
+      <div id="ilanlarContainer"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- ─── Tüm İlanlar ── -->
+    <div class="page-section" id="sec-tum-ilanlar">
+      <div id="tumIlanlarContainer"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- ─── Yeni İlan ── -->
+    <div class="page-section" id="sec-yeni-ilan">
+      <div class="form-card">
+        <h2>📋 Yeni Hafriyat İlanı</h2>
+        <p class="subtitle">İlanınız yayına girince sürücüler teklif verebilecek.</p>
+        <form id="ilanForm" onsubmit="handleIlanSubmit(event)" style="display:flex;flex-direction:column;gap:18px;">
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Yük Türü</label>
+              <div class="input-wrapper">
+                <select id="iYukTuru" required class="input-field">
+                  <option value="">Seçin...</option>
+                  <option value="toprak">🟤 Toprak</option>
+                  <option value="kum">🟡 Kum</option>
+                  <option value="cakil">⚪ Çakıl</option>
+                  <option value="moloz">🔴 Moloz</option>
+                  <option value="hafriyat">⛏️ Hafriyat</option>
+                  <option value="beton">🔵 Beton</option>
+                  <option value="asfalt">⚫ Asfalt</option>
+                  <option value="diger">📦 Diğer</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Birim</label>
+              <div class="input-wrapper">
+                <select id="iBirim" required class="input-field">
+                  <option value="m3">m³</option>
+                  <option value="ton">Ton</option>
+                  <option value="sefer">Sefer</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Miktar</label>
+              <div class="input-wrapper"><input type="number" id="iMiktar" placeholder="Ör: 500" min="1" required></div>
+            </div>
+            <div class="input-group">
+              <label>Fiyat (₺/birim)</label>
+              <div class="input-wrapper"><input type="number" id="iFiyat" placeholder="Ör: 120" min="1" required></div>
+            </div>
+            <div class="input-group">
+              <label>Nereden</label>
+              <div class="input-wrapper"><input type="text" id="iKonumDan" placeholder="Ör: Kadıköy, İstanbul" required></div>
+            </div>
+            <div class="input-group">
+              <label>Nereye</label>
+              <div class="input-wrapper"><input type="text" id="iKonumA" placeholder="Ör: Üsküdar, İstanbul" required></div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Başlama Tarihi</label>
+            <div class="input-wrapper"><input type="date" id="iTarih" required></div>
+          </div>
+          <div class="input-group">
+            <label>Açıklama</label>
+            <div class="input-wrapper"><textarea id="iAciklama" rows="3" placeholder="Ek bilgiler, özel gereksinimler..."></textarea></div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button type="submit" id="ilanSubmitBtn" class="btn-primary btn-large" style="flex:1;">İlan Yayınla 🚀</button>
+            <button type="button" class="btn-secondary" onclick="showSection('sec-ilanlar')">İptal</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ─── Tekliflerim ── -->
+    <div class="page-section" id="sec-tekliflerim">
+      <div id="tekliflerimContainer"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
 
     <!-- ─── Siparişlerim ── -->
     <div class="page-section" id="sec-siparisler">
@@ -465,10 +558,10 @@
       </div>
       <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
         <div style="display:flex;border-bottom:1px solid var(--border);">
-          <button class="admin-tab active" data-tab="kullanicilar" onclick="switchAdminTab('kullanicilar',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;border-bottom:2px solid transparent;">👥 Kullanıcılar</button>
-          <button class="admin-tab" data-tab="ilanlar" onclick="switchAdminTab('ilanlar',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;">📋 İlanlar</button>
-          <button class="admin-tab" data-tab="siparisler" onclick="switchAdminTab('siparisler',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;">📦 Siparişler</button>
-          <button class="admin-tab" data-tab="odemeler" onclick="switchAdminTab('odemeler',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;">💳 Ödemeler</button>
+          <button class="admin-tab active" data-tab="kullanicilar" onclick="switchAdminTab('kullanicilar',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;border-bottom:2px solid var(--primary);">👥 Kullanıcılar</button>
+          <button class="admin-tab" data-tab="ilanlar" onclick="switchAdminTab('ilanlar',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;border-bottom:2px solid transparent;">📋 İlanlar</button>
+          <button class="admin-tab" data-tab="siparisler" onclick="switchAdminTab('siparisler',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;border-bottom:2px solid transparent;">📦 Siparişler</button>
+          <button class="admin-tab" data-tab="odemeler" onclick="switchAdminTab('odemeler',this)" style="padding:14px 24px;background:none;border:none;color:var(--text-muted);font-weight:600;cursor:pointer;border-bottom:2px solid transparent;">💳 Ödemeler</button>
         </div>
         <div style="overflow-x:auto;padding:20px;" id="adminTableContainer">
           <div class="loading"><div class="spinner"></div></div>
@@ -495,7 +588,7 @@
             <div class="input-wrapper"><input type="tel" id="profTelefon" placeholder="05XX XXX XX XX"></div>
           </div>
           <div style="display:flex;align-items:center;gap:12px;padding:16px;background:var(--surface-3);border-radius:var(--radius-sm);">
-            <div id="profAvatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#c2410c);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;flex-shrink:0;"></div>
+            <div id="profAvatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#D4A017);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#0D0C08;flex-shrink:0;"></div>
             <div>
               <div id="profRole" style="font-weight:700;"></div>
               <div id="profRating" style="color:var(--text-muted);font-size:13px;"></div>

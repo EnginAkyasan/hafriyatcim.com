@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700\&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -23,8 +23,8 @@
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: #080810;
-      color: #f0efe8;
+      background: #FAFAF5;
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
     }
@@ -44,7 +44,7 @@
       display: flex;
       flex-direction: column;
       padding: 48px;
-      background: #07070f;
+      background: #111111;
     }
 
     /* Mesh background */
@@ -53,7 +53,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 60% at 20% 80%, rgba(249,115,22,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 60% at 20% 80%, rgba(245,197,24,0.15) 0%, transparent 60%),
         radial-gradient(ellipse 40% 40% at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 60%);
       pointer-events: none;
     }
@@ -77,7 +77,7 @@
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: -0.04em;
-      color: #f0efe8;
+      color: #ffffff;
       text-decoration: none;
       position: relative;
       z-index: 1;
@@ -88,7 +88,7 @@
       height: 32px;
       width: 32px;
       border-radius: 8px;
-      filter: drop-shadow(0 0 10px rgba(249,115,22,0.5));
+      filter: drop-shadow(0 0 10px rgba(245,197,24,0.45));
     }
 
     /* Main content */
@@ -111,14 +111,14 @@
     }
 
     .auth-headline .accent {
-      background: linear-gradient(135deg, #ff8c42, #f97316, #fb923c);
+      background: linear-gradient(135deg, #F5C518, #F5C518, #D4A017);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .auth-tagline {
-      color: #8a8996;
+      color: rgba(255,255,255,0.55);
       font-size: 0.95rem;
       line-height: 1.7;
       margin-bottom: 2.5rem;
@@ -143,7 +143,7 @@
 
     .auth-feature:hover {
       background: rgba(255,255,255,0.06);
-      border-color: rgba(249,115,22,0.2);
+      border-color: rgba(245,197,24,0.25);
     }
 
     .auth-feature-icon {
@@ -153,8 +153,8 @@
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
-      background: rgba(249,115,22,0.1);
-      border: 1px solid rgba(249,115,22,0.15);
+      background: rgba(245,197,24,0.12);
+      border: 1px solid rgba(245,197,24,0.18);
       flex-shrink: 0;
     }
 
@@ -205,27 +205,27 @@
       align-items: center;
       justify-content: center;
       font-size: 0.9rem;
-      background: rgba(249,115,22,0.15);
+      background: rgba(245,197,24,0.18);
     }
 
     .auth-social-text {
       font-size: 0.8rem;
-      color: #8a8996;
+      color: rgba(255,255,255,0.55);
       line-height: 1.4;
     }
 
-    .auth-social-text strong { color: #f0efe8; }
+    .auth-social-text strong { color: #ffffff; }
 
     /* ─── RIGHT PANEL ─── */
     .auth-right {
-      background: #0c0c1a;
+      background: #FFFFFF;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 48px 40px;
       overflow-y: auto;
-      border-left: 1px solid rgba(255,255,255,0.06);
+      border-left: 1px solid #E5E3D8;
     }
 
     .auth-box { width: 100%; max-width: 420px; }
@@ -235,8 +235,8 @@
       display: flex;
       gap: 4px;
       padding: 4px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #F0EEE6;
+      border: 1px solid #E5E3D8;
       border-radius: 12px;
       margin-bottom: 32px;
     }
@@ -246,7 +246,7 @@
       padding: 11px;
       background: transparent;
       border: none;
-      color: #8a8996;
+      color: #6B6952;
       font-size: 0.875rem;
       font-weight: 700;
       border-radius: 9px;
@@ -257,9 +257,9 @@
     }
 
     .auth-tab.active {
-      background: rgba(249,115,22,0.12);
-      color: #f97316;
-      box-shadow: 0 0 0 1px rgba(249,115,22,0.25);
+      background: #FFFFFF;
+      color: #0D0C08;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 1px rgba(245,197,24,0.30);
     }
 
     /* ─── Forms ─── */
@@ -271,9 +271,10 @@
       font-weight: 900;
       letter-spacing: -0.04em;
       margin-bottom: 2px;
+      color: #0D0C08;
     }
 
-    .auth-form-sub { color: #8a8996; font-size: 0.85rem; }
+    .auth-form-sub { color: #6B6952; font-size: 0.85rem; }
 
     /* ─── Role Selector ─── */
     .role-selector {
@@ -289,9 +290,9 @@
       gap: 4px;
       padding: 16px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1.5px solid rgba(255,255,255,0.08);
-      color: #f0efe8;
+      background: #F8F7F0;
+      border: 1.5px solid #E5E3D8;
+      color: #0D0C08;
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       transition: all 0.2s;
@@ -300,12 +301,12 @@
     }
 
     .role-btn-icon { font-size: 1.5rem; margin-bottom: 4px; }
-    .role-btn-title { font-size: 0.85rem; font-weight: 800; }
-    .role-btn-desc { font-size: 0.72rem; color: #8a8996; line-height: 1.3; }
+    .role-btn-title { font-size: 0.85rem; font-weight: 800; color: #0D0C08; }
+    .role-btn-desc { font-size: 0.72rem; color: #6B6952; line-height: 1.3; }
 
     .role-btn.active, .role-btn:hover {
-      border-color: #f97316;
-      background: rgba(249,115,22,0.08);
+      border-color: #7A5C00;
+      background: rgba(245,197,24,0.10);
     }
 
     /* ─── Input Groups ─── */
@@ -318,7 +319,7 @@
     .form-label {
       font-size: 0.8rem;
       font-weight: 700;
-      color: #8a8996;
+      color: #6B6952;
     }
 
     .form-input-wrap {
@@ -330,7 +331,7 @@
     .form-input-icon {
       position: absolute;
       left: 14px;
-      color: #4a4860;
+      color: #9B9A88;
       pointer-events: none;
       font-size: 0.95rem;
       z-index: 1;
@@ -338,11 +339,11 @@
 
     .form-input {
       width: 100%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.09);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 10px;
       padding: 12px 14px 12px 42px;
-      color: #f0efe8;
+      color: #0D0C08;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       outline: none;
@@ -352,12 +353,12 @@
     }
 
     .form-input:focus {
-      border-color: rgba(249,115,22,0.5);
-      box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
-      background: rgba(249,115,22,0.03);
+      border-color: #F5C518;
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
+      background: #FFFBEB;
     }
 
-    .form-input::placeholder { color: #4a4860; }
+    .form-input::placeholder { color: #9B9A88; }
 
     .pw-toggle {
       position: absolute;
@@ -365,17 +366,17 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: #8a8996;
+      color: #9B9A88;
       font-size: 0.95rem;
       min-height: auto;
       padding: 4px;
       transition: color 0.2s;
     }
 
-    .pw-toggle:hover { color: #f0efe8; }
+    .pw-toggle:hover { color: #0D0C08; }
 
     /* Password strength */
-    .strength-wrap { height: 3px; background: rgba(255,255,255,0.07); border-radius: 100px; margin-top: 6px; overflow: hidden; }
+    .strength-wrap { height: 3px; background: #E5E3D8; border-radius: 100px; margin-top: 6px; overflow: hidden; }
     .strength-bar  { height: 100%; border-radius: 100px; transition: all 0.3s; width: 0; }
 
     /* Form options */
@@ -391,20 +392,20 @@
       align-items: center;
       gap: 8px;
       font-size: 0.8rem;
-      color: #8a8996;
+      color: #6B6952;
       cursor: pointer;
     }
 
-    .checkbox-label input { accent-color: #f97316; }
-    .link-orange { color: #f97316; font-weight: 600; text-decoration: none; }
+    .checkbox-label input { accent-color: #D4A017; }
+    .link-orange { color: #A67C00; font-weight: 600; text-decoration: none; }
     .link-orange:hover { text-decoration: underline; }
 
     /* ─── Submit Button ─── */
     .btn-submit {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #f97316, #ea6c0a);
-      color: #fff;
+      background: linear-gradient(135deg, #F5C518, #D4A017);
+      color: #111111;
       border: none;
       border-radius: 12px;
       font-size: 1rem;
@@ -412,7 +413,7 @@
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       transition: all 0.25s;
-      box-shadow: 0 4px 20px rgba(249,115,22,0.3);
+      box-shadow: 0 4px 20px rgba(245,197,24,0.30);
       position: relative;
       overflow: hidden;
     }
@@ -428,7 +429,7 @@
 
     .btn-submit:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 32px rgba(249,115,22,0.45);
+      box-shadow: 0 6px 32px rgba(245,197,24,0.40);
     }
 
     .btn-submit:hover::before { opacity: 1; }
@@ -439,7 +440,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #4a4860;
+      color: #9B9A88;
       font-size: 0.78rem;
       font-weight: 600;
     }
@@ -448,7 +449,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,0.07);
+      background: #E5E3D8;
     }
 
     /* ─── Google / Social Button ─── */
@@ -459,10 +460,10 @@
       justify-content: center;
       gap: 10px;
       padding: 13px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 12px;
-      color: #f0efe8;
+      color: #0D0C08;
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
@@ -472,8 +473,8 @@
     }
 
     .btn-social:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.18);
+      background: #F0EEE6;
+      border-color: #D0CEC2;
       transform: translateY(-1px);
     }
 
@@ -481,7 +482,7 @@
     .switch-link {
       text-align: center;
       font-size: 0.82rem;
-      color: #8a8996;
+      color: #6B6952;
     }
 
     /* ─── Toast ─── */
@@ -500,7 +501,7 @@
       gap: 10px;
       padding: 14px 18px;
       border-radius: 12px;
-      color: #fff;
+      color: #111111;
       font-size: 0.875rem;
       font-weight: 600;
       font-family: 'Inter', sans-serif;
@@ -539,7 +540,7 @@
     }
 
     .modal-title { font-size: 1.2rem; font-weight: 900; margin-bottom: 8px; }
-    .modal-sub { color: #8a8996; font-size: 0.875rem; margin-bottom: 28px; line-height: 1.6; }
+    .modal-sub { color: rgba(255,255,255,0.55); font-size: 0.875rem; margin-bottom: 28px; line-height: 1.6; }
 
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
@@ -558,7 +559,7 @@
   <div class="auth-left">
     <a href="index.html" class="auth-logo">
       <img src="logo.png" alt="hafriyatcim.com" class="auth-logo-img">
-      hafriyatcim<span style="color:#f97316">.com</span>
+      hafriyatcim<span style="color:#F5C518">.com</span>
     </a>
 
     <div class="auth-left-body">
@@ -575,28 +576,28 @@
           <div class="auth-feature-icon">🏗️</div>
           <div>
             <div style="font-weight:700;font-size:0.875rem;">İlan açmak tamamen ücretsiz</div>
-            <div style="color:#8a8996;font-size:0.75rem;margin-top:2px;">Teklif gelinceye kadar hiçbir ücret yok</div>
+            <div style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:2px;">Teklif gelinceye kadar hiçbir ücret yok</div>
           </div>
         </div>
         <div class="auth-feature">
           <div class="auth-feature-icon">🚛</div>
           <div>
             <div style="font-weight:700;font-size:0.875rem;">Teklif vermek tamamen ücretsiz</div>
-            <div style="color:#8a8996;font-size:0.75rem;margin-top:2px;">Kabul edilene kadar ücret alınmaz</div>
+            <div style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:2px;">Kabul edilene kadar ücret alınmaz</div>
           </div>
         </div>
         <div class="auth-feature">
           <div class="auth-feature-icon green">✅</div>
           <div>
             <div style="font-weight:700;font-size:0.875rem;">Eşleşince 252 ₺ — her iki taraftan</div>
-            <div style="color:#8a8996;font-size:0.75rem;margin-top:2px;">200 ₺ + %26 KDV, her iki taraf numarayı alır</div>
+            <div style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:2px;">200 ₺ + %26 KDV, her iki taraf numarayı alır</div>
           </div>
         </div>
         <div class="auth-feature">
           <div class="auth-feature-icon blue">📍</div>
           <div>
             <div style="font-weight:700;font-size:0.875rem;">Gerçek zamanlı GPS takip</div>
-            <div style="color:#8a8996;font-size:0.75rem;margin-top:2px;">Her araç, her anlaşma izleniyor</div>
+            <div style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:2px;">Her araç, her anlaşma izleniyor</div>
           </div>
         </div>
       </div>
@@ -733,7 +734,7 @@
                    placeholder="05XX XXX XX XX" required autocomplete="tel"
                    oninput="formatPhone(this)">
           </div>
-          <small style="font-size:0.72rem;color:#8a8996;">ℹ️ Eşleşme bildirimlerinde kullanılır.</small>
+          <small style="font-size:0.72rem;color:rgba(255,255,255,0.55);">ℹ️ Eşleşme bildirimlerinde kullanılır.</small>
         </div>
 
         <div class="form-field">
@@ -787,7 +788,7 @@
 <!-- ─── Google Role Modal ─── -->
 <div class="modal-overlay" id="googleRolModal">
   <div class="modal-box">
-    <div style="width:64px;height:64px;border-radius:50%;margin:0 auto 16px;overflow:hidden;background:rgba(249,115,22,0.1);border:2px solid rgba(249,115,22,0.2);display:flex;align-items:center;justify-content:center;">
+    <div style="width:64px;height:64px;border-radius:50%;margin:0 auto 16px;overflow:hidden;background:rgba(245,197,24,0.12);border:2px solid rgba(245,197,24,0.25);display:flex;align-items:center;justify-content:center;">
       <img id="googleAvatarImg" style="width:100%;height:100%;object-fit:cover;display:none;" src="" alt="">
       <span id="googleAvatarFallback" style="font-size:1.8rem;">👤</span>
     </div>
@@ -806,7 +807,7 @@
       </button>
     </div>
     <button onclick="document.getElementById('googleRolModal').classList.remove('open')"
-            style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#8a8996;padding:11px;border-radius:10px;cursor:pointer;font-family:Inter,sans-serif;font-size:0.85rem;">
+            style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);padding:11px;border-radius:10px;cursor:pointer;font-family:Inter,sans-serif;font-size:0.85rem;">
       Vazgeç
     </button>
   </div>
@@ -853,13 +854,13 @@
 
       <button type="button" class="btn-submit" id="resetBtn" onclick="resetPassword()">Şifreyi Sıfırla →</button>
       <button type="button" onclick="document.getElementById('forgotStep1').style.display='block';document.getElementById('forgotStep2').style.display='none';"
-              style="width:100%;margin-top:8px;background:transparent;border:none;color:#8a8996;padding:8px;cursor:pointer;font-size:0.82rem;">
+              style="width:100%;margin-top:8px;background:transparent;border:none;color:rgba(255,255,255,0.55);padding:8px;cursor:pointer;font-size:0.82rem;">
         ← Farklı e-posta kullan
       </button>
     </div>
 
     <button onclick="document.getElementById('forgotModal').classList.remove('open')"
-            style="width:100%;margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#8a8996;padding:11px;border-radius:10px;cursor:pointer;font-family:Inter,sans-serif;font-size:0.85rem;">
+            style="width:100%;margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);padding:11px;border-radius:10px;cursor:pointer;font-family:Inter,sans-serif;font-size:0.85rem;">
       Vazgeç
     </button>
   </div>
@@ -926,7 +927,7 @@
     if (/[A-Z]/.test(val)) score++;
     if (/[0-9]/.test(val)) score++;
     if (/[^A-Za-z0-9]/.test(val)) score++;
-    const colors = ['#ef4444','#f97316','#f59e0b','#22c55e','#16a34a'];
+    const colors = ['#ef4444','#F5C518','#f59e0b','#22c55e','#16a34a'];
     bar.style.width  = `${score * 20}%`;
     bar.style.background = colors[score - 1] || '#ef4444';
   }

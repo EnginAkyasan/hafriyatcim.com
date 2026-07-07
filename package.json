@@ -14,13 +14,16 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "express-rate-limit": "^7.5.1",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "google-auth-library": "^10.7.0",
+    "helmet": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "nedb": "^1.8.0",
     "nodemailer": "^6.9.9",
+    "pptxgenjs": "^4.0.1",
     "socket.io": "^4.6.1",
     "uuid": "^8.3.2"
   }

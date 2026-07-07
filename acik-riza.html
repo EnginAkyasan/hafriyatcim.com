@@ -10,21 +10,21 @@
   <style>
     .legal-page { max-width: 820px; margin: 0 auto; padding: 3rem 5%; }
     .legal-page h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .legal-page h2 { font-size: 1.2rem; color: #f97316; margin: 2rem 0 0.75rem; }
-    .legal-page p, .legal-page li { color: #8a8996; line-height: 1.8; margin-bottom: 0.75rem; }
+    .legal-page h2 { font-size: 1.2rem; color: #D4A017; margin: 2rem 0 0.75rem; }
+    .legal-page p, .legal-page li { color: #6B6952; line-height: 1.8; margin-bottom: 0.75rem; }
     .legal-page ul { padding-left: 1.5rem; }
-    .legal-page .meta { font-size: 0.82rem; color: #4a4860; margin-bottom: 3rem; }
+    .legal-page .meta { font-size: 0.82rem; color: #6B6952; margin-bottom: 3rem; }
 
     /* Rıza Kartları */
     .riza-card {
-      background: rgba(14, 14, 24, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 16px;
       padding: 1.75rem;
       margin-bottom: 1.25rem;
       transition: border-color 0.25s;
     }
-    .riza-card:hover { border-color: rgba(249, 115, 22, 0.25); }
+    .riza-card:hover { border-color: rgba(245, 197, 24, 0.45); }
 
     .riza-card-header {
       display: flex;
@@ -37,7 +37,7 @@
     .riza-card-title {
       font-size: 1rem;
       font-weight: 800;
-      color: #f0efe8;
+      color: #0D0C08;
       margin: 0;
       flex: 1;
     }
@@ -46,22 +46,22 @@
 
     .riza-card-body p {
       font-size: 0.88rem;
-      color: #8a8996;
+      color: #6B6952;
       line-height: 1.7;
       margin-bottom: 0.5rem;
     }
 
     .riza-reddet-note {
       font-size: 0.8rem;
-      color: #4a4860;
+      color: #6B6952;
       padding: 0.6rem 0.875rem;
       background: rgba(239, 68, 68, 0.05);
-      border: 1px solid rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.15);
       border-radius: 8px;
       margin-top: 0.75rem;
     }
 
-    .riza-reddet-note strong { color: #f87171; }
+    .riza-reddet-note strong { color: #DC2626; }
 
     /* Toggle Switch */
     .toggle-wrapper {
@@ -77,7 +77,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #4a4860;
+      color: #6B6952;
     }
 
     .toggle {
@@ -92,8 +92,8 @@
     .toggle-track {
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #E5E3D8;
+      border: 1px solid #D6D3C8;
       border-radius: 100px;
       cursor: pointer;
       transition: background 0.25s, border-color 0.25s;
@@ -107,29 +107,29 @@
       transform: translateY(-50%);
       width: 20px;
       height: 20px;
-      background: #4a4860;
+      background: #9C9A87;
       border-radius: 50%;
       transition: left 0.25s, background 0.25s;
     }
 
     .toggle input:checked + .toggle-track {
-      background: rgba(249, 115, 22, 0.2);
-      border-color: rgba(249, 115, 22, 0.5);
+      background: rgba(245, 197, 24, 0.20);
+      border-color: rgba(245, 197, 24, 0.55);
     }
 
     .toggle input:checked + .toggle-track::after {
       left: 27px;
-      background: #f97316;
+      background: #D4A017;
     }
 
     .toggle-state {
       font-size: 0.72rem;
       font-weight: 700;
-      color: #4a4860;
+      color: #6B6952;
       transition: color 0.2s;
     }
 
-    .toggle input:checked ~ .toggle-state { color: #f97316; }
+    .toggle input:checked ~ .toggle-state { color: #D4A017; }
 
     /* Zorunlu badge */
     .badge-zorunlu {
@@ -138,9 +138,9 @@
       gap: 4px;
       font-size: 0.68rem;
       font-weight: 700;
-      color: #f87171;
-      background: rgba(239, 68, 68, 0.08);
-      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #DC2626;
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.18);
       border-radius: 100px;
       padding: 2px 8px;
       margin-left: 8px;
@@ -149,8 +149,8 @@
 
     /* Özet Onay Kutusu */
     .riza-ozet {
-      background: rgba(249, 115, 22, 0.04);
-      border: 1px solid rgba(249, 115, 22, 0.2);
+      background: rgba(245, 197, 24, 0.05);
+      border: 1px solid rgba(245, 197, 24, 0.22);
       border-radius: 16px;
       padding: 2rem;
       margin-top: 2.5rem;
@@ -158,13 +158,13 @@
 
     .riza-ozet h2 {
       font-size: 1.05rem;
-      color: #f97316;
+      color: #D4A017;
       margin: 0 0 0.75rem;
     }
 
     .riza-ozet p {
       font-size: 0.875rem;
-      color: #8a8996;
+      color: #6B6952;
       line-height: 1.75;
       margin-bottom: 1.25rem;
     }
@@ -180,36 +180,36 @@
     .riza-ozet-tarih label {
       font-size: 0.78rem;
       font-weight: 700;
-      color: #8a8996;
+      color: #6B6952;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       white-space: nowrap;
     }
 
     .riza-ozet-tarih input[type="date"] {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #F8F7F0;
+      border: 1px solid #E5E3D8;
       border-radius: 8px;
       padding: 8px 12px;
-      color: #f0efe8;
+      color: #0D0C08;
       font-family: inherit;
       font-size: 0.88rem;
       outline: none;
       transition: border-color 0.2s;
-      color-scheme: dark;
+      color-scheme: light;
     }
 
     .riza-ozet-tarih input[type="date"]:focus {
-      border-color: rgba(249, 115, 22, 0.5);
-      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+      border-color: rgba(245, 197, 24, 0.55);
+      box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.12);
     }
 
     .btn-riza-kaydet {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #f97316, #ea6c0a);
-      color: #fff;
+      background: linear-gradient(135deg, #F5C518, #D4A017);
+      color: #0D0C08;
       border: none;
       border-radius: 10px;
       padding: 12px 28px;
@@ -239,7 +239,7 @@
     }
 
     .riza-bilgi-banner-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-    .riza-bilgi-banner p { font-size: 0.82rem; color: #8a8996; margin: 0; line-height: 1.65; }
+    .riza-bilgi-banner p { font-size: 0.82rem; color: #6B6952; margin: 0; line-height: 1.65; }
     .riza-bilgi-banner a { color: #60a5fa; text-decoration: underline; }
 
     @media (max-width: 600px) {
@@ -284,7 +284,7 @@
     <div class="riza-card-header">
       <div style="flex:1;">
         <h2 style="margin:0 0 0.25rem;">1. Pazarlama İletişimi</h2>
-        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#4a4860;margin:0;">
+        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#6B6952;margin:0;">
           E-posta ve SMS ile kampanya, yeni özellik ve duyuru bildirimleri
         </p>
       </div>
@@ -304,7 +304,7 @@
         izin veriyorsunuz. İletişimler NetGSM (SMS) ve e-posta sunucularımız üzerinden iletilir.
       </p>
       <p>
-        <strong style="color:#f0efe8;">Amaç:</strong> Platformdan maksimum verimi almanızı sağlamak,
+        <strong style="color:#0D0C08;">Amaç:</strong> Platformdan maksimum verimi almanızı sağlamak,
         size özel teklifler sunmak ve yeni özelliklerden haberdar etmek.
       </p>
       <div class="riza-reddet-note">
@@ -319,7 +319,7 @@
     <div class="riza-card-header">
       <div style="flex:1;">
         <h2 style="margin:0 0 0.25rem;">2. Konum Verisi İşleme</h2>
-        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#4a4860;margin:0;">
+        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#6B6952;margin:0;">
           GPS konumunun sipariş süresince taraflarla paylaşımı
           <span class="badge-zorunlu">Temel Hizmet</span>
         </p>
@@ -341,7 +341,7 @@
         işlenmez; yalnızca tarihsel sefer kaydı olarak şifreli veritabanımızda saklanır.
       </p>
       <p>
-        <strong style="color:#f0efe8;">Amaç:</strong> Canlı araç takibini mümkün kılmak,
+        <strong style="color:#0D0C08;">Amaç:</strong> Canlı araç takibini mümkün kılmak,
         tahmini teslim süresi hesaplamak ve güvenli taşıma doğrulaması sağlamak.
       </p>
       <div class="riza-reddet-note">
@@ -356,7 +356,7 @@
     <div class="riza-card-header">
       <div style="flex:1;">
         <h2 style="margin:0 0 0.25rem;">3. Telefon Numarası Paylaşımı</h2>
-        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#4a4860;margin:0;">
+        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#6B6952;margin:0;">
           Eşleşme sonrası karşı tarafın telefon numarasına erişim
           <span class="badge-zorunlu">Temel Hizmet</span>
         </p>
@@ -378,7 +378,7 @@
         kişilerle paylaşılmaz; yalnızca ilgili sipariş tarafları alır.
       </p>
       <p>
-        <strong style="color:#f0efe8;">Amaç:</strong> Tarafların operasyonel koordinasyon
+        <strong style="color:#0D0C08;">Amaç:</strong> Tarafların operasyonel koordinasyon
         (buluşma noktası, teslim zamanı vb.) için doğrudan iletişim kurabilmesini sağlamak.
       </p>
       <div class="riza-reddet-note">
@@ -394,7 +394,7 @@
     <div class="riza-card-header">
       <div style="flex:1;">
         <h2 style="margin:0 0 0.25rem;">4. Üçüncü Taraf Veri Aktarımı</h2>
-        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#4a4860;margin:0;">
+        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#6B6952;margin:0;">
           İyzico (ödeme) ve NetGSM (SMS) ile veri paylaşımı
           <span class="badge-zorunlu">Temel Hizmet</span>
         </p>
@@ -418,11 +418,11 @@
       </p>
       <ul>
         <li>
-          <strong style="color:#f0efe8;">İyzico:</strong> Güvenli ödeme altyapısı; kart bilgileri
+          <strong style="color:#0D0C08;">İyzico:</strong> Güvenli ödeme altyapısı; kart bilgileri
           yalnızca iyzico sunucularında PCI-DSS uyumlu şekilde tutulur, hafriyatcim.com'a iletilmez.
         </li>
         <li>
-          <strong style="color:#f0efe8;">NetGSM:</strong> SMS gönderimi; yalnızca telefon numarası
+          <strong style="color:#0D0C08;">NetGSM:</strong> SMS gönderimi; yalnızca telefon numarası
           ve mesaj içeriği aktarılır, başka veri paylaşılmaz.
         </li>
       </ul>
@@ -438,7 +438,7 @@
     <div class="riza-card-header">
       <div style="flex:1;">
         <h2 style="margin:0 0 0.25rem;">5. Profil Analizi ve Kişiselleştirme</h2>
-        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#4a4860;margin:0;">
+        <p class="riza-card-title" style="font-size:0.82rem;font-weight:600;color:#6B6952;margin:0;">
           Kullanım alışkanlıklarının analizi ve önerilerin kişiselleştirilmesi
         </p>
       </div>
@@ -459,7 +459,7 @@
         sunulmasına izin veriyorsunuz.
       </p>
       <p>
-        <strong style="color:#f0efe8;">Amaç:</strong> Eşleşme kalitesini artırmak,
+        <strong style="color:#0D0C08;">Amaç:</strong> Eşleşme kalitesini artırmak,
         ilgisiz içerikler yerine sizin için anlamlı ilanlar göstermek ve zaman
         tasarrufu sağlamak. Veriler anonim istatistiklere dönüştürülerek platform
         geliştirmede kullanılır; üçüncü taraflara satılmaz.
@@ -476,13 +476,13 @@
     <h2>Genel Onay ve Tarih</h2>
     <p>
       Yukarıdaki izin seçeneklerini değerlendirdim. Seçimlerim doğrultusunda
-      hafriyatcim.com'a bu kapsamda <strong style="color:#f0efe8;">açık rızamı veriyorum.</strong>
+      hafriyatcim.com'a bu kapsamda <strong style="color:#0D0C08;">açık rızamı veriyorum.</strong>
       Bu formu doldurarak 6698 Sayılı Kişisel Verilerin Korunması Kanunu Madde 5/1 kapsamında
       seçtiğim veri işleme faaliyetlerine onay vermekteyim.
     </p>
     <p>
-      Rızanızı geri almak istediğinizde <a href="iletisim.html" style="color:#f97316;">iletişim formu</a>nu
-      kullanabilir ya da <a href="mailto:info@hafriyatcim.com" style="color:#f97316;">info@hafriyatcim.com</a>
+      Rızanızı geri almak istediğinizde <a href="iletisim.html" style="color:#D4A017;">iletişim formu</a>nu
+      kullanabilir ya da <a href="mailto:info@hafriyatcim.com" style="color:#D4A017;">info@hafriyatcim.com</a>
       adresine e-posta gönderebilirsiniz. Geri alma talebi işleme girer girmez veri işleme durdurulur;
       ancak geri alma öncesi yapılan işlemlerin hukuki geçerliliği etkilenmez.
     </p>
@@ -495,7 +495,7 @@
     <button class="btn-riza-kaydet" onclick="rizaKaydet()">
       ✅ Seçimlerimi Kaydet
     </button>
-    <p style="font-size:0.75rem;color:#4a4860;margin-top:0.75rem;margin-bottom:0;">
+    <p style="font-size:0.75rem;color:#6B6952;margin-top:0.75rem;margin-bottom:0;">
       Not: Bu form yalnızca bilgi amaçlıdır. Gerçek rıza kaydı hesabınıza giriş yaptıktan
       sonra platform ayarlarından da yönetilebilir.
     </p>
@@ -504,14 +504,14 @@
 </main>
 
 <!-- FOOTER -->
-<footer style="text-align:center;padding:2rem 5%;border-top:1px solid rgba(255,255,255,0.07);color:#4a4860;font-size:0.85rem;margin-top:4rem;">
-  <a href="index.html" style="color:#8a8996;">Ana Sayfa</a> ·
-  <a href="kvkk.html" style="color:#8a8996;">KVKK</a> ·
-  <a href="gizlilik.html" style="color:#8a8996;">Gizlilik</a> ·
-  <a href="kullanici-sozlesmesi.html" style="color:#8a8996;">Sözleşme</a> ·
-  <a href="acik-riza.html" style="color:#8a8996;">Açık Rıza</a> ·
-  <a href="iptal-iade.html" style="color:#8a8996;">İptal &amp; İade</a> ·
-  <a href="cerez.html" style="color:#8a8996;">Çerez</a>
+<footer style="text-align:center;padding:2rem 5%;border-top:1px solid #E5E3D8;color:#6B6952;font-size:0.85rem;margin-top:4rem;">
+  <a href="index.html" style="color:#6B6952;">Ana Sayfa</a> ·
+  <a href="kvkk.html" style="color:#6B6952;">KVKK</a> ·
+  <a href="gizlilik.html" style="color:#6B6952;">Gizlilik</a> ·
+  <a href="kullanici-sozlesmesi.html" style="color:#6B6952;">Sözleşme</a> ·
+  <a href="acik-riza.html" style="color:#6B6952;">Açık Rıza</a> ·
+  <a href="iptal-iade.html" style="color:#6B6952;">İptal &amp; İade</a> ·
+  <a href="cerez.html" style="color:#6B6952;">Çerez</a>
 </footer>
 
 <script>

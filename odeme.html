@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -6,23 +6,25 @@
     <title>Güvenli Ödeme — hafriyatcim.com</title>
     <meta name="description" content="hafriyatcim.com güvenli ödeme sayfası. iyzico altyapısıyla 3D Secure korumalı ödeme.">
     <link rel="icon" href="data:,">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700\&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --orange: #f97316;
-            --orange-dark: #ea6c0a;
-            --orange-glow: rgba(249, 115, 22, 0.25);
-            --bg: #0a0a0f;
-            --bg-card: #12121a;
-            --bg-input: #1a1a26;
-            --border: rgba(255,255,255,0.08);
-            --border-focus: rgba(249,115,22,0.5);
-            --text: #f1f0ee;
-            --text-muted: #8b8a96;
-            --success: #22c55e;
-            --danger: #ef4444;
+            --y: #F5C518;
+            --y-d: #D4A017;
+            --orange: #F5C518;
+            --orange-dark: #D4A017;
+            --orange-glow: rgba(245,197,24,0.15);
+            --bg: #FAFAF5;
+            --bg-card: #FFFFFF;
+            --bg-input: #F8F7F0;
+            --border: #E5E3D8;
+            --border-focus: rgba(245,197,24,0.5);
+            --text: #0D0C08;
+            --text-muted: #6B6952;
+            --success: #15803D;
+            --danger: #DC2626;
             --radius: 16px;
         }
 
@@ -60,7 +62,7 @@
             text-decoration: none;
             transition: border-color 0.2s, background 0.2s;
         }
-        .back-btn:hover { border-color: var(--orange); background: rgba(249,115,22,0.08); }
+        .back-btn:hover { border-color: var(--orange); background: rgba(245,197,24,0.08); }
 
         .logo-text { font-weight: 700; font-size: 1rem; }
         .logo-text span { color: var(--orange); }
@@ -68,8 +70,8 @@
             margin-left: auto;
             display: flex; align-items: center; gap: 6px;
             font-size: 0.78rem; color: var(--success);
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.2);
+            background: rgba(21,128,61,0.08);
+            border: 1px solid rgba(21,128,61,0.2);
             border-radius: 100px;
             padding: 4px 10px;
         }
@@ -156,7 +158,7 @@
         }
         .form-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+            box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
         }
         .form-input::placeholder { color: var(--text-muted); }
 
@@ -173,8 +175,8 @@
         .card-icon {
             width: 32px; height: 20px;
             border-radius: 4px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: #F0EEE6;
+            border: 1px solid #E5E3D8;
             display: flex; align-items: center; justify-content: center;
             font-size: 9px; color: var(--text-muted);
             font-weight: 700;
@@ -187,23 +189,23 @@
             border: none;
             border-radius: 12px;
             padding: 16px;
-            color: #fff;
+            color: #0D0C08;
             font-family: inherit;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
-            box-shadow: 0 4px 24px rgba(249,115,22,0.35);
+            box-shadow: 0 4px 24px rgba(245,197,24,0.35);
             margin-bottom: 12px;
         }
-        .pay-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(249,115,22,0.45); }
+        .pay-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(245,197,24,0.45); }
         .pay-btn:active { transform: translateY(0); }
         .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .pay-btn .spinner {
             width: 18px; height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
+            border: 2px solid rgba(13,12,8,0.3);
+            border-top-color: #0D0C08;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             display: none;
@@ -248,7 +250,7 @@
         .status-desc  { color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
         .status-btn {
             background: var(--orange);
-            color: #fff;
+            color: #0D0C08;
             border: none; border-radius: 12px;
             padding: 14px 28px;
             font-family: inherit; font-size: 0.95rem; font-weight: 600;
@@ -408,10 +410,10 @@ document.getElementById('cardNumber').addEventListener('input', (e) => {
     const raw = val.replace(/\s/g, '');
     const visaEl = document.getElementById('cardTypeVisa');
     const mcEl   = document.getElementById('cardTypeMC');
-    visaEl.style.background = raw.startsWith('4') ? 'rgba(249,115,22,0.2)' : '';
-    visaEl.style.color = raw.startsWith('4') ? '#f97316' : '';
-    mcEl.style.background = /^5[1-5]/.test(raw) ? 'rgba(249,115,22,0.2)' : '';
-    mcEl.style.color = /^5[1-5]/.test(raw) ? '#f97316' : '';
+    visaEl.style.background = raw.startsWith('4') ? 'rgba(245,197,24,0.2)' : '';
+    visaEl.style.color = raw.startsWith('4') ? '#F5C518' : '';
+    mcEl.style.background = /^5[1-5]/.test(raw) ? 'rgba(245,197,24,0.2)' : '';
+    mcEl.style.color = /^5[1-5]/.test(raw) ? '#F5C518' : '';
 });
 
 document.getElementById('cardExpiry').addEventListener('input', (e) => {
