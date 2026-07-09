@@ -237,6 +237,28 @@
         }
         .trust-badge .icon { font-size: 20px; }
 
+        /* ─── Ödeme Logoları ──────────────────────────────────── */
+        .pay-logos {
+            width: 100%; max-width: 480px;
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: wrap; gap: 12px;
+            padding: 16px;
+            margin-top: 8px;
+        }
+        .pay-logos-label {
+            width: 100%; text-align: center;
+            font-size: 0.68rem; color: var(--text-muted);
+            letter-spacing: 0.06em; text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .pay-logo-img {
+            height: 32px; width: auto;
+            border-radius: 5px;
+            object-fit: contain;
+            display: block;
+        }
+        .iyzico-logo-img { height: 38px; }
+
         /* ─── Durum Ekranları ─────────────────────────────────── */
         .status-screen {
             display: none;
@@ -359,6 +381,14 @@
         <div class="trust-badge"><span class="icon">🏦</span>iyzico</div>
         <div class="trust-badge"><span class="icon">🛡️</span>3D Secure</div>
         <div class="trust-badge"><span class="icon">✅</span>PCI DSS</div>
+    </div>
+
+    <!-- Ödeme Yöntemi Logoları (iyzico uyum zorunluluğu) -->
+    <div class="pay-logos">
+        <div class="pay-logos-label">Kabul Edilen Ödeme Yöntemleri</div>
+        <img src="logo_ban_colored.svg" alt="iyzico güvenli ödeme" class="pay-logo-img iyzico-logo-img">
+        <img src="visa.svg" alt="Visa" class="pay-logo-img">
+        <img src="mastercard.svg" alt="Mastercard" class="pay-logo-img">
     </div>
 
 </div>

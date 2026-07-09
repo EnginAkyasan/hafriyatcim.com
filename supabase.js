@@ -4,8 +4,8 @@
 // ─────────────────────────────────────────────────────────────
 
 // Supabase config — .env'den alınacak (production için)
-const SUPABASE_URL = 'https://ccrludyjpbbwicypjkpn.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_Vrws18SANmw1TAVoHT3RCg_gF3ZHD1U';
+const SUPABASE_URL = 'https://unwbimbnalvfdecobqey.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVud2JpbWJuYWx2ZmRlY29icWV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzIyMTYsImV4cCI6MjA5OTEwODIxNn0._nDyQ80u_GZz_wwYq5Qmvt3Adt-QzAoX53mu3SdAL9Y';
 
 // Supabase JS CDN üzerinden yükleniyor (index.html'de <script> ile ekleniyor)
 // Bu dosya supabase CDN yüklendikten sonra çalışır
@@ -120,6 +120,41 @@ async function bridgeSupabaseToBackend(session) {
   }
 }
 
+// ─── Email/Şifre ile Kayıt (Supabase Auth) ───────────────────
+// NeDB kayıt başarılı olduktan sonra Supabase'e de kaydeder (sessizce)
+async function supabaseEmailSignUp(email, password) {
+  const sb = initSupabase();
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb.auth.signUp({ email, password });
+    if (error) {
+      console.warn('Supabase signUp:', error.message);
+      return null;
+    }
+    return data;
+  } catch (err) {
+    console.warn('Supabase signUp exception:', err);
+    return null;
+  }
+}
+
+// ─── Email/Şifre ile Giriş (Supabase Auth) ───────────────────
+async function supabaseEmailSignIn(email, password) {
+  const sb = initSupabase();
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      console.warn('Supabase signIn:', error.message);
+      return null;
+    }
+    return data;
+  } catch (err) {
+    console.warn('Supabase signIn exception:', err);
+    return null;
+  }
+}
+
 // ─── Supabase Çıkış ───────────────────────────────────────────
 async function supabaseSignOut() {
   const sb = initSupabase();
@@ -142,6 +177,8 @@ async function getSupabaseSession() {
 
 // Global exports
 window.supabaseGoogleSignIn = supabaseGoogleSignIn;
+window.supabaseEmailSignUp  = supabaseEmailSignUp;
+window.supabaseEmailSignIn  = supabaseEmailSignIn;
 window.initSupabaseAuth = initSupabaseAuth;
 window.supabaseSignOut = supabaseSignOut;
 window.getSupabaseSession = getSupabaseSession;

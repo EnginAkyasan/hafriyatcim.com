@@ -961,6 +961,14 @@
       localStorage.setItem('user', JSON.stringify(data.kullanici));
       showToast(`Hoş geldiniz, ${data.kullanici.ad}! 👋`, 'success');
 
+      // Supabase'e de giriş yap (sessiz — hata backend'i etkilemez)
+      if (typeof supabaseEmailSignIn === 'function') {
+        supabaseEmailSignIn(
+          document.getElementById('loginEmail').value.trim(),
+          document.getElementById('loginPassword').value
+        ).catch(() => {});
+      }
+
       const redirect = new URLSearchParams(window.location.search).get('redirect');
       setTimeout(() => window.location.href = redirect || 'dashboard.html', 800);
     } catch {
@@ -996,6 +1004,14 @@
       api.setTokens(data.accessToken, data.refreshToken);
       localStorage.setItem('user', JSON.stringify(data.kullanici));
       showToast('Hesabınız oluşturuldu! 🎉', 'success');
+
+      // Supabase'e de kayıt yap (sessiz — hata backend'i etkilemez)
+      if (typeof supabaseEmailSignUp === 'function') {
+        supabaseEmailSignUp(
+          document.getElementById('regEmail').value.trim(),
+          document.getElementById('regPassword').value
+        ).catch(() => {});
+      }
 
       const redirect = new URLSearchParams(window.location.search).get('redirect');
       setTimeout(() => window.location.href = redirect || 'dashboard.html', 800);
