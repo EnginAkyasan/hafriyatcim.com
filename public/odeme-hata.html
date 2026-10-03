@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Başarısız — hafriyatcim.com</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --y: #F5C518; --bg: #FAFAF5; --card: #FFFFFF; --border: #E5E3D8; --text: #0D0C08; --muted: #6B6952; --danger: #DC2626; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 40px 28px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .icon { font-size: 56px; margin-bottom: 16px; }
+        h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; color: var(--danger); }
+        p { color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+        .detail { font-size: 0.85rem; background: #FEF2F2; color: #991B1B; padding: 10px 12px; border-radius: 8px; margin-bottom: 24px; word-break: break-word; }
+        a.btn { display: inline-block; background: var(--y); color: var(--text); font-weight: 700; padding: 14px 24px; border-radius: 10px; text-decoration: none; }
+        .logo { font-weight: 800; margin-bottom: 24px; }
+        .logo span { color: var(--y); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">hafriyatcim<span>.com</span></div>
+        <div class="icon">❌</div>
+        <h1>Ödeme Başarısız</h1>
+        <p>Ödemeniz tamamlanamadı. Hesabınızdan para çekilmediyse panelden tekrar deneyebilirsiniz.</p>
+        <div class="detail" id="detail" hidden></div>
+        <a class="btn" href="/dashboard.html">Panele Dön</a>
+    </div>
+    <script>
+        // Hata mesajı URL'den gelir; textContent ile yazıldığı için HTML olarak yorumlanmaz.
+        const q = new URLSearchParams(location.search);
+        const msg = q.get('mesaj') || ({
+            TOKEN_EKSIK: 'Ödeme sağlayıcısından doğrulama bilgisi gelmedi.',
+            KAYIT_BULUNAMADI: 'Bekleyen ödeme kaydı bulunamadı.',
+            SUNUCU_HATASI: 'Sunucu tarafında bir hata oluştu.',
+        })[q.get('kod')] || '';
+        if (msg) { const d = document.getElementById('detail'); d.textContent = msg; d.hidden = false; }
+    </script>
+</body>
+</html>

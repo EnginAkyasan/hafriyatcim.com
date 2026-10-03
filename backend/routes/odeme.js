@@ -12,7 +12,7 @@ const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const db = require('../db/database');
 const { authMiddleware } = require('../middleware/auth');
-const { initiate3DPayment, verify3DPayment, simulatePayment, PLATFORM_FEE } = require('../services/iyzico');
+const { initiate3DPayment, verify3DPayment, simulatePayment, isConfigured, PLATFORM_FEE } = require('../services/iyzico');
 const sms = require('../services/sms');
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.get('/bilgi', (req, res) => {
   res.json({
     net: PLATFORM_FEE.net,
     kdv: PLATFORM_FEE.kdv,
-    kdv_orani: 26,
+    kdv_orani: PLATFORM_FEE.kdv_orani,
     toplam: PLATFORM_FEE.total,
     aciklama: 'Eşleşme başına her taraftan alınan platform ücreti',
   });
@@ -72,17 +72,26 @@ router.post('/musteri/:teklifId', authMiddleware, async (req, res) => {
       });
     }
 
-    // Production: iyzico 3D formu
+    // Production: iyzico hosted checkout
+    if (!isConfigured()) {
+      return res.status(503).json({ hata: 'Ödeme altyapısı yapılandırılmamış. Lütfen daha sonra tekrar deneyin.' });
+    }
     const kullanici = await db.findOne('users', { id: req.user.id });
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ip = req.ip;
 
-    const result = await initiate3DPayment({
-      conversationId,
-      kullanici: { ...kullanici, id: req.user.id },
-      aciklama: `İşi Ver — ${ilan.baslik || 'Hafriyat Taşıma'}`,
-      callbackUrl,
-      ip,
-    });
+    let result;
+    try {
+      result = await initiate3DPayment({
+        conversationId,
+        kullanici: { ...kullanici, id: req.user.id },
+        aciklama: `İşi Ver — ${ilan.baslik || 'Hafriyat Taşıma'}`,
+        callbackUrl,
+        ip,
+      });
+    } catch (err) {
+      console.error('iyzico bağlantı hatası:', err.message);
+      return res.status(502).json({ hata: 'Ödeme sağlayıcısına ulaşılamadı. Lütfen tekrar deneyin.' });
+    }
 
     if (result.status !== 'success') {
       return res.status(400).json({ hata: result.errorMessage || 'Ödeme başlatılamadı.' });
@@ -101,8 +110,7 @@ router.post('/musteri/:teklifId', authMiddleware, async (req, res) => {
     });
 
     res.json({
-      checkoutFormContent: result.checkoutFormContent,
-      token: result.token,
+      paymentPageUrl: result.paymentPageUrl,
       conversationId,
     });
 
@@ -146,16 +154,25 @@ router.post('/surucu/:siparisId', authMiddleware, async (req, res) => {
       });
     }
 
+    if (!isConfigured()) {
+      return res.status(503).json({ hata: 'Ödeme altyapısı yapılandırılmamış. Lütfen daha sonra tekrar deneyin.' });
+    }
     const kullanici = await db.findOne('users', { id: req.user.id });
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ip = req.ip;
 
-    const result = await initiate3DPayment({
-      conversationId,
-      kullanici: { ...kullanici, id: req.user.id },
-      aciklama: `İşi Al — ${ilan?.baslik || 'Hafriyat Taşıma'}`,
-      callbackUrl,
-      ip,
-    });
+    let result;
+    try {
+      result = await initiate3DPayment({
+        conversationId,
+        kullanici: { ...kullanici, id: req.user.id },
+        aciklama: `İşi Al — ${ilan?.baslik || 'Hafriyat Taşıma'}`,
+        callbackUrl,
+        ip,
+      });
+    } catch (err) {
+      console.error('iyzico bağlantı hatası:', err.message);
+      return res.status(502).json({ hata: 'Ödeme sağlayıcısına ulaşılamadı. Lütfen tekrar deneyin.' });
+    }
 
     if (result.status !== 'success') {
       return res.status(400).json({ hata: result.errorMessage || 'Ödeme başlatılamadı.' });
@@ -172,8 +189,7 @@ router.post('/surucu/:siparisId', authMiddleware, async (req, res) => {
     });
 
     res.json({
-      checkoutFormContent: result.checkoutFormContent,
-      token: result.token,
+      paymentPageUrl: result.paymentPageUrl,
       conversationId,
     });
 
@@ -202,6 +218,17 @@ router.post('/callback', async (req, res) => {
     if (!bekleyen) {
       console.error('❌ Bekleyen ödeme bulunamadı:', sonuc.conversationId);
       return res.redirect('/odeme-hata.html?kod=KAYIT_BULUNAMADI');
+    }
+    if (bekleyen.durum === 'TAMAMLANDI') {
+      // Callback tekrar geldi; iş akışı zaten çalıştı
+      return res.redirect('/odeme-basarili.html');
+    }
+    // Önce kaydı kilitle (idempotency), sonra iş akışını çalıştır
+    const kilit = await db.update('odeme_bekleyenler',
+      { conversation_id: sonuc.conversationId, durum: 'BEKLIYOR' },
+      { $set: { durum: 'ISLENIYOR', odeme_id: sonuc.odemeId } });
+    if (kilit === 0) {
+      return res.redirect('/odeme-basarili.html');
     }
 
     const io = req.app.get('io');

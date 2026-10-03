@@ -313,65 +313,34 @@
         <div class="price-rows">
             <div class="price-row">
                 <span class="label">Platform ücreti (net)</span>
-                <span class="value">200,00 ₺</span>
+                <span class="value" id="feeNet">—</span>
             </div>
             <div class="price-row">
-                <span class="label">KDV (%26)</span>
-                <span class="value">52,00 ₺</span>
+                <span class="label" id="feeKdvLabel">KDV</span>
+                <span class="value" id="feeKdv">—</span>
             </div>
             <div class="price-row total">
                 <span class="label">Toplam</span>
-                <span class="value">252,00 ₺</span>
+                <span class="value" id="feeTotal">—</span>
             </div>
         </div>
     </div>
 
-    <!-- Kart Formu -->
+    <!-- Ödeme Başlat (kart bilgisi bu sitede toplanmaz; iyzico ödeme sayfasına yönlendirilir) -->
     <div class="payment-card">
-        <div class="card-title">💳 Kart Bilgileri</div>
-
-        <div class="form-group card-number-group">
-            <label class="form-label">Kart Numarası</label>
-            <input type="tel" class="form-input" id="cardNumber"
-                   placeholder="1234 5678 9012 3456"
-                   maxlength="19" autocomplete="cc-number"
-                   inputmode="numeric">
-            <div class="card-icons">
-                <div class="card-icon" id="cardTypeVisa">VISA</div>
-                <div class="card-icon" id="cardTypeMC">MC</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Kart Üzerindeki Ad Soyad</label>
-            <input type="text" class="form-input" id="cardName"
-                   placeholder="AD SOYAD"
-                   autocomplete="cc-name"
-                   style="text-transform: uppercase;">
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="form-label">Son Kullanma Tarihi</label>
-                <input type="tel" class="form-input" id="cardExpiry"
-                       placeholder="AA/YY" maxlength="5"
-                       autocomplete="cc-exp" inputmode="numeric">
-            </div>
-            <div class="form-group">
-                <label class="form-label">CVV / CVC</label>
-                <input type="tel" class="form-input" id="cardCvv"
-                       placeholder="123" maxlength="4"
-                       autocomplete="cc-csc" inputmode="numeric">
-            </div>
-        </div>
+        <div class="card-title">💳 Güvenli Ödeme</div>
+        <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;margin-bottom:16px;">
+            "Öde" dediğinizde iyzico'nun 3D Secure korumalı ödeme sayfasına yönlendirilirsiniz.
+            Kart bilgileriniz hafriyatcim.com sunucularına <strong>hiçbir zaman</strong> iletilmez.
+        </p>
 
         <button class="pay-btn" id="payBtn" onclick="handlePayment()">
-            <span class="btn-text">🔒 252,00 ₺ Öde</span>
+            <span class="btn-text" id="payBtnText">🔒 Öde</span>
             <div class="spinner"></div>
         </button>
 
         <div class="security-note">
-            🔐 Kart bilgileriniz şifrelenmiş olarak iyzico'ya iletilir
+            🔐 Ödeme iyzico altyapısında, 3D Secure ile gerçekleşir
         </div>
     </div>
 
@@ -408,7 +377,7 @@
     <div class="status-icon">❌</div>
     <h2 class="status-title">Ödeme Başarısız</h2>
     <p class="status-desc" id="errorDesc">
-        Bir hata oluştu. Lütfen kart bilgilerinizi kontrol edip tekrar deneyin.
+        Bir hata oluştu. Lütfen tekrar deneyin.
     </p>
     <button class="status-btn" onclick="showForm()">Tekrar Dene</button>
 </div>
@@ -430,88 +399,55 @@ document.getElementById('jobTitle').textContent = decodeURIComponent(jobTitle);
 document.getElementById('jobRoute').textContent = jobRoute ? decodeURIComponent(jobRoute) : (tip === 'musteri' ? 'İşi Ver Ücreti' : 'İşi Al Ücreti');
 document.getElementById('jobIcon').textContent  = tip === 'surucu' ? '🚛' : '🏗️';
 
-// ─── Kart Formatlamaları ──────────────────────────────────────────
-document.getElementById('cardNumber').addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '').slice(0, 16);
-    val = val.replace(/(.{4})/g, '$1 ').trim();
-    e.target.value = val;
-
-    // Kart tipi tespiti
-    const raw = val.replace(/\s/g, '');
-    const visaEl = document.getElementById('cardTypeVisa');
-    const mcEl   = document.getElementById('cardTypeMC');
-    visaEl.style.background = raw.startsWith('4') ? 'rgba(245,197,24,0.2)' : '';
-    visaEl.style.color = raw.startsWith('4') ? '#F5C518' : '';
-    mcEl.style.background = /^5[1-5]/.test(raw) ? 'rgba(245,197,24,0.2)' : '';
-    mcEl.style.color = /^5[1-5]/.test(raw) ? '#F5C518' : '';
-});
-
-document.getElementById('cardExpiry').addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '').slice(0, 4);
-    if (val.length >= 2) val = val.slice(0, 2) + '/' + val.slice(2);
-    e.target.value = val;
-});
-
-document.getElementById('cardCvv').addEventListener('input', (e) => {
-    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
-});
-
-document.getElementById('cardName').addEventListener('input', (e) => {
-    e.target.value = e.target.value.toUpperCase();
-});
+// ─── Ücret Bilgisi (backend'den) ─────────────────────────────────
+const fmtTL = (n) => Number(n).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₺';
+fetch('/api/odeme/bilgi').then(r => r.json()).then(b => {
+    document.getElementById('feeNet').textContent      = fmtTL(b.net);
+    document.getElementById('feeKdvLabel').textContent = 'KDV (%' + b.kdv_orani + ')';
+    document.getElementById('feeKdv').textContent      = fmtTL(b.kdv);
+    document.getElementById('feeTotal').textContent    = fmtTL(b.toplam);
+    document.getElementById('payBtnText').textContent  = '🔒 ' + fmtTL(b.toplam) + ' Öde';
+}).catch(() => {});
 
 // ─── Ödeme İşlemi ────────────────────────────────────────────────
 async function handlePayment() {
     const btn = document.getElementById('payBtn');
-    const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
-    const cardName   = document.getElementById('cardName').value.trim();
-    const cardExpiry = document.getElementById('cardExpiry').value;
-    const cardCvv    = document.getElementById('cardCvv').value;
-
-    // Validasyon
-    if (cardNumber.length < 16) return showAlert('Geçerli bir kart numarası girin.');
-    if (!cardName)              return showAlert('Kart üzerindeki adı girin.');
-    if (cardExpiry.length < 5)  return showAlert('Son kullanma tarihini girin (AA/YY).');
-    if (cardCvv.length < 3)     return showAlert('CVV kodunu girin.');
+    if (!hedefId) return showAlert('Ödeme hedefi bulunamadı. Lütfen panelden tekrar deneyin.');
 
     const token = localStorage.getItem('accessToken');
-    if (!token) { window.location.href = '/giris.html?redirect=' + encodeURIComponent(window.location.href); return; }
+    if (!token) { window.location.href = '/giris.html?redirect=' + encodeURIComponent(location.pathname + location.search); return; }
 
     btn.classList.add('loading');
     btn.disabled = true;
 
     try {
         const endpoint = tip === 'musteri'
-            ? `/api/odeme/musteri/${hedefId}`
-            : `/api/odeme/surucu/${hedefId}`;
+            ? `/api/odeme/musteri/${encodeURIComponent(hedefId)}`
+            : `/api/odeme/surucu/${encodeURIComponent(hedefId)}`;
 
         const resp = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({ cardNumber, cardName, cardExpiry, cardCvv }),
+            body: '{}',
         });
+        const data = await resp.json().catch(() => ({}));
 
-        const data = await resp.json();
-
-        if (!resp.ok) {
-            throw new Error(data.hata || 'Ödeme başlatılamadı.');
+        if (resp.status === 401) {
+            window.location.href = '/giris.html?redirect=' + encodeURIComponent(location.pathname + location.search);
+            return;
         }
+        if (!resp.ok) throw new Error(data.hata || 'Ödeme başlatılamadı.');
 
         if (data.sandbox) {
-            // Sandbox modu — direkt başarı göster
             showSuccess(tip === 'musteri'
-                ? '✅ Ödeme simüle edildi! Tırcıya SMS bildirim gönderildi. Dashboard\'dan takip edin.'
-                : '✅ Ödeme simüle edildi! Her iki tarafın iletişim bilgileri SMS ile paylaşıldı. 🎉'
-            );
-        } else if (data.checkoutFormContent) {
-            // iyzico 3D Secure formu
-            document.body.innerHTML = data.checkoutFormContent;
-            const scripts = document.querySelectorAll('script');
-            scripts.forEach(s => { const ns = document.createElement('script'); ns.src = s.src || ''; ns.textContent = s.textContent; document.body.appendChild(ns); });
+                ? '✅ Ödeme simüle edildi (sandbox). Tırcıya bildirim gönderildi.'
+                : '✅ Ödeme simüle edildi (sandbox). İletişim bilgileri paylaşıldı.');
+        } else if (data.paymentPageUrl) {
+            // iyzico hosted ödeme sayfası (3D Secure)
+            window.location.href = data.paymentPageUrl;
         } else {
-            showSuccess('Ödemeniz işleme alındı!');
+            throw new Error('Ödeme sayfası alınamadı.');
         }
-
     } catch (err) {
         showError(err.message);
         btn.classList.remove('loading');
