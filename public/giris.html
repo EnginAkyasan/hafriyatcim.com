@@ -1059,13 +1059,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           supabase_token: pendingGoogleCredential.access_token,
-          rol,
-          user: {
-            id:     pendingGoogleCredential.user.id,
-            email:  pendingGoogleCredential.user.email,
-            name:   pendingGoogleCredential.user.user_metadata?.full_name,
-            avatar: pendingGoogleCredential.user.user_metadata?.avatar_url
-          }
+          rol
         })
       });
       const data = await res.json();

@@ -107,7 +107,7 @@ router.post('/giris', loginLimiter, async (req, res) => {
       return res.status(403).json({ hata: 'Hesabınız devre dışı bırakılmıştır.' });
     }
 
-    const sifreEslesme = await bcrypt.compare(sifre, kullanici.sifre);
+    const sifreEslesme = kullanici.sifre ? await bcrypt.compare(sifre, kullanici.sifre) : false;
     if (!sifreEslesme) {
       return res.status(401).json({ hata: 'E-posta veya şifre hatalı.' });
     }
@@ -330,75 +330,110 @@ router.post('/sifre-sifirla', async (req, res) => {
 });
 
 // ─── POST /api/auth/supabase-bridge ──────────────────────────────────────────
-// Supabase JWT token'ını alır, kullanıcıyı bulur veya oluşturur,
-// kendi backend JWT'sini döner. Frontend Supabase OAuth sonrası bunu çağırır.
-router.post('/supabase-bridge', async (req, res) => {
-  try {
-    const { supabase_token, user: supabaseUser, rol } = req.body;
+// Supabase access token'ını Supabase Auth API'sine sorarak doğrular, doğrulanmış
+// e-posta ile kullanıcıyı bulur veya oluşturur, kendi backend JWT'sini döner.
+// İstek gövdesindeki kullanıcı bilgisine GÜVENİLMEZ; kimlik yalnızca Supabase'in
+// döndürdüğü kayıttan alınır.
+const SUPABASE_URL      = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
-    if (!supabase_token || !supabaseUser?.email) {
-      return res.status(400).json({ hata: 'Supabase token ve kullanıcı bilgisi zorunludur.' });
+async function verifySupabaseToken(token) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
+  try {
+    const resp = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+      headers: { Authorization: `Bearer ${token}`, apikey: SUPABASE_ANON_KEY },
+      signal: controller.signal,
+    });
+    if (!resp.ok) return null;
+    const user = await resp.json();
+    if (!user || !user.id || !user.email) return null;
+    return user;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+router.post('/supabase-bridge', loginLimiter, async (req, res) => {
+  try {
+    const { supabase_token, rol } = req.body || {};
+
+    if (typeof supabase_token !== 'string' || !supabase_token) {
+      return res.status(400).json({ hata: 'Supabase token zorunludur.' });
+    }
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      return res.status(503).json({ hata: 'Supabase girişi bu sunucuda yapılandırılmamış.' });
     }
 
-    // Not: Gerçek Supabase token doğrulaması için
-    // @supabase/supabase-js veya JWKS kullanılabilir.
-    // Şimdilik email bazlı user lookup yapıyoruz.
-    // Production'da: jwt.verify(supabase_token, SUPABASE_JWT_SECRET)
+    let sbUser;
+    try {
+      sbUser = await verifySupabaseToken(supabase_token);
+    } catch (err) {
+      console.error('Supabase doğrulama isteği başarısız:', err.message);
+      return res.status(502).json({ hata: 'Kimlik doğrulama servisine ulaşılamadı.' });
+    }
+    if (!sbUser) {
+      return res.status(401).json({ hata: 'Geçersiz veya süresi dolmuş Supabase oturumu.' });
+    }
+    // Doğrulanmamış e-posta ile başka birinin hesabına köprü kurulmasını engelle
+    if (!sbUser.email_confirmed_at) {
+      return res.status(403).json({ hata: 'E-posta adresi doğrulanmamış.' });
+    }
 
-    let kullanici = await db.findOne('users', { email: supabaseUser.email });
+    const email  = String(sbUser.email).trim().toLowerCase();
+    const meta   = sbUser.user_metadata || {};
+    const name   = meta.full_name || meta.name || email.split('@')[0];
+    const avatar = meta.avatar_url || meta.picture || null;
 
-    if (!kullanici) {
+    let kullanici = await db.findOne('users', { email });
+
+    if (kullanici) {
+      if (kullanici.supabase_id && kullanici.supabase_id !== sbUser.id) {
+        return res.status(401).json({ hata: 'Bu hesap başka bir oturumla ilişkilendirilmiş.' });
+      }
+      if (!kullanici.aktif) {
+        return res.status(403).json({ hata: 'Hesabınız devre dışı bırakılmıştır.' });
+      }
+      if (!kullanici.supabase_id || (!kullanici.avatar && avatar)) {
+        await db.update('users', { id: kullanici.id }, {
+          $set: { supabase_id: sbUser.id, avatar: kullanici.avatar || avatar, updated_at: new Date().toISOString() },
+        });
+        kullanici = await db.findOne('users', { id: kullanici.id });
+      }
+    } else {
       // Yeni kullanıcı — rol gerekli
       if (!rol || !['MUSTERI', 'SURUCU'].includes(rol)) {
-        return res.status(202).json({
-          needsRole: true,
-          email: supabaseUser.email,
-          name: supabaseUser.name,
-          avatar: supabaseUser.avatar
-        });
+        return res.status(202).json({ needsRole: true, email, name, avatar });
       }
 
-      // Kullanıcı oluştur
       const now = new Date().toISOString();
       kullanici = await db.insert('users', {
         id:           uuidv4(),
-        ad:           supabaseUser.name || supabaseUser.email.split('@')[0],
-        email:        supabaseUser.email,
+        ad:           name,
+        email,
         telefon:      null,
-        sifre:        await bcrypt.hash(uuidv4(), 10), // random şifre
-        rol:          rol,
-        avatar:       supabaseUser.avatar || null,
-        supabase_id:  supabaseUser.id || null,
-        aktif:        1,
+        sifre:        null, // Supabase ile kayıt → şifre yok
+        rol,
+        avatar,
+        supabase_id:  sbUser.id,
+        aktif:        true,
+        rating:       0,
+        rating_count: 0,
         created_at:   now,
-        updated_at:   now
+        updated_at:   now,
       });
     }
 
-    // Token üret
     const { accessToken, refreshToken } = generateTokens(kullanici);
-
-    // Refresh token'ı kaydet
     await db.insert('refresh_tokens', {
       id:         uuidv4(),
       user_id:    kullanici.id,
       token:      refreshToken,
-      expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     });
 
-    res.json({
-      accessToken,
-      refreshToken,
-      kullanici: {
-        id:     kullanici.id,
-        ad:     kullanici.ad,
-        email:  kullanici.email,
-        rol:    kullanici.rol,
-        avatar: kullanici.avatar || supabaseUser.avatar
-      }
-    });
-
+    const { sifre: _, sifre_reset_otp: _o, sifre_reset_expiry: _e, ...kullaniciVerisi } = kullanici;
+    res.json({ accessToken, refreshToken, kullanici: kullaniciVerisi });
   } catch (err) {
     console.error('Supabase bridge hatası:', err);
     res.status(500).json({ hata: 'Sunucu hatası.' });

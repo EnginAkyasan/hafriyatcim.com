@@ -83,38 +83,37 @@ async function bridgeSupabaseToBackend(session) {
       ? 'http://localhost:5050/api'
       : '/api';
 
+    // Backend kimliği yalnızca token'dan doğrular; kullanıcı bilgisi gönderilmez.
     const res = await fetch(`${API_BASE}/auth/supabase-bridge`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        supabase_token: session.access_token,
-        user: {
-          id: session.user.id,
-          email: session.user.email,
-          name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0],
-          avatar: session.user.user_metadata?.avatar_url
-        }
-      })
+      body: JSON.stringify({ supabase_token: session.access_token })
     });
 
-    if (res.ok) {
-      const data = await res.json();
+    const data = await res.json().catch(() => ({}));
+
+    if (res.status === 202 && data.needsRole) {
+      // Backend'de kullanıcı yok → rol seçimi gerekli
+      if (typeof showGoogleRoleModal === 'function') showGoogleRoleModal(session);
+      return;
+    }
+
+    if (res.ok && data.accessToken) {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
       localStorage.setItem('user', JSON.stringify(data.kullanici));
 
-      // Eğer giris.html'deyse dashboard'a yönlendir
+      // Eğer giris.html'deyse dashboard'a yönlendir (yalnızca site içi yollar)
       if (window.location.pathname.includes('giris')) {
         const redirect = new URLSearchParams(window.location.search).get('redirect');
-        window.location.href = redirect || 'dashboard.html';
+        const safe = redirect && /^\/(?!\/)/.test(redirect) ? redirect : 'dashboard.html';
+        window.location.href = safe;
       }
-    } else {
-      // Backend'de kullanıcı yok → rol seçimi gerekebilir
-      const data = await res.json();
-      if (data.needsRole && typeof showGoogleRoleModal === 'function') {
-        showGoogleRoleModal(session);
-      }
+      return;
     }
+
+    console.warn('Supabase bridge reddedildi:', data.hata || res.status);
+    if (typeof showToast === 'function' && data.hata) showToast(data.hata, 'error');
   } catch (err) {
     console.error('Backend bridge hatası:', err);
   }
