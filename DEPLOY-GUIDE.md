@@ -27,11 +27,14 @@ git push -u origin main
 
 Railway Dashboard → Proje → Variables sekmesi:
 
-Zorunlu değişkenler (backend/.env.example dosyasına bakın):
-- JWT_SECRET (en az 32 karakter rastgele string)
-- REFRESH_SECRET (farklı rastgele string)
+Zorunlu değişkenler (tam liste ve açıklamalar için `backend/.env.example`):
+- JWT_SECRET (en az 32 karakter rastgele string; yoksa sunucu açılmaz)
+- REFRESH_SECRET (farklı, en az 32 karakter; yoksa sunucu açılmaz)
 - NODE_ENV=production
-- FRONTEND_URL=https://[railway-domain].railway.app
+- FRONTEND_URL=https://[railway-domain].railway.app (iyzico callback bu adrese döner)
+- ADMIN_EMAIL + ADMIN_PASSWORD (ilk açılışta admin hesabı oluşturulur; kodda sabit admin yoktur)
+- IYZICO_API_KEY + IYZICO_SECRET_KEY + IYZICO_BASE_URL (production'da ödeme için zorunlu; yoksa ödeme 503 döner)
+- SUPABASE_URL + SUPABASE_ANON_KEY (Google ile giriş köprüsü için; yoksa o akış 503 döner)
 
 ## Adım 4: Domain Ayarla
 
@@ -42,6 +45,7 @@ Railway Dashboard → Settings → Domains:
 ## Adım 5: Kontrol Et
 
 - https://[domain]/api/health → {"status":"ok"} dönmeli
+- https://[domain]/backend/db/users.db → 404 dönmeli (yalnızca `public/` servis edilir)
 - https://[domain]/ → Ana sayfa açılmalı
 - https://[domain]/giris.html → Kayıt/giriş çalışmalı
 

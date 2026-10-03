@@ -1,8 +1,16 @@
 require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 
-// ─── JWT_SECRET Zorunluluk Kontrolü ──────────────────────────────────────────
-if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'gizli_anahtar_degistir') {
-  console.error('HATA: JWT_SECRET .env dosyasında tanımlanmamış veya varsayılan değer kullanılıyor!');
+// ─── Zorunlu Gizli Anahtar Kontrolü ──────────────────────────────────────────
+const ZAYIF_SECRETLER = ['gizli_anahtar_degistir', 'refresh_gizli_anahtar_degistir'];
+for (const anahtar of ['JWT_SECRET', 'REFRESH_SECRET']) {
+  const deger = process.env[anahtar];
+  if (!deger || ZAYIF_SECRETLER.includes(deger) || deger.length < 32) {
+    console.error(`HATA: ${anahtar} tanımlanmamış, varsayılan değerde veya 32 karakterden kısa! (backend/.env.example'a bakın)`);
+    process.exit(1);
+  }
+}
+if (process.env.JWT_SECRET === process.env.REFRESH_SECRET) {
+  console.error('HATA: JWT_SECRET ve REFRESH_SECRET farklı olmalıdır.');
   process.exit(1);
 }
 
@@ -16,6 +24,9 @@ const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
+
+// Railway/ters proxy arkasında gerçek istemci IP'si (rate limit ve iyzico için)
+app.set('trust proxy', 1);
 
 const ALLOWED_ORIGINS = [
   'http://localhost:4000',
@@ -63,7 +74,9 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.set('io', io);
 
 // ─── Static Files (Frontend) ──────────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, '..')));
+// Yalnızca public/ servis edilir; backend/, db dosyaları ve dokümanlar dışarı açılmaz.
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+app.use(express.static(PUBLIC_DIR));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
@@ -90,7 +103,7 @@ require('./socket')(io);
 // ─── SPA Fallback (tüm HTML sayfaları için) ───────────────────────────────────
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api') && !req.path.includes('.')) {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
+    res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
   } else {
     res.status(404).json({ error: 'Bulunamadı' });
   }
@@ -105,18 +118,54 @@ app.use((err, req, res, next) => {
 // ─── Start ────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
-db.init().then(() => {
+// ─── Admin Seed (ortam değişkeninden) ─────────────────────────────────────────
+// ADMIN_EMAIL + ADMIN_PASSWORD tanımlıysa ve bu e-posta yoksa ADMIN kullanıcısı oluşturulur.
+// Var olan bir kullanıcının rolü değiştirilmez; şifre loglanmaz.
+async function seedAdmin() {
+  const email = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+  const sifre = process.env.ADMIN_PASSWORD || '';
+  if (!email || !sifre) {
+    console.warn('⚠️  ADMIN_EMAIL / ADMIN_PASSWORD tanımlı değil; admin hesabı oluşturulmadı.');
+    return;
+  }
+  if (sifre.length < 12) {
+    console.error('HATA: ADMIN_PASSWORD en az 12 karakter olmalıdır.');
+    process.exit(1);
+  }
+  const mevcut = await db.findOne('users', { email });
+  if (mevcut) {
+    if (mevcut.rol !== 'ADMIN') {
+      console.warn(`⚠️  ${email} zaten kayıtlı ama rolü ${mevcut.rol}; otomatik yükseltme yapılmadı.`);
+    }
+    return;
+  }
+  const bcrypt = require('bcryptjs');
+  const { v4: uuidv4 } = require('uuid');
+  const now = new Date().toISOString();
+  await db.insert('users', {
+    id: uuidv4(),
+    ad: process.env.ADMIN_NAME || 'Yönetici',
+    email,
+    telefon: null,
+    sifre: await bcrypt.hash(sifre, 12),
+    rol: 'ADMIN',
+    aktif: true,
+    rating: 0,
+    rating_count: 0,
+    created_at: now,
+    updated_at: now,
+  });
+  console.log(`👤 Admin hesabı oluşturuldu: ${email}`);
+}
+
+db.init().then(seedAdmin).then(() => {
   server.listen(PORT, () => {
     console.log('');
     console.log('🚛 ═══════════════════════════════════════════');
     console.log('   hafriyatcim.com Backend v2.0 Başlatıldı!');
     console.log(`   📡 API: http://localhost:${PORT}/api`);
     console.log(`   🌐 Web: http://localhost:${PORT}`);
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('   👤 Admin: admin@hafriyatcim.com / Admin123!');
-      console.log('   👤 Demo Müşteri: musteri@demo.com / Demo123!');
-      console.log('   👤 Demo Sürücü: surucu@demo.com / Demo123!');
-    }
+    console.log(`   🔧 Ortam: ${process.env.NODE_ENV || 'development'}`);
     console.log('═══════════════════════════════════════════════');
     console.log('');
   });
