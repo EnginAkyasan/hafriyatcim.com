@@ -1205,6 +1205,7 @@ async function loadTeklifler() {
 }
 
 function renderTeklifler(teklifler) {
+  window._sonTeklifler = Array.isArray(teklifler) ? teklifler : [];
   const container = document.getElementById('tekliflerContainer');
   if (!teklifler || teklifler.length === 0) {
     container.innerHTML = '<div class="empty-state"><div class="empty-icon">📨</div><h3>Henüz teklif yok</h3><p>İş talebi oluşturun, firmalar size teklif göndersin!</p><a href="ilan.html?tip=TALEP" class="btn-primary" style="text-decoration:none;">🏗️ İş Talebi Oluştur</a></div>';
@@ -1230,7 +1231,153 @@ function renderTeklifler(teklifler) {
         '<span class="teklif-tarih">📅 ' + formatTarih(t.created_at) + '</span>' +
         '<div style="display:flex;gap:8px;align-items:center;">' +
           formatDurum(t.durum || 'BEKLIYOR') +
-          (t.durum === 'BEKLIYOR' ? '<button class="btn-primary" style="padding:6px 14px;font-size:12px;min-height:unset;background:var(--success);" onclick="teklifKabulEt(\'' + t.id + '\')">✅ Kabul Et</button>' : '') +
+          (t.durum === 'BEKLIYOR' ? '<button class="btn-primary" style="padding:6px 14px;font-size:12px;min-height:unset;background:var(--success);" onclick="teklifKabulEt(\'' + t.id + '\')">✅ İşi Ver (252 ₺)</button>' : '') +
+          '<button class="btn-secondary" style="padding:6px 14px;font-size:12px;min-height:unset;" onclick="openIletisimModal(\'' + safeAd + '\',\'' + safeTel + '\')">' +
+            '📞 İletişime Geç' +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+async function teklifKabulEt(teklifId) {
+  // Teklif kabulü = "İşi Ver": platform ücreti ödenir, ardından teklif kabul edilip sipariş oluşur.
+  const teklif = (window._sonTeklifler || []).find(t => t.id === teklifId) || {};
+  const baslik = encodeURIComponent(teklif.ilan_baslik || 'Hafriyat Taşıma İşi');
+  const rota   = encodeURIComponent(teklif.gonderen_adi ? ('Tırcı: ' + teklif.gonderen_adi) : '');
+  window.location.href = '/odeme.html?tip=musteri&id=' + encodeURIComponent(teklifId) + '&baslik=' + baslik + '&rota=' + rota;
+}
+
+// ─── İLETİŞİM MODALİ (Araç sahibi için) ─────────────────────────────
+// İlk önce bir talep ilanı oluşturmasını öner, ya da doğrudan İş Talebi Oluştur sayfasına yönlendir
+function openIletisimModal(telefon, ilanBaslik, firmaAd) {
+  // Talep oluşturma sayfasına yönlendir — doğru akış bu
+  const mesaj = `"${ilanBaslik}" ilanı için İş Talebi oluşturun. Firmalar sizi bulsun ve en uygun teklifi sunsun.`;
+  if (confirm(mesaj + '\n\nTalep oluşturma sayfasına gitmek ister misiniz?')) {
+    window.location.href = 'ilan.html?tip=TALEP';
+  }
+}
+
+
+// ─── TEKLİF GÖNDER MODALİ ─────────────────────────────────────
+function openTeklifModal(ilanId, ilanBaslik, firmaAd) {
+  document.getElementById('modalIlanId').value = ilanId;
+  document.getElementById('modalIlanTitle').textContent = ilanBaslik;
+  document.getElementById('modalIlanFirma').textContent = '👷 ' + firmaAd;
+  document.getElementById('modalFiyat').value = '';
+  document.getElementById('modalMesaj').value = '';
+  document.getElementById('teklifModal').classList.add('open');
+}
+
+function closeTeklifModal() {
+  document.getElementById('teklifModal').classList.remove('open');
+}
+
+async function teklifGonder() {
+  const ilanId = document.getElementById('modalIlanId').value;
+  const fiyat  = parseFloat(document.getElementById('modalFiyat').value);
+  const mesaj  = document.getElementById('modalMesaj').value.trim();
+
+  if (!ilanId) { showToast('İlan bilgisi eksik.', 'error'); return; }
+  if (!fiyat || fiyat <= 0) { showToast('Geçerli bir fiyat giriniz.', 'error'); return; }
+  if (!mesaj) { showToast('Mesaj alanını doldurunuz.', 'error'); return; }
+
+  const btn = document.getElementById('teklifGonderBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Gönderiliyor...';
+
+  try {
+    const res = await api.post('/teklifler', { ilan_id: ilanId, fiyat, mesaj });
+    if (res && res.ok) {
+      showToast('Teklifiniz başarıyla gönderildi! 🎉', 'success');
+      closeTeklifModal();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      showToast(err.mesaj || 'Teklif gönderilemedi.', 'error');
+    }
+  } catch {
+    showToast('Bağlantı hatası. İnternet bağlantınızı kontrol edin.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Teklif Gönder';
+  }
+}
+
+// ─── GELEN TEKLİFLER ──────────────────────────────────────────
+let tekliflerLoaded = false;
+
+async function loadTeklifler() {
+  if (tekliflerLoaded) return;
+  const container = document.getElementById('tekliflerContainer');
+  try {
+    // Önce kullanıcının ilanlarını çek
+    const ilanRes = await api.get('/ilanlar/benim/liste');
+    if (!ilanRes || !ilanRes.ok) throw new Error('İlanlar yüklenemedi');
+    const ilanData = await ilanRes.json();
+    const ilanlar = ilanData.ilanlar || ilanData || [];
+
+    // Her ilanın tekliflerini /teklifler/ilan/:id ile çek
+    let teklifler = [];
+    if (ilanlar.length > 0) {
+      const teklifSonuclari = await Promise.all(
+        ilanlar.map(async (ilan) => {
+          try {
+            const r = await api.get('/teklifler/ilan/' + ilan.id);
+            if (r && r.ok) {
+              const d = await r.json();
+              // İlan bilgisini teklif kartlarına ekle
+              return (d.teklifler || []).map(t => ({
+                ...t,
+                ilan_baslik: ilan.baslik || ilan.arac_tipi,
+                arac_tipi: t.arac_tipi || ilan.arac_tipi,
+                gonderen_adi: t.surucu_ad || t.gonderen_adi,
+                telefon: t.surucu_telefon || t.telefon,
+              }));
+            }
+          } catch (e) { /* sessizce devam */ }
+          return [];
+        })
+      );
+      teklifler = teklifSonuclari.flat();
+    }
+
+    tekliflerLoaded = true;
+    document.getElementById('teklifCount').textContent = teklifler.length + ' teklif';
+    renderTeklifler(teklifler);
+  } catch {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Yüklenemedi</h3><p><button class="btn-outline" onclick="tekliflerLoaded=false;loadTeklifler()">Tekrar Dene</button></p></div>';
+  }
+}
+
+function renderTeklifler(teklifler) {
+  window._sonTeklifler = Array.isArray(teklifler) ? teklifler : [];
+  const container = document.getElementById('tekliflerContainer');
+  if (!teklifler || teklifler.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📨</div><h3>Henüz teklif yok</h3><p>İş talebi oluşturun, firmalar size teklif göndersin!</p><a href="ilan.html?tip=TALEP" class="btn-primary" style="text-decoration:none;">🏗️ İş Talebi Oluştur</a></div>';
+    return;
+  }
+  container.innerHTML = '<div class="teklif-list">' + teklifler.map(t => {
+    const ad = t.gonderen_adi || (t.gonderen && t.gonderen.ad) || (t.user && t.user.ad) || 'Firma';
+    const initial = ad.charAt(0).toUpperCase();
+    const arac = t.arac_tipi || (t.ilan && (t.ilan.arac_tipi || t.ilan.baslik)) || '—';
+    const fiyat = t.fiyat ? formatPara(t.fiyat) : '—';
+    const tel = (t.gonderen && t.gonderen.telefon) || t.telefon || '';
+    const safeAd = ad.replace(/'/g, '&#39;');
+    const safeTel = tel.replace(/'/g, '&#39;');
+    return '<div class="teklif-full-card">' +
+      '<div class="teklif-full-top">' +
+        '<div class="teklif-full-avatar">' + initial + '</div>' +
+        '<div class="teklif-full-info"><div class="teklif-full-name">' + ad + '</div>' +
+        '<div class="teklif-full-arac">' + getAracIcon(arac) + ' ' + arac + '</div></div>' +
+        '<div class="teklif-full-price">' + fiyat + '</div>' +
+      '</div>' +
+      (t.mesaj ? '<div class="teklif-full-mesaj">💬 &ldquo;' + t.mesaj + '&rdquo;</div>' : '') +
+      '<div class="teklif-full-footer">' +
+        '<span class="teklif-tarih">📅 ' + formatTarih(t.created_at) + '</span>' +
+        '<div style="display:flex;gap:8px;align-items:center;">' +
+          formatDurum(t.durum || 'BEKLIYOR') +
+          (t.durum === 'BEKLIYOR' ? '<button class="btn-primary" style="padding:6px 14px;font-size:12px;min-height:unset;background:var(--success);" onclick="teklifKabulEt(\'' + t.id + '\')">✅ İşi Ver (252 ₺)</button>' : '') +
           '<button class="btn-secondary" style="padding:6px 14px;font-size:12px;min-height:unset;" onclick="openIletisimModal(\'' + safeAd + '\',\'' + safeTel + '\')">' +
             '📞 İletişime Geç' +
           '</button>' +

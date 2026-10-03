@@ -61,7 +61,6 @@ router.get('/musteri', authMiddleware, async (req, res) => {
           ilan_baslik: ilan.baslik,
           ilan_arac_tipi: ilan.arac_tipi,
           gonderen_adi: gonderen ? gonderen.ad : null,
-          gonderen_telefon: gonderen ? gonderen.telefon : null,
           gonderen_rating: gonderen ? gonderen.rating : null,
         });
       }
@@ -102,7 +101,7 @@ router.get('/ilan/:ilanId', authMiddleware, async (req, res) => {
         return {
           ...teklif,
           surucu_ad: surucu ? surucu.ad : null,
-          surucu_telefon: surucu ? surucu.telefon : null,
+          surucu_rating: surucu ? surucu.rating : null,
         };
       })
     );
@@ -183,69 +182,9 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// PUT /api/teklifler/:id/kabul - Teklifi kabul et
-router.put('/:id/kabul', authMiddleware, async (req, res) => {
-  try {
-    const teklif = await db.findOne('teklifler', { id: req.params.id });
-    if (!teklif) {
-      return res.status(404).json({ hata: 'Teklif bulunamadı.' });
-    }
-
-    const ilan = await db.findOne('ilanlar', { id: teklif.ilan_id });
-    if (!ilan) {
-      return res.status(404).json({ hata: 'İlgili ilan bulunamadı.' });
-    }
-
-    if (ilan.user_id !== req.user.id && req.user.rol !== 'ADMIN') {
-      return res.status(403).json({ hata: 'Bu teklifi kabul etme yetkiniz yok.' });
-    }
-
-    if (ilan.durum !== 'AKTIF') return res.status(400).json({ hata: 'İlan artık aktif değil.' });
-
-    // Teklifi kabul et
-    await db.update('teklifler', { id: req.params.id }, { $set: { durum: 'KABUL' } });
-
-    // Diğer teklifleri reddet
-    await db.update('teklifler',
-      { ilan_id: teklif.ilan_id, id: { $ne: req.params.id }, durum: 'BEKLIYOR' },
-      { $set: { durum: 'RED' } }, { multi: true }
-    );
-
-    // İlanı kapat
-    await db.update('ilanlar', { id: teklif.ilan_id }, { $set: { durum: 'KAPALI' } });
-
-    const yeniSiparis = await db.insert('siparisler', {
-      id: uuidv4(),
-      ilan_id: teklif.ilan_id,
-      teklif_id: teklif.id,
-      musteri_id: ilan.user_id,
-      surucu_id: teklif.surucu_id,
-      toplam_tutar: teklif.fiyat,
-      baslangic_konum: ilan.konum_dan,
-      hedef_konum: ilan.konum_a,
-      durum: 'BEKLIYOR',
-      odeme_durumu: 'BEKLIYOR',
-    });
-
-    // Sürücüye bildirim
-    await db.insert('bildirimler', {
-      id: uuidv4(),
-      user_id: teklif.surucu_id,
-      turu: 'TEKLIF_KABUL',
-      baslik: '🎉 Teklifiniz Kabul Edildi!',
-      icerik: `"${ilan.baslik}" ilanına verdiğiniz teklif kabul edildi. Sipariş oluşturuldu!`,
-      okundu: false,
-    });
-
-    const io = req.app.get('io');
-    if (io) io.to(`kullanici_${teklif.surucu_id}`).emit('yeni_bildirim', { baslik: 'Teklifiniz kabul edildi!' });
-
-    res.json({ mesaj: 'Teklif kabul edildi, sipariş oluşturuldu! 🎉', siparis: yeniSiparis });
-  } catch (err) {
-    console.error('Teklif kabul hatası:', err);
-    res.status(500).json({ hata: 'Sunucu hatası.' });
-  }
-});
+// NOT: Teklif kabulü yalnızca ödeme akışı üzerinden yapılır:
+//   POST /api/odeme/musteri/:teklifId  (müşteri platform ücretini öder → teklif KABUL, sipariş oluşur)
+// Ücretsiz "kabul" yolu kaldırıldı; iş modeli eşleşme ücretine dayanır.
 
 // PUT /api/teklifler/:id/red - Teklifi reddet
 router.put('/:id/red', authMiddleware, async (req, res) => {

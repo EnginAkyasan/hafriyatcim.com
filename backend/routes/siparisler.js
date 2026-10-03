@@ -41,19 +41,28 @@ async function ilanDetayEkle(siparis) {
   };
 }
 
+// ─── Yardımcı: Telefon paylaşım kuralı ───────────────────────────────────────
+// İletişim bilgileri yalnızca her iki taraf da platform ücretini ödedikten sonra
+// (siparis.iletisim_acildi) veya ADMIN'e gösterilir. Aksi halde null döner.
+
+function telefonGoster(siparis, user) {
+  return user?.rol === 'ADMIN' || siparis?.iletisim_acildi === true;
+}
+
 // ─── Yardımcı: Kullanıcı bilgileri ekle ──────────────────────────────────────
 
-async function kullaniciBilgileriEkle(siparis) {
+async function kullaniciBilgileriEkle(siparis, user) {
   const [musteri, surucu] = await Promise.all([
     db.findOne('users', { id: siparis.musteri_id }),
     db.findOne('users', { id: siparis.surucu_id }),
   ]);
+  const acik = telefonGoster(siparis, user);
   return {
     ...siparis,
-    musteri_ad:      musteri ? musteri.ad      : null,
-    musteri_telefon: musteri ? musteri.telefon : null,
-    surucu_ad:       surucu  ? surucu.ad       : null,
-    surucu_telefon:  surucu  ? surucu.telefon  : null,
+    musteri_ad:      musteri ? musteri.ad : null,
+    musteri_telefon: acik && musteri ? musteri.telefon : null,
+    surucu_ad:       surucu  ? surucu.ad  : null,
+    surucu_telefon:  acik && surucu  ? surucu.telefon  : null,
   };
 }
 
@@ -118,7 +127,7 @@ router.get('/', authMiddleware, async (req, res) => {
       siparisler.map(async (s) => {
         const [withIlan, withUsers] = await Promise.all([
           ilanDetayEkle(s),
-          kullaniciBilgileriEkle(s),
+          kullaniciBilgileriEkle(s, req.user),
         ]);
         return { ...withIlan, ...withUsers, ...s };
       })
@@ -184,11 +193,11 @@ router.get('/benim', authMiddleware, async (req, res) => {
           ilan_teslim:     ilan ? ilan.konum_a   : null,
           ilan_miktar:     ilan ? ilan.miktar     : null,
           ilan_birim:      ilan ? ilan.birim      : null,
-          musteri_ad:      musteri ? musteri.ad      : null,
-          musteri_telefon: musteri ? musteri.telefon : null,
-          surucu_ad:       surucu  ? surucu.ad       : null,
-          surucu_telefon:  surucu  ? surucu.telefon  : null,
-          surucu_rating:   surucu  ? surucu.rating   : null,
+          musteri_ad:      musteri ? musteri.ad : null,
+          musteri_telefon: telefonGoster(siparis, req.user) && musteri ? musteri.telefon : null,
+          surucu_ad:       surucu  ? surucu.ad  : null,
+          surucu_telefon:  telefonGoster(siparis, req.user) && surucu  ? surucu.telefon  : null,
+          surucu_rating:   surucu  ? surucu.rating : null,
         };
       })
     );
@@ -245,10 +254,10 @@ router.get('/:id', authMiddleware, async (req, res) => {
       ...siparis,
       durum_etiketi: DURUM_ETIKETLERI[siparis.durum] || siparis.durum,
       ilan,
-      musteri_ad:       musteri ? musteri.ad       : null,
-      musteri_telefon:  musteri ? musteri.telefon  : null,
-      surucu_ad:        surucu  ? surucu.ad        : null,
-      surucu_telefon:   surucu  ? surucu.telefon   : null,
+      musteri_ad:       musteri ? musteri.ad : null,
+      musteri_telefon:  telefonGoster(siparis, req.user) && musteri ? musteri.telefon : null,
+      surucu_ad:        surucu  ? surucu.ad  : null,
+      surucu_telefon:   telefonGoster(siparis, req.user) && surucu  ? surucu.telefon  : null,
       surucu_rating:    surucu  ? surucu.rating    : null,
       teklif_aciklama:  teklif  ? teklif.aciklama  : null,
       teklif_fiyat:     teklif  ? teklif.fiyat     : null,

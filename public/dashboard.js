@@ -684,9 +684,6 @@ async function loadSiparisler() {
                         onclick="isiAlOdeme('${s.id}','${(s.ilan_baslik||'Hafriyat').replace(/'/g,'')}')">✅ İşi Al — 252 ₺</button>
                     </div>
                   ` : ''}
-                  ${currentUser.rol === 'MUSTERI' && s.durum === 'TESLIM_EDILDI' && s.odeme_durumu === 'BEKLIYOR' ? `
-                    <button class="btn-primary" style="padding:5px 12px;font-size:12px;" onclick="odemeYap('${s.id}',${s.toplam_tutar})">💳 Öde</button>
-                  ` : ''}
                   ${s.iletisim_acildi ? `
                     <div style="font-size:11px;color:#22c55e;font-weight:600;">📞 İletişim Açıldı ✓</div>
                   ` : ''}
@@ -708,15 +705,6 @@ async function durumGuncelle(siparisId, durum) {
   const res = await api.put(`/siparisler/${siparisId}/durum`, { durum });
   if (res.ok) { showToast(`Durum güncellendi: ${durum}`, 'success'); loadSiparisler(); }
   else showToast('Güncelleme başarısız', 'error');
-}
-
-async function odemeYap(siparisId, tutar) {
-  if (!confirm(`${formatPara(tutar)} ödeme yapmak istiyor musunuz? (DEMO Modu)`)) return;
-  const res = await api.post('/bildirimler/odeme/baslat', { siparis_id: siparisId });
-  if (res.ok) {
-    const tamamRes = await api.post('/bildirimler/odeme/tamamla', { siparis_id: siparisId, token: 'demo' });
-    if (tamamRes.ok) { showToast('Ödeme tamamlandı (DEMO)! ✅', 'success'); loadSiparisler(); }
-  }
 }
 
 // ─── Puan Ver ─────────────────────────────────────────────────────────────────

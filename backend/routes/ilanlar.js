@@ -94,7 +94,7 @@ router.get('/:id', async (req, res) => {
         return {
           ...t,
           surucu_ad: surucu ? surucu.ad : null,
-          surucu_telefon: surucu ? surucu.telefon : null,
+          // Telefon yalnızca her iki taraf ödeme yaptıktan sonra sipariş üzerinden paylaşılır
           surucu_rating: surucu ? surucu.rating : 0,
         };
       })
